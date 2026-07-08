@@ -8,6 +8,6 @@ Self-contained HTML decks — open `index.html` of any talk in Chrome or Safari;
 
 ## Talks
 
-| Date | Event | Talk | Link |
-|---|---|---|---|
-| 3 Jul 2026 | 41st ECCHRD, Budapest | Leveraging gen AI for human-rights data access (5-min intervention) | [open](https://lszoszk.github.io/talks/ecchrd-budapest-2026/) |
+| Event | Talk | Link |
+|---|---|---|
+| WSIS 2026 | Leveraging gen AI for human-rights data access (5-min intervention) | [open](https://lszoszk.github.io/talks/wsis2026/) |
