@@ -3,48 +3,83 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Talks — Łukasz Szoszkiewicz</title>
+<title>talks | Łukasz Szoszkiewicz</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<script>
+  // Match the main site's theme toggle (shared localStorage on lszoszk.github.io),
+  // fall back to the OS preference.
+  (function(){
+    var t = null;
+    try { t = localStorage.getItem("theme"); } catch(e) {}
+    if (t !== "dark" && t !== "light") {
+      t = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    document.documentElement.setAttribute("data-theme", t);
+  })();
+</script>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Bricolage+Grotesque:opsz,wght@10..48,600;10..48,800&display=swap');
-:root{--accent:#3b82f6;--gold:#f59e0b;}
+:root{
+  --bg:#ffffff; --text:#000000; --muted:#828282;
+  --theme:#B509AC; --divider:#e8e8e8;
+}
+:root[data-theme="dark"]{
+  --bg:#1C1C1D; --text:#e8e8e8; --muted:#a5a5a5;
+  --theme:#2698BA; --divider:#3a3a3c;
+}
 *{margin:0;padding:0;box-sizing:border-box;}
-body{font-family:'Sora',sans-serif;background:linear-gradient(135deg,#0f172a,#1e293b);color:#e2e8f0;min-height:100vh;padding:8vh 6vw;}
-h1{font-family:'Bricolage Grotesque',sans-serif;font-size:2.6em;margin-bottom:6px;}
-.sub{opacity:.7;margin-bottom:36px;font-weight:300;}
-.card{display:block;text-decoration:none;color:inherit;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:22px 26px;margin-bottom:16px;max-width:760px;transition:all .18s;}
-.card:hover{background:rgba(59,130,246,.14);border-color:var(--accent);transform:translateY(-2px);}
-.card h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.4em;margin-bottom:4px;}
-.meta{font-size:.85em;opacity:.6;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;}
-.card p{font-weight:300;opacity:.85;font-size:.98em;}
-.arrow{color:var(--accent);font-weight:700;}
-footer{margin-top:40px;opacity:.5;font-size:.85em;}
-a.ext{color:#93c5fd;}
-/* --- MOBILE --- */
+body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font-size:1rem;line-height:1.6;}
+.container{max-width:800px;margin:0 auto;padding:56px 20px 40px;}
+.brand{font-weight:300;font-size:1.05em;text-decoration:none;color:var(--text);}
+.brand b{font-weight:500;}
+.post-header{margin:34px 0 28px;}
+h1.post-title{font-weight:500;font-size:2rem;line-height:1.2;margin-bottom:6px;}
+.post-description{color:var(--muted);font-weight:300;}
+.talk{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--divider);}
+.talk:first-of-type{border-top:1px solid var(--divider);}
+.talk .date{flex:0 0 118px;color:var(--muted);font-size:.92em;padding-top:2px;}
+.talk h2{font-size:1.15em;font-weight:500;margin-bottom:2px;}
+.talk h2 a{color:var(--text);text-decoration:none;}
+.talk h2 a:hover{color:var(--theme);}
+.talk .meta{color:var(--muted);font-size:.9em;margin-bottom:6px;}
+.talk p{font-weight:300;font-size:.95em;}
+a.theme{color:var(--theme);text-decoration:none;}
+a.theme:hover{text-decoration:underline;}
+footer{margin-top:34px;color:var(--muted);font-size:.85em;font-weight:300;}
 @media (max-width:640px){
-  body{padding:6vh 6vw;}
-  h1{font-size:2em;}
-  .sub{margin-bottom:26px;}
-  .card{padding:18px 20px;}
-  .card h2{font-size:1.2em;}
+  .container{padding-top:36px;}
+  .talk{flex-direction:column;gap:4px;}
+  .talk .date{flex:none;}
 }
 </style>
 </head>
 <body>
-  <h1>Talks &amp; presentations</h1>
-  <p class="sub">Łukasz Szoszkiewicz · Adam Mickiewicz University, Poznań · Expert to the AI and Education Group, Council of Europe</p>
+  <div class="container">
+    <a class="brand" href="https://lszoszk.github.io/"><b>Łukasz </b>Szoszkiewicz</a>
 
-  <a class="card" href="ai4good/">
-    <div class="meta">AI for Good Global Summit · Geneva</div>
-    <h2>Building human-rights tools with gen AI — booth <span class="arrow">→</span></h2>
-    <p>Booth poster: scan the tools, plus what I do — I build small open human-rights tools and teach AI literacy.</p>
-  </a>
+    <header class="post-header">
+      <h1 class="post-title">talks</h1>
+      <p class="post-description">Slide decks from talks &amp; presentations. Open in Chrome or Safari; navigate with arrow keys / space.</p>
+    </header>
 
-  <a class="card" href="wsis2026/">
-    <div class="meta">WSIS 2026</div>
-    <h2>Leveraging gen AI for human-rights data access <span class="arrow">→</span></h2>
-    <p>5-minute intervention. Building transparent, testable human-rights tools with generative AI: the UN Human Rights Database, the ECtHR HUDOC Researcher, and more.</p>
-  </a>
+    <article class="talk">
+      <div class="date">Jul 7–10, 2026</div>
+      <div>
+        <h2><a href="ai4good/">Building human-rights tools with gen AI</a></h2>
+        <div class="meta"><a class="theme" href="https://aiforgood.itu.int">AI for Good Global Summit</a> · Geneva Human Rights Hub booth · Palexpo, Geneva</div>
+        <p>Booth poster: scan the tools, plus what I do — I build small open human-rights tools and teach AI literacy.</p>
+      </div>
+    </article>
 
-  <footer>Open a talk in Chrome or Safari · arrow keys / space to navigate.</footer>
+    <article class="talk">
+      <div class="date">Jul 2026</div>
+      <div>
+        <h2><a href="wsis2026/">Leveraging gen AI for human-rights data access</a></h2>
+        <div class="meta"><a class="theme" href="https://www.itu.int/net4/wsis/forum/">WSIS Forum 2026</a> · 5-minute intervention · Geneva</div>
+        <p>Building transparent, testable human-rights tools with generative AI: the UN Human Rights Database, the ECtHR HUDOC Researcher, and more.</p>
+      </div>
+    </article>
+
+    <footer>Łukasz Szoszkiewicz · <a class="theme" href="https://prawo.amu.edu.pl/en/">Adam Mickiewicz University, Poznań</a> · Expert to the AI and Education Group, Council of Europe</footer>
+  </div>
 </body>
 </html>
