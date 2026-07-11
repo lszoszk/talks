@@ -34,9 +34,12 @@ body{font-family:'Roboto',sans-serif;background:var(--bg);color:var(--text);font
 .post-header{margin:34px 0 28px;}
 h1.post-title{font-weight:500;font-size:2rem;line-height:1.2;margin-bottom:6px;}
 .post-description{color:var(--muted);font-weight:300;}
-.talk{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--divider);}
+.talk{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--divider);align-items:flex-start;}
 .talk:first-of-type{border-top:1px solid var(--divider);}
-.talk .date{flex:0 0 118px;color:var(--muted);font-size:.92em;padding-top:2px;}
+.talk .thumb{flex:0 0 140px;display:block;}
+.talk .thumb img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;border-radius:8px;background:var(--divider);filter:grayscale(.7) contrast(1.02);transition:filter .35s;}
+.talk:hover .thumb img{filter:grayscale(0);}
+.talk .date{color:var(--muted);font-size:.85em;margin-bottom:2px;}
 .talk h2{font-size:1.15em;font-weight:500;margin-bottom:2px;}
 .talk h2 a{color:var(--text);text-decoration:none;}
 .talk h2 a:hover{color:var(--theme);}
@@ -47,8 +50,8 @@ a.theme:hover{text-decoration:underline;}
 footer{margin-top:34px;color:var(--muted);font-size:.85em;font-weight:300;}
 @media (max-width:640px){
   .container{padding-top:36px;}
-  .talk{flex-direction:column;gap:4px;}
-  .talk .date{flex:none;}
+  .talk{flex-direction:column;gap:12px;}
+  .talk .thumb{flex:none;width:190px;max-width:60%;}
 }
 </style>
 </head>
@@ -62,8 +65,9 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;font-weight:300;}
     </header>
 
     <article class="talk">
-      <div class="date">Jul 7–10, 2026</div>
+      <a class="thumb" href="ai4good/"><img src="img/ai4good.jpeg" alt="Łukasz Szoszkiewicz at the Geneva Human Rights Hub booth, AI for Good 2026, Geneva" style="object-position:center 40%" loading="lazy"></a>
       <div>
+        <div class="date">Jul 7–10, 2026</div>
         <h2><a href="ai4good/">Building human-rights tools with gen AI</a></h2>
         <div class="meta"><a class="theme" href="https://aiforgood.itu.int">AI for Good Global Summit</a> · Geneva Human Rights Hub booth · Palexpo, Geneva</div>
         <p>Booth poster: scan the tools, plus what I do — I build small open human-rights tools and teach AI literacy.</p>
@@ -71,8 +75,9 @@ footer{margin-top:34px;color:var(--muted);font-size:.85em;font-weight:300;}
     </article>
 
     <article class="talk">
-      <div class="date">Jul 2026</div>
+      <a class="thumb" href="wsis2026/"><img src="img/wsis2026.jpeg" alt="Łukasz Szoszkiewicz on a panel at WSIS Forum 2026, Geneva" style="object-position:center 40%" loading="lazy"></a>
       <div>
+        <div class="date">Jul 2026</div>
         <h2><a href="wsis2026/">Leveraging gen AI for human-rights data access</a></h2>
         <div class="meta"><a class="theme" href="https://www.itu.int/net4/wsis/forum/">WSIS Forum 2026</a> · Geneva</div>
         <p>Building transparent, testable human-rights tools with generative AI: the UN Human Rights Database, the ECtHR HUDOC Researcher, and more.</p>
