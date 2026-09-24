@@ -10,5 +10,6 @@ Self-contained HTML decks — open `index.html` of any talk in Chrome or Safari;
 
 | Date | Event | Talk | Link |
 |---|---|---|---|
+| 2 Oct 2026 | Faculty of Law and Administration, Adam Mickiewicz University, Poznań | Why study law if AI already knows the provisions? (opening lecture) | [open](https://lszoszk.github.io/talks/nowy-swiat/) |
 | 7–10 Jul 2026 | AI for Good Global Summit, Geneva | Building human-rights tools with gen AI (booth poster) | [open](https://lszoszk.github.io/talks/ai4good/) |
 | Jul 2026 | WSIS Forum 2026, Geneva | Leveraging gen AI for human-rights data access (5-min intervention) | [open](https://lszoszk.github.io/talks/wsis2026/) |
