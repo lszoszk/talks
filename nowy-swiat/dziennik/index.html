@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Podsumowanie i źródła wykładu „Nowy Świat” (WPiA UAM, 2 października 2026).">
+<title>Dziennik podróżnika</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Press+Start+2P&display=swap" rel="stylesheet">
+<style>
+/* Jednolita ciemna identyfikacja, celowo: strona-towarzysz wykładu "Nowy Świat", ta sama paleta i pixelowy krój co w decku na ścianę. */
+:root{
+  color-scheme:dark;
+  --ink:#1b1622;--paper:#efe6d2;--parch:#ded0b2;--line:#4d4059;
+  --accent:#d67653;--gold:#e0b950;--muted:#ada290;--dim:#b4a6c4;
+  --bg:#141019;--panel:#1e1826;--chrome:#241d2e;
+  --mono:'IBM Plex Mono',ui-monospace,Menlo,Consolas,monospace;
+  --pixel:'Press Start 2P',var(--mono);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;padding-block:32px 64px;background:var(--bg);color:var(--parch);font-family:var(--mono);font-size:16px;line-height:1.6}
+.wrap{max-width:680px;margin:0 auto;padding-inline:20px}
+img{max-width:100%;display:block}
+a{color:var(--gold)}
+h1,h2{color:var(--paper);text-wrap:balance}
+.gld{color:var(--gold)}
+b,strong{color:var(--paper);font-weight:600}
+section{scroll-margin-top:16px;padding-block:38px;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+.kicker{font-family:var(--pixel);font-size:.62rem;line-height:1.9;letter-spacing:.04em;color:var(--gold);margin:0 0 14px}
+h2{font-size:1.5rem;line-height:1.3;margin:0 0 16px;letter-spacing:-.01em}
+p{margin:0 0 14px}
+.big{font-size:1.1rem;color:var(--paper)}
+.muted{color:var(--muted);font-size:.85rem}
+.fig-note{color:var(--muted);font-size:.82rem;margin-top:-4px}
+.src-line{color:var(--muted);font-size:.78rem;margin:8px 0 0}
+.quote{border-left:4px solid var(--gold);padding:2px 0 2px 16px;color:var(--paper);font-size:1.02rem;font-style:italic}
+.quote .qsrc{display:block;margin-top:6px;color:var(--muted);font-size:.78rem;font-style:normal}
+.link-btn{display:inline-block;font-family:var(--pixel);font-size:.68rem;letter-spacing:.03em;color:var(--ink);background:var(--gold);border:2px solid var(--ink);box-shadow:4px 4px 0 #00000055;padding:10px 14px;text-decoration:none}
+.link-btn:hover{background:var(--paper)}
+
+/* naglowek */
+.hero{padding-top:6px}
+.hero-sprite{width:44px;height:66px;margin:0 0 18px;background:url(../assets/bohater_wiedzmin_bieg.webp) 0 0/264px 66px no-repeat;animation:walk .55s steps(6) infinite;image-rendering:pixelated}
+@keyframes walk{to{background-position:-264px 0}}
+.hero h1{font-family:var(--pixel);font-size:clamp(1.9rem,9vw,2.6rem);line-height:1.35;letter-spacing:-.01em;text-shadow:3px 3px #000;margin:0 0 12px}
+.hero .subtitle{font-size:1.05rem;color:var(--paper);margin-bottom:6px}
+.hero .byline{color:var(--muted);font-size:.85rem;margin-bottom:22px}
+.hero .intro{font-size:.97rem}
+
+/* spis tresci */
+.toc{display:flex;flex-wrap:wrap;gap:8px;padding:20px 0 6px;list-style:none;margin:0}
+.toc a{display:block;font-size:.78rem;color:var(--parch);background:var(--panel);border:1px solid var(--line);padding:7px 11px;text-decoration:none}
+.toc a:hover,.toc a:focus-visible{border-color:var(--gold);color:var(--gold)}
+
+/* siatka 2 kol. od tabletu */
+.grid-2{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:16px}
+@media(min-width:560px){.grid-2{grid-template-columns:1fr 1fr}}
+
+/* pary granicy, karty statystyk */
+.pair,.stat-card{background:var(--panel);border:2px solid var(--line);box-shadow:5px 5px 0 #00000055;padding:16px 18px}
+.pair-n{font-family:var(--pixel);font-size:.6rem;letter-spacing:.03em;color:var(--gold);margin:0 0 10px}
+.pair-stat{font-size:1.15rem;color:var(--paper);margin:0 0 8px;font-variant-numeric:tabular-nums}
+.pair-stat span{color:var(--muted);font-size:.72rem;font-weight:400;margin:0 3px}
+.pair p,.stat-card p{font-size:.9rem}
+.stat-card .big{font-size:1.7rem;font-variant-numeric:tabular-nums;margin-bottom:6px}
+.stat-card.wide{max-width:none}
+.lab{font-family:var(--pixel);font-size:.6rem;letter-spacing:.03em;color:var(--gold);margin:0 0 10px}
+
+/* figury / zdjecia */
+figure{margin:0 0 16px}
+figure img{border:2px solid var(--line)}
+figcaption{font-size:.78rem;color:var(--muted);margin-top:8px}
+.task{font-size:.95rem;color:var(--paper);border-left:4px solid var(--line);padding-left:14px}
+
+/* pasek czasu pracy */
+.bars{margin-bottom:18px}
+.bar-row{margin-bottom:12px}
+.bar-row .bl{display:block;font-size:.85rem;color:var(--parch);margin-bottom:5px}
+.bar-track{display:flex;align-items:center;gap:10px}
+.bar-fill-wrap{flex:1;height:18px;background:#00000040}
+.bar-fill{height:100%;background:var(--accent)}
+.bar-row.grow .bar-fill{background:var(--gold)}
+.bar-row .bv{font-variant-numeric:tabular-nums;font-size:.8rem;color:var(--paper);min-width:44px;text-align:right}
+.bars-legend{display:flex;gap:16px;font-size:.75rem;color:var(--muted);margin:-4px 0 16px}
+.bars-legend span{display:inline-flex;align-items:center;gap:6px}
+.bars-legend i{width:10px;height:10px;display:inline-block}
+.bars-legend .gold-sw{background:var(--gold)}
+.bars-legend .acc-sw{background:var(--accent)}
+
+/* oś czasu przygotowania */
+.tl-row{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.tl-l{font-family:var(--pixel);font-size:.58rem;color:var(--muted);width:52px;flex:none}
+.tl-bar{flex:1;display:flex;height:26px;overflow:hidden;border:1px solid var(--ink)}
+.tl-bar .seg{height:100%}
+.seg.dec{background:var(--accent)}
+.seg.prep{background:var(--line)}
+.seg.eval{background:var(--gold)}
+.tl-legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.75rem;color:var(--muted);margin:10px 0 14px}
+.tl-legend span{display:inline-flex;align-items:center;gap:6px}
+.tl-legend i{width:10px;height:10px;display:inline-block}
+
+/* zrodla */
+.src-list{display:flex;flex-direction:column;gap:16px}
+.src-item{border-top:1px solid var(--line);padding-top:14px}
+.src-item a{font-size:.92rem;color:var(--parch);text-decoration:none}
+.src-item a:hover{color:var(--gold)}
+.src-item p{font-size:.8rem;color:var(--muted);margin:6px 0 0}
+
+.farewell-section p{color:var(--paper)}
+footer{padding-top:30px;color:var(--muted);font-size:.8rem}
+footer p{margin:0 0 4px}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<header class="hero">
+<div class="hero-sprite" aria-hidden="true"></div>
+<p class="kicker">Wykład otwierający</p>
+<h1>Nowy <span class="gld">Świat</span></h1>
+<p class="subtitle">Po co studiować prawo, skoro AI zna przepisy?</p>
+<p class="byline">Łukasz Szoszkiewicz — Wydział Prawa i Administracji UAM</p>
+<p class="intro">Wykład był mapą: sąd, gildia prawników, kuźnia, pracownia alchemika, arena i port. Tu jest to, co po drodze zebraliście — fakty, liczby i źródła, w tej samej kolejności. Wracajcie, kiedy zechcecie.</p>
+<p><a class="link-btn" href="https://lszoszk.github.io/talks/nowy-swiat/" target="_blank" rel="noopener">pełna prezentacja z mapą ↗</a></p>
+<p class="fig-note">Prezentację najlepiej otworzyć na komputerze: strzałki i spacja przełączają slajdy, E włącza chodzenie po mapie.</p>
+</header>
+
+<nav class="toc" aria-label="Spis treści">
+<a href="#granica">Granica</a><a href="#sady">Sądy</a><a href="#obraz">Prawnik w pracy</a><a href="#czas">Czas pracy</a><a href="#cel">Cel i zadania</a><a href="#kuznia">Kuźnia</a><a href="#pracownia">Pracownia</a><a href="#rzecznicy">Rzecznicy patentowi</a><a href="#pieczec">Pieczęć</a><a href="#zrodla">Źródła</a>
+</nav>
+
+<section id="granica">
+<p class="kicker">Mapa · postrzępiona granica</p>
+<h2>Co leży w granicy, <span class="gld">a co poza nią?</span></h2>
+<p>Możliwości AI są nierówne: świetne w jednym zadaniu, zaskakująco słabe w sąsiednim, które wygląda na równie trudne. Badacze nazwali to <b>postrzępioną granicą</b> (ang. <i>jagged technological frontier</i>) — z góry jej nie widać, odkrywa się ją, próbując.</p>
+<div class="pairs">
+<article class="pair" style="margin-bottom:14px">
+<p class="pair-n">Para 1 · Polska</p>
+<p class="pair-stat">98,6% <span>trafień, ale</span> 37 / 30 / 8 <span>na 100</span></p>
+<p>Kontrola formalna odwołań do Krajowej Izby Odwoławczej: GPT-4.1 trafił w 98,6% na zbiorze testowym autorów. Pisemny egzamin kwalifikacyjny do KIO oceniła prawdziwa komisja: GPT-4.1 — 37 pkt, Claude 4 Sonnet — 30, Bielik — 8 (próg zdawalności: 50). Za pytania o same przepisy każdy model dostał 0.</p>
+<p class="src-line">Karp i in., <i>Artificial Intelligence and Law</i> (2026) · modele z 2025 r.</p>
+</article>
+<article class="pair" style="margin-bottom:14px">
+<p class="pair-n">Para 2 · USA</p>
+<p class="pair-stat">93,5–100% <span>vs</span> 46–83%</p>
+<p>Agenci AI z dostępem do bazy orzeczeń wykrywają zmyśloną sygnaturę niemal zawsze, ale prawdziwy wyrok z przekręconą treścią — dużo rzadziej (najlepiej: GPT-5). To para leżąca najbliżej granicy.</p>
+<p class="src-line">Liu, Stammbach, Henderson, preprint (2026)</p>
+</article>
+<article class="pair">
+<p class="pair-n">Para 3 · Polska</p>
+<p class="pair-stat">77,2% <span>elementów, ale</span> 7 wyroków</p>
+<p>Streszczenie dokumentu przez CoCounsel: 77,2% wymaganych elementów. Z drugiej strony — NSA, I OSK 590/26: pełnomocnik powołał 7 wyroków; części sygnatur nie ma w rejestrze, pozostałe mają inne daty i dotyczą czegoś innego.</p>
+<p class="src-line">Vals AI, VLAIR (2025) · NSA, I OSK 590/26 (31.08.2026)</p>
+</article>
+</div>
+</section>
+
+<section id="sady">
+<p class="kicker">Sąd · już nie tylko protokołowanie</p>
+<h2>Pakistan testuje. <span class="gld">Brazylia wdraża.</span></h2>
+<div class="grid-2">
+<div class="stat-card"><p class="big">+6,3%</p><p>więcej rozstrzygniętych spraw, gdy sędziowie dostali AI z dopasowanym szkoleniem — eksperyment z losowaniem: 1 559 sędziów, czyli ok. połowa sędziów pierwszej instancji w kraju.</p><p class="src-line">Mehmood, Goessmann, Ash, CEPR DP21783 (2026)</p></div>
+<div class="stat-card"><p class="big">44 min → sekundy</p><p>tyle trwa ocena dopuszczalności skargi: u człowieka i w systemie VICTOR. Sąd Najwyższy (STF) ma już cztery systemy AI: VICTOR, RAFA 2030, VitorIA i MARIA.</p><p class="src-line">Specjalna Sprawozdawczyni ONZ, A/80/169 (2025)</p></div>
+</div>
+<p>Raport ONZ (lipiec 2025) wymienia 25 państw; w 19 z nich opisuje konkretne narzędzia, wdrożenia lub pilotaże AI w sądach.</p>
+</section>
+
+<section id="obraz">
+<p class="kicker">Gildia prawników · jak AI widzi prawnika</p>
+<h2>„Narysuj mi prawnika <span class="gld">w pracy”</span></h2>
+<p>Dwa modele, ten sam obraz: biurko, dokument, pióro. Tak statystycznie wygląda „prawnik w pracy” w danych, na których się uczą.</p>
+<div class="ai-pics grid-2">
+<figure><img src="../assets/ai_prawnik_openai.jpg" alt="Obraz wygenerowany przez model OpenAI w Codexie: mężczyzna w garniturze przy biurku podpisuje dokumenty, za nim półki z książkami i waga"><figcaption>OpenAI · Codex</figcaption></figure>
+<figure><img src="../assets/ai_prawnik_gemini.jpg" alt="Obraz wygenerowany przez Gemini: mężczyzna w garniturze przy biurku pisze na dokumentach, za oknem Warszawa z Pałacem Kultury"><figcaption>Google · Gemini</figcaption></figure>
+</div>
+<p class="fig-note">Obrazy wygenerowane 23 września 2026 r.</p>
+</section>
+
+<section id="czas">
+<p class="kicker">Gildia prawników · czas pracy, Anglia i Walia</p>
+<h2>Na co przeznacza czas <span class="gld">prawnik w pracy?</span></h2>
+<div class="bars" id="barsChart">
+<div class="bar-row"><span class="bl">Kontakt z klientem</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:22.8%"></div></div><span class="bv">22,8%</span></div></div>
+<div class="bar-row"><span class="bl">Administracja</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:15.7%"></div></div><span class="bv">15,7%</span></div></div>
+<div class="bar-row"><span class="bl">„Martwy czas” między zadaniami</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:15%"></div></div><span class="bv">15,0%</span></div></div>
+<div class="bar-row grow"><span class="bl">Redagowanie dokumentów</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:14.5%"></div></div><span class="bv">14,5%</span></div></div>
+<div class="bar-row"><span class="bl">Czytanie i ocena dokumentów</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:12.6%"></div></div><span class="bv">12,6%</span></div></div>
+<div class="bar-row"><span class="bl">Nadzór i rozmowy w zespole</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:8.4%"></div></div><span class="bv">8,4%</span></div></div>
+<div class="bar-row"><span class="bl">Pozostałe</span><div class="bar-track"><div class="bar-fill-wrap"><div class="bar-fill" style="width:10.9%"></div></div><span class="bv">10,9%</span></div></div>
+</div>
+<p class="bars-legend"><span><i class="gold-sw"></i>to AI przejmie w dużej części — ale nie w całości</span></p>
+<p class="quote">„W 2017 r. badacze pisali, że pisanie prawnicze «bardzo trudno zautomatyzować». Kilka lat później to pierwsza rzecz, którą robi czatbot.”</p>
+<p>Duńskie badanie (Humlum i Vestergaard, 2025) objęło ok. 25 tys. pracowników w 11 zawodach, w tym biurowych i prawników. Średnio oszczędzali <b>2,8%</b> czasu pracy, a <b>80%</b> z nich przeznaczało zaoszczędzony czas na inne zadania. Na jakie dokładnie w pracy prawnika — tego nikt jeszcze nie zmierzył. Moje przewidywanie: więcej pracy poziom wyżej. Tak jak programista, któremu model pisze kod, coraz częściej decyduje, co ma powstać, zleca i sprawdza, tak prawnik częściej poprowadzi całą sprawę, a rzadziej sam napisze pierwszą wersję.</p>
+<p class="fig-note">Dane 2013 r., sześć kancelarii w Anglii i Walii (Legal Education and Training Review) — nie o Polsce ani o dzisiejszej praktyce.</p>
+</section>
+
+<section id="cel">
+<p class="kicker">Gildia prawników · cel pracy i zadania</p>
+<h2>Cel pracy <span class="gld">i zadania</span></h2>
+<figure><img src="../assets/huang_poster.jpg" alt="Jensen Huang podczas rozmowy w podkaście No Priors"><figcaption>Jensen Huang (NVIDIA), No Priors, 8.01.2026 — <a href="https://www.youtube.com/watch?v=k-xtmISBCNE&t=543s" target="_blank" rel="noopener">pełny fragment (od 9:03) ↗</a></figcaption></figure>
+<p>Huang rozróżnia <b>zadanie</b> — to, co robi się krok po kroku — i <b>cel</b> — po co się to robi. Na wykładzie padły dwa pytania; warto wrócić do własnych odpowiedzi:</p>
+<p class="task">1. Co jest odpowiednikiem „pisania kodu” w pracy prawnika?<br>2. A co jest celem pracy prawnika?</p>
+<p class="quote">Znać przepisy — to już potrafi model. Rozumieć, po co są i czemu mają służyć w konkretnej sprawie — to Wasza robota.<span class="qsrc">„Understanding is the new knowing” — krążące hasło bez jednego ustalonego autora, ale trafne podsumowanie.</span></p>
+</section>
+
+<section id="kuznia">
+<p class="kicker">Kuźnia · jedna osoba, cały warsztat</p>
+<h2>Kiedyś: informatyk i prawnik. <span class="gld">Dziś: pierwsza wersja w jeden wieczór.</span></h2>
+<figure><img src="../assets/hrc_zrodlo_47_23.webp" alt="Fragment rezolucji Rady Praw Człowieka ONZ 47/23 z 13 lipca 2021 r.: tytuł i wynik głosowania imiennego, 44 za, 0 przeciw, 3 wstrzymujące się"><figcaption>Rada Praw Człowieka ONZ, rezolucja 47/23 (2021) — surowiec, z którego korzysta HRC Voting</figcaption></figure>
+<p>Narzędzie do przeglądania głosowań imiennych w Radzie Praw Człowieka ONZ jeszcze niedawno wymagałoby zespołu: kogoś, kto zna dane i prawo, i kogoś, kto programuje. Pierwsza działająca wersja powstała w jeden wieczór, z modelem AI — potem dziesięć tygodni i ponad pięćdziesiąt poprawek.</p>
+<figure><img src="../assets/hrc_voting_blocs_mapa.webp" alt="Mapa zgodności głosowań państw z HRC Voting: państwa ułożone według tego, jak często głosują jak USA i jak Chiny"><figcaption>kto z kim głosuje — bliżej Chin w lewym górnym rogu, bliżej USA w prawym dolnym</figcaption></figure>
+<p class="fig-note">6 346 tekstów · 2 011 głosowań imiennych · ok. 129 tys. głosów państw, 1947–2026 (stan z 17.09.2026)</p>
+<p><a class="link-btn" href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">otwórz HRC Voting ↗</a></p>
+</section>
+
+<section id="pracownia">
+<p class="kicker">Pracownia alchemika</p>
+<h2>Przygotowanie tanieje. <span class="gld">Decyzja i ocena zostają przy Was.</span></h2>
+<div class="tl-row"><span class="tl-l">DOTĄD</span><div class="tl-bar"><span class="seg dec" style="flex:3"></span><span class="seg prep" style="flex:14"></span><span class="seg eval" style="flex:3"></span></div></div>
+<div class="tl-row"><span class="tl-l">Z AI</span><div class="tl-bar"><span class="seg dec" style="flex:7"></span><span class="seg prep" style="flex:3"></span><span class="seg eval" style="flex:7"></span></div></div>
+<p class="tl-legend"><span><i style="background:var(--accent)"></i>decyzja — cel, kontekst, pytanie</span><span><i style="background:var(--line)"></i>przygotowanie — szukanie, czytanie, pisanie</span><span><i style="background:var(--gold)"></i>ocena — czy można na tym działać</span></p>
+<p class="fig-note">Schemat, nie pomiar czasu pracy — pokazuje, gdzie przesuwa się wysiłek, nie ile realnie trwa.</p>
+<p><b>Paradoks Jevonsa:</b> gdy rośnie wydajność i spada koszt jednej usługi, zwykle rośnie popyt. Przy usługach prawnych oznacza to, że na pomoc prawnika będzie stać więcej osób. To teza, nie pomiar.</p>
+<p class="big">Pełnomocnik powołał w zażaleniu trzy postanowienia NSA. Sygnatury były prawdziwe.</p>
+<p class="quote">„…żadne nie odzwierciedla realnego stanowiska Naczelnego Sądu Administracyjnego”<span class="qsrc">NSA, postanowienie z 23.06.2026, I FZ 104/26</span></p>
+<p>Mikstura miała dobry kolor: sygnatury wyglądały jak prawdziwe. Żeby ocenić wynik, trzeba wiedzieć, jak powinien wyglądać. Łowca potworów, zanim ruszy na polowanie, czyta bestiariusz; prawnik, zanim zaufa modelowi, zna przepisy.</p>
+</section>
+
+<section id="rzecznicy">
+<p class="kicker">Arena · eksperyment 2026</p>
+<h2>AI pomaga każdemu. <span class="gld">Uczy tych, którzy mają podstawy.</span></h2>
+<p class="task">133 rzeczników patentowych z USA, 3 miesiące z asystentem AI lub bez niego, na koniec test bez AI.</p>
+<div class="grid-2">
+<div class="stat-card"><p class="lab">Pisanie z AI</p><p class="big" style="font-size:1.1rem">Lepsze zgłoszenia. Największy zysk u juniorów.</p></div>
+<div class="stat-card"><p class="lab">Na koniec, bez AI: ocena projektu</p><p class="big" style="font-size:1.1rem">Seniorzy z grupy AI lepsi od seniorów bez AI. Juniorzy — średnio bez zysku.</p></div>
+</div>
+<p>Seniorzy z grupy AI częściej przebudowywali całe fragmenty i usuwali ryzyka prawne. Juniorzy poprawiali głównie styl, a problemy — tylko opisywali, zamiast je naprawić.</p>
+<p class="quote">Na studiach — bez skrótów. W pracy — z AI.<span class="qsrc">Tylko ćwicząc sami, nauczycie się, na co zwracać uwagę, co sprawdzać i co można oddać narzędziu.</span></p>
+<p class="src-line">Autor i in., NBER WP 35720 (IX 2026), working paper</p>
+</section>
+
+<section id="pieczec">
+<p class="kicker">Arena · pieczęć</p>
+<h2>Model może napisać lepiej. <span class="gld">Podpisujesz się Ty.</span></h2>
+<div class="stat-card wide" style="margin-bottom:16px"><p class="lab">baza D. Charlotina · IX 2026</p><p class="big">ponad 2000</p><p>spraw ze zmyśleniami AI w sądach, 41 państw i terytoriów.</p></div>
+<p class="quote">„Korzystanie z narzędzi technologicznych nie zwalnia adwokata z osobistej odpowiedzialności […]”<span class="qsrc">Kodeks Etyki Adwokackiej, § 23e ust. 6 (od czerwca 2026)</span></p>
+<p class="big">Kiedy zaufać, a kiedy nie — <span class="gld">tego uczy tylko własna praca.</span></p>
+<p><a class="link-btn" href="https://www.damiencharlotin.com/hallucinations/" target="_blank" rel="noopener">baza D. Charlotina ↗</a></p>
+</section>
+
+<section id="port" class="farewell-section">
+<p class="kicker">Port</p>
+<h2>Wypływacie <span class="gld">na nieznane wody.</span></h2>
+<p>Zabieracie wszystko, co zdobyliście po drodze. Będziemy Wam pomagać przygotować się na nowe wyzwania.<br>Powodzenia.</p>
+</section>
+
+<section id="zrodla">
+<p class="kicker">Po wykładzie</p>
+<h2>Źródła</h2>
+<div class="src-list">
+<div class="src-item"><a href="https://doi.org/10.1287/orsc.2025.21838" target="_blank" rel="noopener">Dell'Acqua i in., Navigating the Jagged Technological Frontier, Organization Science (2026)</a><p>758 konsultantów BCG, losowy przydział. W granicy: +12,2% zadań, 25,1% szybciej. Poza granicą: 84,5% poprawnych bez AI wobec 60% i 70,6% z AI.</p></div>
+<div class="src-item"><a href="https://letr.org.uk/the-report/chapter-2/what-is-valued-and-required-by-the-legal-services-sector/index.html" target="_blank" rel="noopener">Legal Education and Training Review (2013), rozdz. 2, tab. 2.6</a><p>Rozkład czasu solicitorów w sześciu kancelariach w Anglii i Walii, 2012 r., z porównaniem do 1991 r.</p></div>
+<div class="src-item"><a href="https://www.iadclaw.org/assets/1/7/10.1-_Remus_Levy.pdf" target="_blank" rel="noopener">Remus i Levy, Can Robots Be Lawyers?, 30 Geo. J. Legal Ethics 501 (2017)</a><p>Odsetek zafakturowanych godzin w dużych kancelariach w USA, 2012–2015. Cytat: „legal writing is very difficult to automate”.</p></div>
+<div class="src-item"><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&t=543s" target="_blank" rel="noopener">Jensen Huang, No Priors, 8.01.2026 (od 9:03)</a><p>Fragment 57 s. Wypowiedź ilustruje sposób myślenia o celu i zadaniu, nie jest dowodem o zatrudnieniu.</p></div>
+<div class="src-item"><a href="https://cepr.org/publications/dp21783" target="_blank" rel="noopener">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026), working paper</a><p>Eksperyment z losowaniem w sądach Pakistanu: 1 559 sędziów, 118 sądów, narzędzie JudgeGPT.</p></div>
+<div class="src-item"><a href="https://documents.un.org/api/symbol/access?s=A/80/169&l=en&t=pdf" target="_blank" rel="noopener">Specjalna Sprawozdawczyni ONZ ds. niezależności sędziów i prawników, A/80/169 (2025)</a><p>Artificial intelligence in judicial systems: promises and pitfalls, 16 lipca 2025. 25 państw wymienionych; w 19 konkretne narzędzia, pilotaże lub plany.</p></div>
+<div class="src-item"><a href="https://noticias.stf.jus.br/postsnoticias/stf-amplia-uso-de-inteligencia-artificial-em-apoio-a-atividade-jurisdicional/" target="_blank" rel="noopener">Supremo Tribunal Federal: „STF amplia uso de inteligência artificial em apoio à atividade jurisdicional”</a><p>Platforma MARIA i oś czasu narzędzi AI w STF (VICTOR 2018, RAFA 2030 2022, VitorIA 2023).</p></div>
+<div class="src-item"><a href="https://www.nber.org/papers/w35720" target="_blank" rel="noopener">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), working paper</a><p>133 rzeczników patentowych z 11 kancelarii w USA. Test końcowy bez AI: poprawki do projektu zgłoszenia napisanego przez AI.</p></div>
+<div class="src-item"><a href="https://www.vals.ai/industry-reports/vlair-2-27-25" target="_blank" rel="noopener">Vals AI, Vals Legal AI Report (VLAIR) (2025)</a><p>Porównanie narzędzi AI z grupą prawników: pytania o treść umowy, streszczenia dokumentów (prawo USA).</p></div>
+<div class="src-item"><a href="https://www.nber.org/papers/w33777" target="_blank" rel="noopener">Humlum i Vestergaard, Large Language Models, Small Labor Market Effects, NBER WP 33777 (2025)</a><p>Dania: dwie fale ankiet (2023, 2024), po ok. 25 tys. pracowników w 11 zawodach. Średnia oszczędność 2,8% czasu pracy; 80% korzystających przeznacza zaoszczędzony czas na inne zadania.</p></div>
+<div class="src-item"><a href="https://arxiv.org/abs/2511.04205" target="_blank" rel="noopener">Karp i in., Artificial Intelligence and Law (2026)</a><p>Egzamin kwalifikacyjny do Krajowej Izby Odwoławczej: kontrola formalna odwołań (GPT-4.1: 98,6%) i pisemny kazus (37/30/8 pkt na 100, próg 50). Modele z 2025 r.</p></div>
+<div class="src-item"><a href="https://arxiv.org/abs/2606.21155" target="_blank" rel="noopener">Liu, Stammbach, Henderson, preprint (2026)</a><p>Wykrywanie zmyślonych i przekręconych orzeczeń przez agentów AI z dostępem do bazy CourtListener (prawo USA).</p></div>
+<div class="src-item"><a href="https://www.prawo.pl/prawnicy-sady/nsa-radca-prawny-przywolal-orzeczenia-zmyslone-przez-ai,1553132.html" target="_blank" rel="noopener">NSA, I OSK 590/26 (31.08.2026)</a><p>Pełnomocnik powołał 7 wyroków NSA: części sygnatur nie ma, pozostałe mają inne daty i dotyczą czegoś innego.</p></div>
+<div class="src-item"><a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank" rel="noopener">NSA, postanowienie z 23.06.2026, I FZ 104/26</a><p>Trzy powołane postanowienia o prawdziwych sygnaturach; „żadne nie odzwierciedla realnego stanowiska” NSA.</p></div>
+<div class="src-item"><a href="https://storage.courtlistener.com/recap/gov.uscourts.nysd.575368/gov.uscourts.nysd.575368.54.0.pdf" target="_blank" rel="noopener">Mata v. Avianca, No. 22-cv-1461 (S.D.N.Y. 22.06.2023), Opinion and Order on Sanctions</a><p>Jedna kara 5000 USD solidarnie na dwóch prawników i kancelarię; podstawą był podpis bez sprawdzenia, nie samo użycie AI.</p></div>
+<div class="src-item"><a href="https://www.adwokatura.pl/admin/wgrane_pliki/file-zal-do-uchwaly-prezydium-nra-nr-1742026kodeksetykiadwokackiejtekst-jednolity-44572.pdf" target="_blank" rel="noopener">Kodeks Etyki Adwokackiej, tekst jednolity (23.06.2026), § 23e</a><p>Uchwała NRA nr 41/2026 z 12.06.2026: korzystanie z narzędzi AI, obowiązek oceny i weryfikacji, osobista odpowiedzialność adwokata.</p></div>
+<div class="src-item"><a href="https://www.nber.org/papers/w33641" target="_blank" rel="noopener">Dell'Acqua i in., The Cybernetic Teammate, NBER WP 33641 (2025); Organization Science 37(4) (2026)</a><p>Eksperyment w Procter &amp; Gamble (V–VII 2024, 776 osób): osoba z AI porównywalna z parą bez AI.</p></div>
+<div class="src-item"><a href="https://documents.un.org/api/symbol/access?s=A/HRC/RES/47/23&l=en&t=pdf" target="_blank" rel="noopener">Rada Praw Człowieka ONZ, rezolucja 47/23 (13.07.2021)</a><p>New and emerging digital technologies and human rights. Przyjęta w głosowaniu imiennym: 44 za, 0 przeciw, 3 wstrzymujące się.</p></div>
+<div class="src-item"><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">HRC Voting — Ł. Szoszkiewicz (2026)</a><p>Głosowania w Komisji Praw Człowieka i Radzie Praw Człowieka ONZ: 6 346 tekstów, 2 011 głosowań imiennych, 129 441 głosów państw (stan z 17.09.2026).</p></div>
+<div class="src-item"><a href="https://nyulawreview.org/forum/2026/08/ai-legal-labor-and-the-jevons-paradox/" target="_blank" rel="noopener">Chang, AI, Legal Labor, and the Jevons Paradox, NYU Law Review Forum (4.08.2026)</a><p>Esej: tańsze usługi prawne mogą zwiększyć popyt na nie (paradoks Jevonsa), m.in. wśród osób, których dziś nie stać na prawnika.</p></div>
+<div class="src-item"><a href="https://www.damiencharlotin.com/hallucinations/" target="_blank" rel="noopener">Damien Charlotin, AI Hallucination Cases Database</a><p>Orzeczenia, w których sąd stwierdził oparcie się na treściach zmyślonych przez AI. Plik CSV z 23.09.2026: 2047 spraw z 41 państw i terytoriów (IV 2023 – IX 2026).</p></div>
+</div>
+</section>
+
+<footer>
+<p>Łukasz Szoszkiewicz — Wydział Prawa i Administracji UAM</p>
+<p>Materiały z wykładu „Nowy Świat”, wrzesień 2026.</p>
+</footer>
+
+</div>
+</body>
+</html>

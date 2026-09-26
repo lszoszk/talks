@@ -846,7 +846,7 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 
 <section aria-label="Slajd 8: Cel pracy i zadania" class="slide" data-title="Cel pracy i zadania" data-min="3.5" data-appendix="false">
 <div class="kicker">Gildia prawników · mniej czasu na zadania, więcej na cel</div><h2>Cel pracy i zadania</h2>
-<div class="video-layout"><div class="vidwrap"><video data-clickplay controls playsinline preload="metadata" poster="assets/huang_poster.jpg" src="assets/huang_purpose_vs_task.mp4"></video><a class="video-fallback" href="assets/huang_purpose_vs_task.mp4" target="_blank" rel="noopener">otwórz klip osobno ↗</a><div class="vidcap">No Priors · 8 stycznia 2026 · 57 s</div></div><div class="video-text"><div class="lab">Dwa pytania do sali</div><p class="vq frag"><b>1</b><span>Co jest odpowiednikiem „pisania kodu” w pracy prawnika?</span></p><p class="vq frag"><b>2</b><span>A co jest <span class="gld">celem</span> pracy prawnika?<small>30 sekund z osobą obok · jedno zdanie</small></span></p></div></div>
+<div class="video-layout"><div class="vidwrap"><video controls playsinline preload="metadata" poster="assets/huang_poster.jpg" src="assets/huang_purpose_vs_task.mp4"></video><a class="video-fallback" href="assets/huang_purpose_vs_task.mp4" target="_blank" rel="noopener">otwórz klip osobno ↗</a><div class="vidcap">No Priors · 8 stycznia 2026 · 57 s</div></div><div class="video-text"><div class="lab">Dwa pytania do sali</div><p class="vq frag"><b>1</b><span>Co jest odpowiednikiem „pisania kodu” w pracy prawnika?</span></p><p class="vq frag"><b>2</b><span>A co jest <span class="gld">celem</span> pracy prawnika?<small>30 sekund z osobą obok · jedno zdanie</small></span></p></div></div>
 <footer class="src"><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank" rel="noopener">Jensen Huang, No Priors, 8.01.2026 (od 9:03)</a></footer>
 <span class="slide-number">08</span>
 </section>
@@ -1174,7 +1174,8 @@ function mapToggle(){if(!window.MAPA)return;walkMode=false;if(isMap(current)){if
 function toast(msg){let t=$('toast');if(!t){t=document.createElement('div');t.id='toast';$('stage').appendChild(t)}t.textContent=msg;t.classList.add('show');clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),5000)}
 function playVideo(v){const p=v.play();if(p)p.catch(()=>toast('Przeglądarka zablokowała start filmu. Kliknij film myszą albo naciśnij V.'))}
 let mediaPrimed=false;
-function primeMedia(){if(mediaPrimed||isPresenter)return;mediaPrimed=true;document.querySelectorAll('video[data-clickplay]').forEach(v=>{if(!v.paused||v.closest('.slide')===slides[current])return;const vol=v.volume;v.volume=0;const p=v.play();if(p)p.then(()=>{if(v.volume===0){v.pause();v.currentTime=0;v.volume=vol}}).catch(()=>{v.volume=vol})})}
+/* muted, nie volume=0: na iPhonie glosnosc ze skryptu jest ignorowana, a film gralby w tle */
+function primeMedia(){if(mediaPrimed||isPresenter)return;mediaPrimed=true;document.querySelectorAll('video[data-clickplay]').forEach(v=>{if(!v.paused||v.closest('.slide')===slides[current])return;const undo=()=>{v.pause();v.currentTime=0;v.muted=false};v.muted=true;const p=v.play();if(p)p.then(undo).catch(undo);else undo()})}
 document.addEventListener('keydown',primeMedia,true);document.addEventListener('pointerdown',primeMedia,true);
 function videoToggle(){const v=slides[current].querySelector('video');if(!v)return;if(v.paused){v.volume=1;playVideo(v)}else v.pause()}
 function timeUsed(){return elapsed+(running?(Date.now()-started)/1000:0)}
