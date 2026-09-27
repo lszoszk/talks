@@ -979,7 +979,7 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 <div class="kicker" data-u-odyseja="Itaka · próba łuku">Port</div>
 <h2 data-u-odyseja="Przed Wami<br><span class=&quot;gld&quot;>dwanaście toporów.</span>">Wypływacie<br><span class="gld">na nieznane wody.</span></h2>
 <p data-u-odyseja="Zabieracie wszystko, co zdobyliście po drodze.<br>Pomożemy Wam przygotować się do tej próby.">Zabieracie wszystko, co zdobyliście po drodze.<br>Będziemy Wam pomagać przygotować się na nowe wyzwania.<br>Powodzenia.</p>
-<p class="frag" data-only="odyseja"><span class="gld">Niech Wasza strzała przejdzie przez wszystkie.</span></p>
+<p class="frag" data-only="odyseja"><span class="gld">Niech Wasza strzała przejdzie przez wszystkie.</span><audio src="assets/luk_goransson.mp3" preload="auto"></audio><small class="mcredit">muzyka: L. Göransson, „The Trial of the Bow / Vengeance”, The Odyssey (2026), fragment</small></p>
 </div>
 <div class="qr-take"><div class="qt-k">ZABIERZ MAPĘ</div><img src="assets/qr_dziennik.webp" alt="Kod QR do strony z materiałami z wykładu Nowy Świat"><p class="qt-lab">podsumowanie i źródła na telefon</p></div>
 
@@ -1274,7 +1274,7 @@ document.querySelectorAll('video,audio').forEach(m=>m.addEventListener('play',()
 const motyw=$('motyw'),motywCredit=$('motywCredit');let motywFade=0;
 if(motyw&&motywCredit){motyw.addEventListener('playing',()=>motywCredit.hidden=false);motyw.addEventListener('pause',()=>motywCredit.hidden=true)}
 function motywSync(){if(!motyw)return;const on=current===0;clearInterval(motywFade);if(on&&motyw.paused){motyw.volume=0;const p=motyw.play();if(p)p.catch(()=>{})}
- const target=on?.35:0;motywFade=setInterval(()=>{if(Math.abs(target-motyw.volume)<=.02){motyw.volume=target;clearInterval(motywFade);if(!target)motyw.pause()}else motyw.volume+=target>motyw.volume?.02:-.02},60)}
+ const target=on?.15:0;motywFade=setInterval(()=>{if(Math.abs(target-motyw.volume)<=.02){motyw.volume=target;clearInterval(motywFade);if(!target)motyw.pause()}else motyw.volume+=target>motyw.volume?.02:-.02},60)}
 document.addEventListener('keydown',motywSync,true);document.addEventListener('pointerdown',motywSync,true);
 function videoToggle(){const v=slides[current].querySelector('video');if(!v)return;if(v.paused){v.volume=1;playVideo(v)}else v.pause()}
 function timeUsed(){return elapsed+(running?(Date.now()-started)/1000:0)}
