@@ -1,0 +1,111 @@
+iso3,country,un_group,agree_with_USA_pct,agree_with_CHN_pct,shared_votes,most_active
+AGO,Angola,African,7,72,123,0
+ALB,Albania,Eastern Europe,66,9,94,0
+ARE,United Arab Emirates,Asia-Pacific,13,65,244,0
+ARG,Argentina,Latin America & Caribbean,35,51,236,1
+ARM,Armenia,Eastern Europe,26,42,34,0
+AUT,Austria,Western Europe & Others,59,11,98,1
+BDI,Burundi,African,1,93,79,0
+BEL,Belgium,Western Europe & Others,66,17,197,0
+BEN,Benin,African,26,53,193,0
+BFA,Burkina Faso,African,16,65,143,0
+BGD,Bangladesh,Asia-Pacific,6,71,212,1
+BGR,Bulgaria,Eastern Europe,88,5,25,0
+BHR,Bahrain,Asia-Pacific,2,76,44,0
+BOL,Bolivia,Latin America & Caribbean,2,84,155,0
+BRA,Brazil,Latin America & Caribbean,24,52,254,1
+BWA,Botswana,African,28,61,167,0
+CHE,Switzerland,Western Europe & Others,56,17,148,0
+CHL,Chile,Latin America & Caribbean,33,49,222,1
+CHN,China,Asia-Pacific,1,100,297,0
+CIV,Côte d'Ivoire,African,19,58,244,1
+CMR,Cameroon,African,5,56,175,0
+COG,Congo,African,11,68,167,0
+CRI,Costa Rica,Latin America & Caribbean,38,44,156,0
+CUB,Cuba,Latin America & Caribbean,2,95,294,1
+CZE,Czech Republic,Eastern Europe,73,7,153,0
+DEU,Germany,Western Europe & Others,71,11,243,1
+DJI,Djibouti,African,11,86,82,0
+DOM,Dominican Republic,Latin America & Caribbean,48,29,25,0
+DZA,Algeria,African,1,76,126,0
+ECU,Ecuador,Latin America & Caribbean,7,69,149,0
+EGY,Egypt,African,4,85,70,0
+ERI,Eritrea,African,1,92,96,0
+ESP,Spain,Western Europe & Others,59,17,112,0
+EST,Estonia,Eastern Europe,60,17,76,0
+ETH,Ethiopia,African,3,64,147,0
+FIN,Finland,Western Europe & Others,81,11,96,0
+FRA,France,Western Europe & Others,74,12,207,1
+GAB,Gabon,African,15,66,204,0
+GBR,United Kingdom,Western Europe & Others,76,8,236,1
+GEO,Georgia,Eastern Europe,56,9,115,0
+GHA,Ghana,African,19,66,138,0
+GMB,Gambia,African,31,53,95,0
+GTM,Guatemala,Latin America & Caribbean,24,58,95,0
+HND,Honduras,Latin America & Caribbean,41,41,96,0
+HRV,Croatia,Eastern Europe,59,10,54,0
+HUN,Hungary,Eastern Europe,63,12,136,0
+IDN,Indonesia,Asia-Pacific,10,71,243,1
+IND,India,Asia-Pacific,5,66,279,1
+IRL,Ireland,Western Europe & Others,57,20,65,0
+IRQ,Iraq,Asia-Pacific,9,73,54,0
+ITA,Italy,Western Europe & Others,60,12,114,1
+JOR,Jordan,Asia-Pacific,15,85,81,0
+JPN,Japan,Asia-Pacific,65,14,254,1
+KAZ,Kazakhstan,Asia-Pacific,6,63,161,0
+KEN,Kenya,African,4,59,146,0
+KGZ,Kyrgyzstan,Asia-Pacific,7,66,192,0
+KOR,Republic of Korea,Asia-Pacific,61,12,229,1
+KWT,Kuwait,Asia-Pacific,12,64,122,0
+LBY,Libya,African,20,56,99,0
+LTU,Lithuania,Eastern Europe,81,4,96,0
+LUX,Luxembourg,Western Europe & Others,80,13,96,0
+LVA,Latvia,Eastern Europe,64,13,69,0
+MAR,Morocco,African,14,60,125,0
+MDA,Republic of Moldova,Eastern Europe,53,14,66,0
+MDV,Maldives,Asia-Pacific,20,63,219,0
+MEX,Mexico,Latin America & Caribbean,34,41,235,1
+MHL,Marshall Islands,Asia-Pacific,88,10,34,0
+MKD,North Macedonia,Eastern Europe,63,7,65,0
+MNE,Montenegro,Eastern Europe,71,12,161,0
+MNG,Mongolia,Asia-Pacific,6,54,48,0
+MRT,Mauritania,African,12,61,129,0
+MUS,Mauritius,African,22,75,82,0
+MWI,Malawi,African,42,38,96,0
+MYS,Malaysia,Asia-Pacific,9,72,191,0
+NAM,Namibia,African,4,56,100,0
+NGA,Nigeria,African,8,73,168,1
+NLD,Netherlands,Western Europe & Others,76,10,145,1
+NOR,Norway,Western Europe & Others,55,22,82,0
+NPL,Nepal,Asia-Pacific,9,44,88,0
+PAK,Pakistan,Asia-Pacific,4,78,228,1
+PAN,Panama,Latin America & Caribbean,33,40,51,0
+PER,Peru,Latin America & Caribbean,30,54,115,1
+PHL,Philippines,Asia-Pacific,4,76,166,1
+POL,Poland,Eastern Europe,66,11,130,0
+PRT,Portugal,Western Europe & Others,58,17,69,0
+PRY,Paraguay,Latin America & Caribbean,43,41,164,0
+QAT,Qatar,Asia-Pacific,13,68,290,1
+ROU,Romania,Eastern Europe,65,9,159,0
+RUS,Russian Federation,Eastern Europe,1,94,163,0
+RWA,Rwanda,African,23,45,53,0
+SAU,Saudi Arabia,Asia-Pacific,13,77,199,1
+SDN,Sudan,African,1,69,96,0
+SEN,Senegal,African,9,65,170,1
+SLE,Sierra Leone,African,24,66,65,0
+SLV,El Salvador,Latin America & Caribbean,19,66,69,0
+SOM,Somalia,African,11,63,96,0
+SVK,Slovakia,Eastern Europe,65,9,62,0
+SVN,Slovenia,Eastern Europe,58,17,71,0
+TGO,Togo,African,33,42,54,1
+THA,Thailand,Asia-Pacific,16,68,95,0
+TUN,Tunisia,African,8,64,53,0
+UGA,Uganda,African,3,77,65,0
+UKR,Ukraine,Eastern Europe,70,8,132,1
+URY,Uruguay,Latin America & Caribbean,20,61,80,0
+USA,United States,Western Europe & Others,100,1,297,0
+UZB,Uzbekistan,Asia-Pacific,0,51,71,0
+VEN,Venezuela,Latin America & Caribbean,2,95,183,1
+VNM,Viet Nam,Asia-Pacific,5,74,126,0
+ZAF,South Africa,African,3,66,196,1
+ZMB,Zambia,African,16,78,43,0
