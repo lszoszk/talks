@@ -377,7 +377,7 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 .hrc-stack figure{position:absolute;left:50%;top:0;margin:0;transform:translateX(-50%);text-align:center;transition:opacity .3s steps(3)}
 .hrc-stack img{height:380px;width:auto;display:block;margin:0 auto;border:5px solid #150f1b;box-shadow:8px 8px 0 #0008}
 .hrc-stack figcaption{font-size:17px;line-height:1.35;color:var(--muted);margin-top:10px;width:693px;margin-left:50%;transform:translateX(-50%)}
-.forge-slide .vibe{position:absolute;right:133px;top:308px;width:602px;margin:0;text-align:center}.forge-slide .vibe video{width:100%;height:380px;object-fit:cover;box-sizing:border-box;display:block;border:5px solid #150f1b;box-shadow:8px 8px 0 #0008;background:#fff}.forge-slide .vibe figcaption{font-size:17px;color:var(--muted);margin-top:10px}
+.forge-slide .vibe{position:absolute;right:133px;top:308px;width:602px;margin:0;text-align:center}.forge-slide .vibe video{width:100%;height:380px;object-fit:contain;box-sizing:border-box;display:block;border:5px solid #150f1b;box-shadow:8px 8px 0 #0008;background:#fafafa}.forge-slide .vibe figcaption{font-size:17px;color:var(--muted);margin-top:10px}
 .hrc-stack .shot{cursor:pointer}
 .hrc-stack:has(.s1.on) .doc{opacity:0}
 .hrc-stack:has(.s2.on) .s1.on{opacity:0}
@@ -408,7 +408,7 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 @media (hover:none) and (min-aspect-ratio:17/9){.hud{flex-direction:column;top:50%;bottom:auto;right:4px;transform:translateY(-50%)}.hud button{padding:6px 8px;font-size:13px}#counter{font-size:11px}}
 /* slajd 7: cytat Repsolu w wolnym miejscu wiersza "Nowe"; kuznia: zdanie o Prosusie */
 .time-slide .bar.meta{position:relative}.time-slide .bar.meta .mq{position:absolute;left:830px;top:50%;transform:translateY(-50%);font-size:17px;color:var(--parch);white-space:nowrap}
-.forge-slide .also{position:absolute;left:88px;right:88px;top:756px;box-sizing:border-box;margin:0;border-left:6px solid var(--gold);padding:4px 0 4px 20px;font-size:21px;line-height:1.4;color:var(--paper)}.forge-slide .also .lab{margin-right:14px}
+.forge-slide .also{position:absolute;left:88px;right:88px;top:740px;box-sizing:border-box;margin:0;border-left:6px solid var(--gold);padding:4px 0 4px 20px;font-size:21px;line-height:1.4;color:var(--paper)}.forge-slide .also .lab{margin-right:14px}
 .bibliography .source-list a{font-size:15px}
 .forge-slide .also small{display:block;margin-top:8px;font-size:17px;line-height:1.4;color:var(--muted);font-style:italic}
 /* ekran wyboru swiata (glosowanie na starcie) */
@@ -451,8 +451,10 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 body[data-online] .hud{opacity:1;gap:6px}
 body[data-online] .hud button{background:#1c1526;color:var(--parch);border:2px solid #3a3048;box-shadow:2px 2px 0 #0008}
 body[data-online] .hud button:hover,body[data-online] .hud button:focus-visible{border-color:var(--gold);color:var(--gold)}
-body[data-online] #viewport:has(#stage.on-map)~.hud{bottom:calc(var(--ty,0px) + var(--z,1)*50px - 18px);right:calc(var(--tx,0px) + var(--z,1)*28px)}
+body[data-online] .hud{bottom:calc(var(--ty,0px) + var(--z,1)*33px);right:calc(var(--tx,0px) + var(--z,1)*28px);transform:scale(var(--z,1));transform-origin:right bottom}
+body[data-online] .slide-number{display:none}
 body[data-online] #inv .slot{margin-right:88px}
+body[data-online] .slide footer.src{padding-right:300px;box-sizing:border-box}
 
 </style>
 </head><body data-public="false" data-online><main id="viewport"><div id="stage"><div id="world" aria-hidden="true"></div>
