@@ -107,7 +107,8 @@
 .map-title h1{font-size:64px;line-height:1.25;text-shadow:4px 4px #000}
 .map-title .signature{font-size:26px;color:var(--paper);margin-top:40px}
 .map-title .signature span{display:block;font-size:21px;color:var(--muted)}
-.map-title .aimade{margin-top:18px;font-size:16px;color:var(--muted);letter-spacing:.02em}
+.map-slide .over.aimade{left:calc(var(--mx) + 640px);bottom:118px;margin:0;font-size:16px;color:var(--parch);opacity:.8;letter-spacing:.02em}
+.aimade a{color:var(--gold);text-decoration:underline;text-underline-offset:3px;pointer-events:auto}
 #sources .aiinfo{grid-column:1/-1;margin-bottom:14px;padding:10px 14px;border-left:4px solid var(--gold);background:#0003}#sources .aiinfo h3{margin:0 0 6px}#sources .aiinfo .aip{font-size:16px;line-height:1.5}
 .farewell{left:calc(var(--mx) + 90px);top:120px;width:900px}
 .farewell h2{font-size:64px;text-shadow:4px 4px #000}
@@ -428,7 +429,7 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 @keyframes ship-bob{0%,100%{translate:0 0;rotate:0deg}25%{translate:0 -1.5px;rotate:-1deg}50%{translate:0 -2.5px;rotate:0deg}75%{translate:0 -1px;rotate:1deg}}
 #world[data-u="odyseja"] #heroImg::after{left:23px;top:16px;width:18px;height:18px}
 #world[data-u="odyseja"] #heroHint{left:52px}
-#motywCredit{position:absolute;left:calc(var(--mx) + 640px);bottom:118px;z-index:51;font-size:15px;color:var(--parch);opacity:.75}
+#motywCredit{position:absolute;left:calc(var(--mx) + 640px);bottom:150px;z-index:51;font-size:15px;color:var(--parch);opacity:.75}
 .farewell .mcredit{display:block;font-size:15px;margin-top:12px;color:var(--parch);opacity:.75;text-shadow:none}
 
 /* slajd 6: prawnik i urzednik, 2 x 2 */
@@ -446,8 +447,15 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 .walk-hint kbd{display:inline-block;min-width:34px;padding:2px 9px;margin-right:6px;font-family:var(--pixel);font-size:20px;color:#150f1b;background:var(--gold);border:2px solid #150f1b;box-shadow:3px 3px 0 #0008;text-align:center}
 .walk-hint kbd+span+kbd,.walk-hint kbd:nth-of-type(2){margin-left:10px}
 
+/* wersja online (build_public.py dodaje data-online): przyciski zawsze widoczne; na mapach siedza w prawym koncu paska ekwipunku */
+body[data-online] .hud{opacity:1;gap:6px}
+body[data-online] .hud button{background:#1c1526;color:var(--parch);border:2px solid #3a3048;box-shadow:2px 2px 0 #0008}
+body[data-online] .hud button:hover,body[data-online] .hud button:focus-visible{border-color:var(--gold);color:var(--gold)}
+body[data-online] #viewport:has(#stage.on-map)~.hud{bottom:calc(var(--ty,0px) + var(--z,1)*50px - 18px);right:calc(var(--tx,0px) + var(--z,1)*28px)}
+body[data-online] #inv .slot{margin-right:88px}
+
 </style>
-</head><body data-public="false"><main id="viewport"><div id="stage"><div id="world" aria-hidden="true"></div>
+</head><body data-public="false" data-online><main id="viewport"><div id="stage"><div id="world" aria-hidden="true"></div>
 
 
 <section aria-label="Slajd 1: Start: Nowy Świat" class="slide map-slide" data-stop="0" data-title="Start: Nowy Świat" data-min="1" data-appendix="false">
@@ -456,9 +464,9 @@ body:not([data-public="true"]) .time-slide:has(.dk.on) .bar.doc .bt::after{conte
 <h1 class="nw">Nowy <span class="gld">Świat</span></h1>
 <p class="subtitle">Po co studiować prawo, skoro AI zna przepisy?</p>
 <p class="signature">Łukasz Szoszkiewicz<span>Wydział Prawa i Administracji UAM</span></p>
-<p class="aimade">Przygotowane z AI · treść, kierunek i decyzje: Ł. Szoszkiewicz · więcej w Dzienniku</p>
 <p class="walk-hint"><kbd>E</kbd> <span data-u-odyseja="pożegluj po mapie">przejdź się po mapie</span> · <kbd>U</kbd> zmień świat</p>
 </div>
+<p class="over aimade">Przygotowane z AI · treść, kierunek i decyzje: Ł. Szoszkiewicz · <a href="https://lszoszk.github.io/talks/nowy-swiat/dziennik/#jak-powstala" target="_blank" rel="noopener">jak powstała ta prezentacja ↗</a></p>
 
 </section>
 
@@ -1269,8 +1277,9 @@ function fit(){
  const b=$('viewport').getBoundingClientRect(),A=isPresenter?BASE:wall,W=Math.abs(A-BASE)<.005?1600:Math.round(900*A);
  document.documentElement.style.setProperty('--W',W+'px');
  const st=$('stage');
- if(Math.abs(A-BASE)<.005){const z=Math.min(b.width/W,b.height/900);Object.assign(st.style,{transform:`scale(${z})`,left:(b.width-W*z)/2+'px',top:(b.height-900*z)/2+'px'})}
- else Object.assign(st.style,{transform:`scale(${b.width/W},${b.height/900})`,left:'0px',top:'0px'});
+ const R=document.documentElement.style;
+ if(Math.abs(A-BASE)<.005){const z=Math.min(b.width/W,b.height/900);Object.assign(st.style,{transform:`scale(${z})`,left:(b.width-W*z)/2+'px',top:(b.height-900*z)/2+'px'});R.setProperty('--z',z);R.setProperty('--tx',(b.width-W*z)/2+'px');R.setProperty('--ty',(b.height-900*z)/2+'px')}
+ else{Object.assign(st.style,{transform:`scale(${b.width/W},${b.height/900})`,left:'0px',top:'0px'});R.setProperty('--z',b.height/900);R.setProperty('--tx','0px');R.setProperty('--ty','0px')}
  const c=$('calibValue');if(c)c.textContent=wall.toFixed(2).replace('.',',')+' : 1';
 }
 function setWall(v){wall=Math.abs(v-BASE)<.005?BASE:Math.max(1.2,Math.min(6,Math.round(v*100)/100));try{localStorage.setItem('pixel-law-wall',String(wall))}catch(e){}fit()}
