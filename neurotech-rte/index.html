@@ -66,9 +66,13 @@ FIX.forEach((f,i)=>{const fx=f[0]-OX;let sac=0;if(i){const dx=fx-ev[i-1].x;sac=(
 const READ0=REST1,READ1=t,CYCLE=t+REST2,BLINK=READ1+BLINK_AT;
 
 // signal state
-let A=1,f1=0,f2=0,o1=0,o2=0,eog=0,T0=performance.now(),last=0,lastP=0,seed=7;
+// background: 1/f-like noise as a sum of AR(1) processes with octave-spaced time constants
+const AR=[.99,.95,.8,.55,.3],NORM=AR.map(a=>Math.sqrt(1-a*a)/.2887),WN=.19;   // fastest term kept below ~45 Hz
+let A=1,eog=0,T0=performance.now(),last=0,lastP=0,seed=7;
+const bg=[AR.map(()=>0),AR.map(()=>0)];
 function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647-.5;}
 function g(d,sd){return Math.exp(-d*d/(2*sd*sd));}
+function pink(st){let v=0;for(let k=0;k<AR.length;k++){st[k]=AR[k]*st[k]+rnd();v+=WN*st[k]*NORM[k];}return v;}
 function sample(T,p,dt){
   const reading=p>=READ0&&p<READ1;
   A+=((reading?.5:1)-A)*(1-Math.exp(-dt/300));        // alpha weakens while reading (eyes open in both states)
@@ -76,14 +80,16 @@ function sample(T,p,dt){
   let lam=0;
   for(const e of ev){
     if(e.dxNext!==undefined&&lastP<e.t1&&p>=e.t1)eog+=-e.dxNext/420;   // horizontal saccade: step at F7, size ~ amplitude
-    lam+=.7*g(p-e.t0-90,22);                          // lambda response ~90 ms after fixation onset, occipital
+    lam+=.35*g(p-e.t0-90,22);                         // small lambda response ~90 ms after fixation onset, occipital
   }
-  f1=f1*.9+rnd()*.45;f2=f2*.55+rnd()*.3;o1=o1*.9+rnd()*.45;o2=o2*.55+rnd()*.3;
-  const ts=T/1000,am=.7+.3*Math.sin(2*Math.PI*.45*ts),al=Math.sin(2*Math.PI*10.2*ts+.6*Math.sin(2*Math.PI*.3*ts));
+  const ts=T/1000;
+  // alpha comes in irregular bursts that wax and wane
+  const env=.3+.7*(.5+.5*Math.sin(2*Math.PI*.37*ts))*(.5+.5*Math.sin(2*Math.PI*.61*ts+1));
+  const al=Math.sin(2*Math.PI*10.2*ts+.6*Math.sin(2*Math.PI*.3*ts));
   const bl=g(p-BLINK,90);
   lastP=p;
-  return [eog+3.2*bl+.12*A*al+.3*f1+.25*f2,              // F7
-          1.15*A*am*al+lam+.25*bl+.3*o1+.25*o2];          // O1
+  return [eog+2.8*bl+.12*A*al+pink(bg[0]),              // F7
+          1.25*A*env*al+lam+.25*bl+pink(bg[1])];          // O1
 }
 
 const head=CH.map(()=>({x:0,y:0,px:null,py:null}));
@@ -94,7 +100,7 @@ function step(now){
     if(p<lastP)head.forEach(h=>h.px=null);
     const v=sample(tt,p,dt),px=GUT+p/CYCLE*(W-GUT);
     CH.forEach((ch,k)=>{
-      const h=head[k],sx=strips[k].getContext('2d'),py=Math.max(3,Math.min(ch.h-3,ch.h/2-v[k]*13));
+      const h=head[k],sx=strips[k].getContext('2d'),py=Math.max(3,Math.min(ch.h-3,ch.h/2-v[k]*15.5));
       if(h.px!==null&&px>h.px){sx.strokeStyle='rgb('+RED+')';sx.lineWidth=2.2*s;sx.lineJoin='round';sx.beginPath();sx.moveTo(h.px*s,h.py*s);sx.lineTo(px*s,py*s);sx.stroke();}
       sx.clearRect((px+3)*s,0,24*s,strips[k].height);
       h.px=px;h.py=py;h.x=px;h.y=py;
@@ -134,14 +140,14 @@ function draw(p){
   x.font='500 24px ui-monospace,"SF Mono",Menlo,Consolas,monospace';
   if('letterSpacing' in x)x.letterSpacing='3px';
   x.textBaseline='alphabetic';
-  x.fillStyle='#525049';x.textAlign='left';x.fillText('SIMULATED EEG · 1.4× SLOWER',0,HEAD_Y);
+  x.fillStyle='#525049';x.textAlign='left';x.fillText('SIMPLIFIED SIMULATION · 1.4× SLOWER',0,HEAD_Y);
   const reading=p>=READ0&&p<READ1,blink=Math.abs(p-BLINK)<260;
   x.fillStyle=reading||blink?'rgb('+RED+')':'#525049';x.textAlign='right';
   x.fillText(blink?'BLINK':reading?'READING':'REST',W,HEAD_Y);
   x.restore();
 }
 
-function reset(){T0=performance.now();last=0;lastP=0;eog=0;A=1;head.forEach(h=>h.px=null);strips.forEach(st=>st.getContext('2d').clearRect(0,0,st.width,st.height));}
+function reset(){T0=performance.now();last=0;lastP=0;eog=0;A=1;bg.forEach(st=>st.fill(0));head.forEach(h=>h.px=null);strips.forEach(st=>st.getContext('2d').clearRect(0,0,st.width,st.height));}
 addEventListener('message',e=>{if(e.data==='restart')reset();});
 if(matchMedia('(prefers-reduced-motion: reduce)').matches){T0=0;last=0;step(CYCLE-1);draw(READ1-1);}
 else{(function loop(now){step(now);requestAnimationFrame(loop);})(performance.now());}
