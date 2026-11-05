@@ -48,8 +48,8 @@ html,body{margin:0;height:100%;background:#0b111c;overflow:hidden}
 // F7 (frontal): eye-movement steps and a blink, little alpha.
 // O1 (occipital): eyes-open alpha that weakens while reading, small lambda response after each fixation.
 // Coordinates are slide px; the embed sits at slide (128,220), 1664x610.
-const W=1664,H=610,RED='176,43,39',OX=128,OY=220,GUT=96;
-const HEAD_Y=376,CH=[{name:'F7',y:394,h:90},{name:'O1',y:508,h:90}];
+const W=1664,H=610,RED='176,43,39',OX=128,OY=220,GUT=210;
+const HEAD_Y=376,CH=[{name:'F7 · EYES',y:394,h:90},{name:'O1 · VISION',y:508,h:90}];
 const c=document.getElementById('eegc'),x=c.getContext('2d');
 const strips=CH.map(()=>document.createElement('canvas'));
 let s=1;
@@ -134,7 +134,7 @@ function draw(p){
   x.font='500 24px ui-monospace,"SF Mono",Menlo,Consolas,monospace';
   if('letterSpacing' in x)x.letterSpacing='3px';
   x.textBaseline='alphabetic';
-  x.fillStyle='#525049';x.textAlign='left';x.fillText('SIMULATED EEG · F7 FRONTAL · O1 OCCIPITAL · 1.4× SLOWER',0,HEAD_Y);
+  x.fillStyle='#525049';x.textAlign='left';x.fillText('SIMULATED EEG · 1.4× SLOWER',0,HEAD_Y);
   const reading=p>=READ0&&p<READ1,blink=Math.abs(p-BLINK)<260;
   x.fillStyle=reading||blink?'rgb('+RED+')':'#525049';x.textAlign='right';
   x.fillText(blink?'BLINK':reading?'READING':'REST',W,HEAD_Y);
