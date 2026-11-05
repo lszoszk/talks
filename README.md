@@ -10,7 +10,7 @@ Self-contained HTML decks — open `index.html` of any talk in Chrome or Safari;
 
 | Date | Event | Talk | Link |
 |---|---|---|---|
-| 5 Nov 2026 | Panel “Reframing the Right to Education in International Law? A Focus on Article 13 of the ICESCR” | Neurotechnology and the Right to Education (with Michał Klichowski) | [open](https://lszoszk.github.io/talks/neurotech-rte/) |
+| 5 Nov 2026 | Panel “Reframing the Right to Education in International Law? A Focus on Article 13 of the ICESCR” | Neurotechnology and the Right to Education (with Michał Klichowski) | [open](https://lszoszk.github.io/talks/neurotechnology-education/) |
 | 2 Oct 2026 | Faculty of Law and Administration, Adam Mickiewicz University, Poznań | Why study law if AI already knows the provisions? (opening lecture) | [open](https://lszoszk.github.io/talks/nowy-swiat/) |
 | 7–10 Jul 2026 | AI for Good Global Summit, Geneva | Building human-rights tools with gen AI (booth poster) | [open](https://lszoszk.github.io/talks/ai4good/) |
 | Jul 2026 | WSIS Forum 2026, Geneva | Leveraging gen AI for human-rights data access (5-min intervention) | [open](https://lszoszk.github.io/talks/wsis2026/) |
