@@ -35,13 +35,117 @@ html,body{margin:0;height:100%;background:#0b111c;overflow:hidden}
 <div style="display:flex;flex-direction:column;gap:36px">
 <p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:4px;text-transform:uppercase;color:#B02B27">Article 13 ICESCR · Neurotechnology</p>
 <h1 style="font-family:'Instrument Serif', Georgia, serif;font-size:136px;font-weight:400;line-height:1.0;letter-spacing:0px;color:#0F0F10">Neurotechnology and the <i><span style="color:#B02B27">Right to Education</span></i></h1>
-<p style="font-size:36px;line-height:1.4;color:#525049;width:1400px">Limits on the use of such technology? Or part of high-quality education under Article 13 ICESCR?</p>
 </div>
-<svg aria-label="A stylised EEG trace running across the slide" width="1664" height="110" viewBox="0 0 1664 110" style="width:1664px;height:110px"><path d="M0 55 L280 55 L300 40 L318 72 L336 26 L356 86 L376 48 L392 55 L690 55 L704 46 L718 64 L732 55 L1080 55 L1098 18 L1118 96 L1138 36 L1158 74 L1176 51 L1192 55 L1664 55" fill="none" stroke="#B02B27" stroke-width="3" stroke-linejoin="round" stroke-linecap="round"/></svg>
+<div style="height:250px"></div>
 <div style="display:flex;flex-direction:row;justify-content:space-between;align-items:end;border-top:1px solid #D0CCC4;padding:24px 0 0">
-<p style="font-size:34px;font-weight:600;color:#0F0F10">Łukasz Szoszkiewicz · Michał Klichowski</p>
-<p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#525049">Adam Mickiewicz University, Poznań</p>
+<p style="font-size:34px;font-weight:600;color:#0F0F10">Łukasz Szoszkiewicz¹ ² · Michał Klichowski¹</p>
+<div style="display:flex;flex-direction:column;gap:4px;align-items:end"><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#525049;text-align:right">¹ <a target="_blank" rel="noopener" href="https://neuroscience.amu.edu.pl/">Cognitive Neuroscience Center</a>, AMU Poznań</p><p style="font-family:'JetBrains Mono', 'Courier New', monospace;font-size:24px;letter-spacing:2px;text-transform:uppercase;color:#525049;text-align:right">² CyberLaw Lab, AMU Poznań</p></div>
 </div>
+<div style="position:absolute;left:128px;top:220px;width:1664px;height:610px"><style>canvas{display:block;width:100%;height:100%}</style>
+<canvas id="eegc"></canvas>
+<script>(()=>{
+// Simulated EEG of a person reading the slide title (illustrative, not recorded data).
+// F7 (frontal): eye-movement steps and a blink, little alpha.
+// O1 (occipital): eyes-open alpha that weakens while reading, small lambda response after each fixation.
+// Coordinates are slide px; the embed sits at slide (128,220), 1664x610.
+const W=1664,H=610,RED='176,43,39',OX=128,OY=220,GUT=96;
+const HEAD_Y=376,CH=[{name:'F7',y:394,h:90},{name:'O1',y:508,h:90}];
+const c=document.getElementById('eegc'),x=c.getContext('2d');
+const strips=CH.map(()=>document.createElement('canvas'));
+let s=1;
+function size(){const d=devicePixelRatio||1,k=(document.getElementById('stage').getBoundingClientRect().width/1920)||1;c.width=Math.round(W*k*d);c.height=Math.round(H*k*d);s=c.width/W;strips.forEach((st,k)=>{st.width=c.width;st.height=Math.round(CH[k].h*s);});}
+addEventListener('resize',()=>requestAnimationFrame(size));size();
+
+// fixations on the title: [slide x, line, duration ms]; "the" and "to" are skipped,
+// one refixation on "Neurotechnology", one regression to "Right"; shown 1.4x slower than real time
+const L1=329-OY,L2=465-OY,SLOW=1.4;
+const FIX=[[348,L1,260],[694,L1,200],[1018,L1,170],[1417,L1,240],[321,L2,300],[1440,L1,220],[433,L2,260]];
+const REST1=2200,REST2=2600,BLINK_AT=900;
+const ev=[];let t=REST1;
+FIX.forEach((f,i)=>{const fx=f[0]-OX;let sac=0;if(i){const dx=fx-ev[i-1].x;sac=(Math.abs(dx)>700?50:30)*SLOW;ev[i-1].dxNext=dx;}t+=sac;ev.push({t0:t,t1:t+f[2]*SLOW,x:fx,y:f[1],r:16+f[2]/10});t+=f[2]*SLOW;});
+const READ0=REST1,READ1=t,CYCLE=t+REST2,BLINK=READ1+BLINK_AT;
+
+// signal state
+let A=1,f1=0,f2=0,o1=0,o2=0,eog=0,T0=performance.now(),last=0,lastP=0,seed=7;
+function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647-.5;}
+function g(d,sd){return Math.exp(-d*d/(2*sd*sd));}
+function sample(T,p,dt){
+  const reading=p>=READ0&&p<READ1;
+  A+=((reading?.5:1)-A)*(1-Math.exp(-dt/300));        // alpha weakens while reading (eyes open in both states)
+  eog*=Math.exp(-dt/1200);                             // step decays as on a high-pass filtered display
+  let lam=0;
+  for(const e of ev){
+    if(e.dxNext!==undefined&&lastP<e.t1&&p>=e.t1)eog+=-e.dxNext/420;   // horizontal saccade: step at F7, size ~ amplitude
+    lam+=.7*g(p-e.t0-90,22);                          // lambda response ~90 ms after fixation onset, occipital
+  }
+  f1=f1*.9+rnd()*.45;f2=f2*.55+rnd()*.3;o1=o1*.9+rnd()*.45;o2=o2*.55+rnd()*.3;
+  const ts=T/1000,am=.7+.3*Math.sin(2*Math.PI*.45*ts),al=Math.sin(2*Math.PI*10.2*ts+.6*Math.sin(2*Math.PI*.3*ts));
+  const bl=g(p-BLINK,90);
+  lastP=p;
+  return [eog+3.2*bl+.12*A*al+.3*f1+.25*f2,              // F7
+          1.15*A*am*al+lam+.25*bl+.3*o1+.25*o2];          // O1
+}
+
+const head=CH.map(()=>({x:0,y:0,px:null,py:null}));
+function step(now){
+  const T=now-T0,dt=4;
+  for(let tt=last;tt<T;tt+=dt){
+    const p=tt%CYCLE;
+    if(p<lastP)head.forEach(h=>h.px=null);
+    const v=sample(tt,p,dt),px=GUT+p/CYCLE*(W-GUT);
+    CH.forEach((ch,k)=>{
+      const h=head[k],sx=strips[k].getContext('2d'),py=Math.max(3,Math.min(ch.h-3,ch.h/2-v[k]*13));
+      if(h.px!==null&&px>h.px){sx.strokeStyle='rgb('+RED+')';sx.lineWidth=2.2*s;sx.lineJoin='round';sx.beginPath();sx.moveTo(h.px*s,h.py*s);sx.lineTo(px*s,py*s);sx.stroke();}
+      sx.clearRect((px+3)*s,0,24*s,strips[k].height);
+      h.px=px;h.py=py;h.x=px;h.y=py;
+    });
+  }
+  last=T;draw(T%CYCLE);
+}
+
+function draw(p){
+  x.clearRect(0,0,c.width,c.height);
+  x.save();x.scale(s,s);
+  // scanpath on the title
+  const fade=p<READ1?1:Math.max(0,1-(p-READ1)/1200);
+  if(p>=READ0&&fade>0){
+    let prev=null;
+    for(const e of ev){
+      if(p<e.t0)break;
+      const cur=p<e.t1&&p<READ1,grow=cur?.55+.45*Math.min(1,(p-e.t0)/(e.t1-e.t0)):1;
+      if(prev){x.strokeStyle='rgba('+RED+','+(.45*fade)+')';x.lineWidth=1.5;x.beginPath();x.moveTo(prev.x,prev.y);x.lineTo(e.x,e.y);x.stroke();}
+      x.fillStyle='rgba('+RED+','+((cur?.22:.12)*fade)+')';
+      x.strokeStyle='rgba('+RED+','+((cur?.9:.45)*fade)+')';x.lineWidth=cur?2.5:1.5;
+      x.beginPath();x.arc(e.x,e.y,e.r*grow,0,7);x.fill();x.stroke();
+      prev=e;
+    }
+  }
+  // baselines and channel names
+  x.font='500 24px ui-monospace,"SF Mono",Menlo,Consolas,monospace';
+  if('letterSpacing' in x)x.letterSpacing='3px';
+  x.textBaseline='middle';x.textAlign='left';
+  CH.forEach(ch=>{const m=ch.y+ch.h/2;x.strokeStyle='#D0CCC4';x.lineWidth=1;x.beginPath();x.moveTo(GUT,m);x.lineTo(W,m);x.stroke();x.fillStyle='#525049';x.fillText(ch.name,0,m);});
+  x.restore();
+  strips.forEach((st,k)=>x.drawImage(st,0,Math.round(CH[k].y*s)));
+  x.save();x.scale(s,s);
+  x.fillStyle='rgb('+RED+')';
+  CH.forEach((ch,k)=>{x.beginPath();x.arc(head[k].x,ch.y+head[k].y,5,0,7);x.fill();});
+  // header
+  x.font='500 24px ui-monospace,"SF Mono",Menlo,Consolas,monospace';
+  if('letterSpacing' in x)x.letterSpacing='3px';
+  x.textBaseline='alphabetic';
+  x.fillStyle='#525049';x.textAlign='left';x.fillText('SIMULATED EEG · F7 FRONTAL · O1 OCCIPITAL · 1.4× SLOWER',0,HEAD_Y);
+  const reading=p>=READ0&&p<READ1,blink=Math.abs(p-BLINK)<260;
+  x.fillStyle=reading||blink?'rgb('+RED+')':'#525049';x.textAlign='right';
+  x.fillText(blink?'BLINK':reading?'READING':'REST',W,HEAD_Y);
+  x.restore();
+}
+
+function reset(){T0=performance.now();last=0;lastP=0;eog=0;A=1;head.forEach(h=>h.px=null);strips.forEach(st=>st.getContext('2d').clearRect(0,0,st.width,st.height));}
+addEventListener('message',e=>{if(e.data==='restart')reset();});
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){T0=0;last=0;step(CYCLE-1);draw(READ1-1);}
+else{(function loop(now){step(now);requestAnimationFrame(loop);})(performance.now());}
+})();</script></div>
 </section>
 <section class="slide" id="isolator" data-transition="fade" style="background:#F2EFE8;color:#0F0F10;font-family:Inter, Arial, sans-serif;padding:176px 128px 176px;display:flex;flex-direction:row;align-items:center;gap:80px">
 <div style="position:absolute;left:128px;top:64px;width:1664px;display:flex;flex-direction:row;justify-content:space-between;border-bottom:1px solid #D0CCC4;padding:0 0 16px">
@@ -207,7 +311,7 @@ html,body{margin:0;height:100%;background:#0b111c;overflow:hidden}
 const slides=[...document.querySelectorAll('.slide')], stage=document.getElementById('stage'), notes=null;
 let i=Math.min(Math.max(parseInt(location.hash.slice(1))-1||0,0),slides.length-1);
 function fit(){const s=Math.min(innerWidth/1920,innerHeight/1080);stage.style.transform=`scale(${s})`;stage.style.left=(innerWidth-1920*s)/2+'px';stage.style.top=(innerHeight-1080*s)/2+'px';}
-function show(n){i=Math.min(Math.max(n,0),slides.length-1);slides.forEach((s,k)=>s.classList.toggle('active',k===i));history.replaceState(null,'','#'+(i+1));document.getElementById('ctr').textContent=`${i+1} / ${slides.length}`;}
+function show(n){i=Math.min(Math.max(n,0),slides.length-1);slides.forEach((s,k)=>s.classList.toggle('active',k===i));history.replaceState(null,'','#'+(i+1));if(slides[i].querySelector('#eegc'))window.postMessage('restart','*');document.getElementById('ctr').textContent=`${i+1} / ${slides.length}`;}
 function full(){document.fullscreenElement?document.exitFullscreen&&document.exitFullscreen():document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen().catch(()=>{});}
 addEventListener('resize',fit);
 addEventListener('keydown',e=>{
