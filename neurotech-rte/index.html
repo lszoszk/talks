@@ -57,9 +57,9 @@ function size(){const d=devicePixelRatio||1,k=(document.getElementById('stage').
 addEventListener('resize',()=>requestAnimationFrame(size));size();
 
 // fixations on the title: [slide x, line, duration ms]; "the" and "to" are skipped,
-// one refixation on "Neurotechnology", one regression to "Right"; shown 1.4x slower than real time
+// one refixation on "Neurotechnology" and on "Education"; shown 1.4x slower than real time
 const L1=329-OY,L2=465-OY,SLOW=1.4;
-const FIX=[[348,L1,260],[694,L1,200],[1018,L1,170],[1417,L1,240],[321,L2,300],[1440,L1,220],[433,L2,260]];
+const FIX=[[348,L1,260],[694,L1,200],[1018,L1,170],[1417,L1,240],[321,L2,300],[433,L2,260]];
 const REST1=2200,REST2=2600,BLINK_AT=900;
 const ev=[];let t=REST1;
 FIX.forEach((f,i)=>{const fx=f[0]-OX;let sac=0;if(i){const dx=fx-ev[i-1].x;sac=(Math.abs(dx)>700?50:30)*SLOW;ev[i-1].dxNext=dx;}t+=sac;ev.push({t0:t,t1:t+f[2]*SLOW,x:fx,y:f[1],r:16+f[2]/10});t+=f[2]*SLOW;});
