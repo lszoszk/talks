@@ -36,13 +36,13 @@ h1, h2, h3 { font-family: var(--serif); font-weight: 400; margin: 0; }
 h1 { font-size: 64px; line-height: 1.05; }
 h2 { font-size: 40px; line-height: 1.15; margin-top: 10px; }
 h3 { font-size: 24px; line-height: 1.25; }
-.lead { font: 22px/1.45 var(--serif); color: var(--ink-2); margin: 14px 0 0; max-width: 56ch; }
+.lead { font: 22px/1.45 var(--sans); color: var(--ink-2); margin: 14px 0 0; max-width: 56ch; }
 .body { flex: 1; display: flex; flex-direction: column; justify-content: center; gap: 18px; }
 ul.plain { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
 ul.plain li { padding-left: 22px; position: relative; font-size: 23px; }
 ul.plain li::before { content: ""; position: absolute; left: 0; top: .62em; width: 9px; height: 2px; background: var(--accent); }
 .foot { display: flex; justify-content: space-between; font: 12px var(--mono); color: var(--muted); border-top: 1px solid var(--rule); padding-top: 10px; }
-.quote { border-left: 3px solid var(--accent); padding: 6px 0 6px 20px; margin: 0; font: 24px/1.4 var(--serif); }
+.quote { border-left: 3px solid var(--accent); padding: 6px 0 6px 20px; margin: 0; font: 23px/1.45 var(--sans); }
 .quote cite { display: block; margin-top: 8px; font: 14px var(--mono); font-style: normal; color: var(--muted); }
 .demo { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; font: 600 13px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--paper); background: var(--accent); padding: 7px 11px; border-radius: 3px; }
 .steps { counter-reset: s; list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
@@ -62,16 +62,17 @@ td .src { display: block; font: 13px var(--mono); color: var(--muted); margin-to
 .route { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
 .route div { background: var(--paper-2); border-radius: 4px; padding: 14px 16px; }
 .route b { display: block; font: 600 12px var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
-.route span { font: 19px/1.3 var(--serif); }
+.route span { font: 19px/1.35 var(--sans); }
 .route.steps3 { grid-template-columns: repeat(3, 1fr); }
 table.t14 th, table.t14 td { font-size: 16px; padding: 8px 12px 8px 0; }
 table.t14 td:first-child { width: 17%; }
 table.t15 th, table.t15 td { font-size: 19px; padding: 10px 14px 10px 0; }
 table.t15 td:first-child { width: 30%; }
+table.t14 thead th, table.t15 thead th { font-size: 12px; }
 .case { background: var(--paper-2); border-radius: 4px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
 .case p { margin: 0; }
 .case-h { font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
-.case-q { font: 15px/1.35 var(--serif); font-style: italic; }
+.case-q { font: italic 14px/1.38 var(--sans); }
 table.tiers th, table.tiers td { font-size: 15px; padding: 5px 12px 5px 0; }
 table.tiers thead th { font-size: 11px; }
 .case-m { font: 13px/1.3 var(--mono); color: var(--muted); }
@@ -90,9 +91,9 @@ body.read .route.steps3 { grid-template-columns: 1fr; }
 .build-item { transition: opacity .6s, transform .6s; }
 body.deck .build-item:not(.open) { opacity: 0; transform: translateX(40px); }
 @media print { .build-item { opacity: 1 !important; transform: none !important; } }
-.big { font: 30px/1.3 var(--serif); margin: 0; max-width: 40ch; }
+.big { font: 500 28px/1.3 var(--sans); margin: 0; max-width: 40ch; }
 .tip { background: var(--accent-soft); border-radius: 4px; padding: 12px 16px; font-size: 19px; }
-.pasted { font: 21px/1.5 var(--serif); background: var(--paper-2); border: 1px dashed var(--rule); border-radius: 4px; padding: 16px 20px; margin: 0; }
+.pasted { font: 21px/1.5 var(--sans); background: var(--paper-2); border: 1px dashed var(--rule); border-radius: 4px; padding: 16px 20px; margin: 0; }
 .close { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center; }
 .qr svg { width: 100%; height: auto; display: block; background: #fff; border-radius: 6px; }
 .qr svg path { fill: #000; }
@@ -110,7 +111,7 @@ aside.notes { display: none; }
 .sp-steps span { padding-bottom: 6px; border-bottom: 2px solid transparent; transition: color .6s, border-color .6s; }
 .sp-search { font: 14px/1 var(--mono); color: var(--ink-2); border: 1px solid var(--rule); border-radius: 3px; padding: 9px 10px; min-height: 34px; background: var(--paper-2); }
 .sp-caret { display: inline-block; width: 7px; height: 14px; margin-left: 2px; vertical-align: -2px; background: var(--accent); opacity: 0; }
-.sp-text { margin: 0; font: 17px/1.55 var(--serif); color: var(--muted); }
+.sp-text { margin: 0; font: 17px/1.55 var(--sans); color: var(--muted); }
 .sp-text mark { background: transparent; color: inherit; transition: background-color .9s, color .9s; border-radius: 2px; padding: 0 1px; }
 .sp-cite, .sp-check { font: 14px/1.2 var(--mono); opacity: 0; transform: translateY(6px); transition: opacity .8s, transform .8s; }
 .sp-cite { color: var(--ink); }
@@ -185,11 +186,12 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   .hud, .bar, .readbar, aside.notes { display: none !important; }
 }
 </style>
+<script>try { var t = localStorage.getItem("kv-theme"); if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
 <script src="../statystyki.js" defer></script>
 </head>
 <body class="deck">
 <div class="bar" id="bar"></div>
-<div class="readbar"><span>Find It. Cite It. Check It · Knowvember, OHCHR, 10 November 2026</span><button type="button" id="toDeck">Slides</button></div>
+<div class="readbar"><span>Find It. Cite It. Check It · Knowvember, OHCHR, 10 November 2026</span><span><button type="button" class="themeBtn">Dark</button> <button type="button" id="toDeck">Slides</button></span></div>
 <main id="deck">
 
 <!-- 1 -->
@@ -376,7 +378,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <thead><tr><th>All cases · right source in the first 10</th><th>(a) copied or stated</th><th>(b) a question</th><th>(c) keywords</th></tr></thead>
       <tbody>
         <tr><td><b>UN-HRDB</b> <span class="src">389 cases</span></td><td>Ask <b>53%</b> · Search 2%</td><td>Ask <b>42%</b> · Search 0%</td><td>Ask <b>34%</b> · Search 9%</td></tr>
-        <tr><td><b>Travaux</b> <span class="src">579 claims</span></td><td>Ask <b>82%</b> · Search 1%</td><td>Ask <b>73%</b> · Search 1%</td><td>Ask 26% · Search <b>45%</b></td></tr>
+        <tr><td><b>Travaux</b> <span class="src">579 claims from <a href="https://books.google.com/books?id=R-Z4QgAACAAJ" target="_blank" rel="noopener">Nowak (2005)</a> and <a href="https://books.google.com/books?id=J0jbAgAAQBAJ" target="_blank" rel="noopener">Saul, Kinley and Mowbray (2014)</a></span></td><td>Ask <b>82%</b> · Search 1%</td><td>Ask <b>73%</b> · Search 1%</td><td>Ask 26% · Search <b>45%</b></td></tr>
       </tbody>
     </table>
     <p style="margin:0;font-size:15px;color:var(--ink-2)">Lower bounds: the answer keys are frozen in time, and a newer document that answers better counts as a miss. A question in your own words: use <b>Ask</b>. A few words: use <b>Search</b>.</p>
@@ -583,6 +585,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <button type="button" id="nextBtn" title="Next slide (→)" aria-label="Next slide">›</button>
   <button type="button" id="notesBtn" title="Speaker notes (N)">Notes</button>
   <button type="button" id="readBtn" title="Read as a page">Page</button>
+  <button type="button" class="themeBtn" title="Dark or light (D)">Dark</button>
 </div>
 <script>
 (function () {
@@ -623,6 +626,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     else if (k === 'Home') go(0);
     else if (k === 'End') go(slides.length - 1);
     else if (k === 'n' || k === 'N') body.classList.toggle('show-notes');
+    else if (k === 'd' || k === 'D') toggleTheme();
   });
   // Boxes that slide in one by one: forward (-> / space / clicker) or a click on the row brings the next one
   // before the deck leaves the slide; entering the slide from an earlier one starts again with the first box.
@@ -684,6 +688,19 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   document.getElementById('notesBtn').addEventListener('click', function () { body.classList.toggle('show-notes'); });
   document.getElementById('readBtn').addEventListener('click', function () { setMode(true); window.scrollTo(0, 0); });
   document.getElementById('toDeck').addEventListener('click', function () { setMode(false); });
+  // Dark or light: follows the system until chosen with the button or D; the choice is kept in this browser.
+  var root = document.documentElement, sysDark = window.matchMedia('(prefers-color-scheme: dark)');
+  function isDark() { var t = root.getAttribute('data-theme'); return t ? t === 'dark' : sysDark.matches; }
+  function labelTheme() { [].forEach.call(document.querySelectorAll('.themeBtn'), function (b) { b.textContent = isDark() ? 'Light' : 'Dark'; }); }
+  function toggleTheme() {
+    var t = isDark() ? 'light' : 'dark';
+    root.setAttribute('data-theme', t);
+    try { localStorage.setItem('kv-theme', t); } catch (e) {}
+    labelTheme();
+  }
+  [].forEach.call(document.querySelectorAll('.themeBtn'), function (b) { b.addEventListener('click', toggleTheme); });
+  if (sysDark.addEventListener) sysDark.addEventListener('change', labelTheme);
+  labelTheme();
 })();
 </script>
 </body>
