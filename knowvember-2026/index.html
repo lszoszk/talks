@@ -608,7 +608,8 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     body.classList.toggle('read', read); body.classList.toggle('deck', !read);
     fit(); if (!read) go(i);
   }
-  var narrow = window.matchMedia('(max-width: 900px)').matches || /[?&]read\b/.test(location.search);
+  // Slides by default; the reading view only on a phone (a touch screen under 900 px) or with ?read in the address.
+  var narrow = window.matchMedia('(pointer: coarse) and (max-width: 900px)').matches || /[?&]read\b/.test(location.search);
   var start = parseInt((location.hash || '').slice(1), 10);
   if (start > 0) i = start - 1;
   setMode(narrow);
