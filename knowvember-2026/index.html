@@ -138,7 +138,13 @@ tr[class^="t-"] td:first-child { box-shadow: inset 4px 0 0 var(--accent); paddin
 .shot-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); flex: none; }
 .shot-bar span:not(.demo) { margin-left: 8px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .shot-bar .demo { padding: 4px 7px; font-size: 10px; }
-.shot img { display: block; width: 100%; height: auto; }
+.shot img, .shot video { display: block; width: 100%; height: auto; }
+.loop { position: relative; cursor: pointer; }
+.loop .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); font: 600 13px/1 var(--mono); letter-spacing: .06em;
+  text-transform: uppercase; color: #fff; background: rgba(20, 18, 16, .78); border: 0; border-radius: 999px; padding: 12px 18px; cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25); transition: opacity .25s; }
+.loop:hover .play { background: var(--accent); }
+.loop.playing .play { opacity: 0; pointer-events: none; }
 .try { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 12px; font-size: 16px; }
 .demo-grid .opens { margin-top: 10px; }
 .demo-grid .tip { margin-top: 12px; font-size: 17px; }
@@ -371,10 +377,10 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide t-hrdb" data-title="UN-HRDB: find">
   <div class="kicker">1 · UN Human Rights Database · Find and cite</div>
   <h2>The paragraph, with its citation</h2>
-  <div class="body demo-grid">
+  <div class="body demo-grid" style="--shotw:480px">
     <blockquote class="quote">Article 21 provides that any restrictions must be “necessary in a democratic society”. Restrictions must therefore be necessary and proportionate in the context of a society based on democracy, the rule of law, political pluralism and human rights, as opposed to being merely reasonable or expedient.<cite>CCPR/C/GC/37, para. 40</cite></blockquote>
     <div>
-      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Search</span><span class="demo">Live demo</span></div><img src="img/search.jpg" alt="UN Human Rights Database, Search: two paragraphs of General Comments with the phrase necessary in a democratic society marked, GC 27 para. 11 and GC 37 para. 40" width="1280" height="793"></figure>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/unhrdb-loop-poster.jpg" width="1280" height="960" aria-label="UN Human Rights Database: the search for necessary in a democratic society, GC 37 para. 40 and its citation copied"><source src="video/unhrdb-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 12-second loop">▶ Play · 12 s</button></div></figure>
       <div class="try"><span>Search <code data-copy='"necessary in a democratic society"'>"necessary in a democratic society"</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/generalcomments/?q=%22necessary%20in%20a%20democratic%20society%22&tb=CCPR#search" target="_blank" rel="noopener">Open this search ↗</a><a class="open" href="https://docs.un.org/en/CCPR/C/GC/37" target="_blank" rel="noopener">GC 37 on docs.un.org ↗</a></div>
     </div>
@@ -473,7 +479,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide t-trav" data-title="Travaux">
   <div class="kicker">2 · UN Travaux Préparatoires · Origin</div>
   <h2>6 June 1952: nine votes to eight</h2>
-  <div class="body demo-grid">
+  <div class="body demo-grid" style="--shotw:480px">
     <div style="display:grid;gap:16px">
       <blockquote class="quote">The French amendment (E/CN.4/L.201) to insert the words “in a democratic society” after “necessary” was adopted by 9 votes to 8, with 1 abstention.<cite>E/CN.4/SR.325, p. 20</cite></blockquote>
       <ul class="plain">
@@ -482,7 +488,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       </ul>
     </div>
     <div>
-      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/travaux-preparatoires · Search</span><span class="demo">Live demo</span></div><img src="img/travaux.jpg" alt="UN Travaux Préparatoires, Search: the vote on the French amendment in E/CN.4/SR.325, p. 20, with the record open on the right" width="1280" height="704"></figure>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/travaux-preparatoires · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/travaux-loop-poster.jpg" width="1280" height="960" aria-label="UN Travaux Préparatoires: the search for democratic society, then the record E/CN.4/SR.325 with the vote on the French amendment"><source src="video/travaux-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 10-second loop">▶ Play · 10 s</button></div></figure>
       <div class="try"><span>Search <code data-copy='"democratic society"'>"democratic society"</code></span><span>Record <code data-copy="E/CN.4/SR.325">E/CN.4/SR.325</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=article&i=ICCPR&n=21" target="_blank" rel="noopener">Article 21 ICCPR ↗</a><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=search&q=%22democratic%20society%22&symbol=E%2FCN.4%2FSR.325" target="_blank" rel="noopener">This search ↗</a></div>
       <p class="tip">Summary records paraphrase in the third person: check the scan before you quote.</p>
@@ -506,7 +512,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide t-vote" data-title="HRC Voting">
   <div class="kicker">3 · HRC Voting · Politics</div>
   <h2>Peaceful protests at the Human Rights Council</h2>
-  <div class="body demo-grid" style="--shotw:560px">
+  <div class="body demo-grid" style="--shotw:480px">
     <div style="display:grid;gap:18px">
       <div class="table-wrap"><table>
         <thead><tr><th>Year</th><th>Resolution</th><th>Yes – no – abstain</th></tr></thead>
@@ -519,7 +525,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <p class="big" style="font-size:24px">Between 2016 and 2024, 19 amendments to these resolutions were put to a vote. All were rejected.</p>
     </div>
     <div>
-      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/hrc-voting · Topics</span><span class="demo">Live demo</span></div><img src="img/voting.jpg" alt="HRC Voting, Topics: the subject Right to Assembly - Public Demonstrations with amendments, 21 recorded votes from 2014 to 2024 and the share of Yes votes over time" width="1280" height="808"></figure>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/hrc-voting · Topics</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/hrc-voting-loop-poster.jpg" width="1280" height="960" aria-label="HRC Voting: the topic Right to Assembly - Public Demonstrations, the votes, and the map of one amendment"><source src="video/hrc-voting-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 12-second loop">▶ Play · 12 s</button></div></figure>
       <div class="try"><span>Topics <code data-copy="Right to Assembly - Public Demonstrations">Right to Assembly - Public Demonstrations</code></span><span>Scope: <i>With amendments</i></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">Open HRC Voting ↗</a><a class="open" href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">25/38 in the OHCHR Library ↗</a></div>
     </div>
@@ -542,13 +548,13 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide t-uhri" data-title="UHRI+">
   <div class="kicker">4 · UHRI+ · Practice</div>
   <h2>What States are told about peaceful assembly</h2>
-  <div class="body demo-grid">
+  <div class="body demo-grid" style="--shotw:480px">
     <div style="display:grid;gap:18px">
       <p class="big">3,700+ recommendations and observations carry the theme “right to peaceful assembly” in UHRI+.</p>
       <p class="lead" style="font-size:19px;margin:0">UHRI+ is the same data, cleaned, with visualizations and a statistics overlay. Every record opens in UHRI.</p>
     </div>
     <div>
-      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/UnitedNations_recommendations · Search</span><span class="demo">Live demo</span></div><img src="img/uhri.jpg" alt="UHRI+, Search: 3,723 recommendations with the theme Right to peaceful assembly, newest first" width="1280" height="698"></figure>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/UnitedNations_recommendations · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/uhri-loop-poster.jpg" width="1280" height="880" aria-label="UHRI+ overview: the theme Right to peaceful assembly narrows 278,511 records to 3,723 and the world map changes"><source src="video/uhri-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 10-second loop">▶ Play · 10 s</button></div></figure>
       <div class="try"><span>Theme <code data-copy="Right to peaceful assembly">Right to peaceful assembly</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/UnitedNations_recommendations/dashboard.html#view=search&theme=Right%20to%20peaceful%20assembly" target="_blank" rel="noopener">Open UHRI+, this theme ↗</a></div>
     </div>
@@ -662,6 +668,8 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     slides.forEach(function (s) { s.style.transform = 'scale(' + k + ')'; });
   }
   function go(n) {
+    // A loop stops when its slide is left.
+    [].forEach.call(document.querySelectorAll('.loop video'), function (v) { if (!v.paused) v.pause(); });
     if (n > i && slides[n]) [].forEach.call(slides[n].querySelectorAll('[data-build] .build-item'), function (el, j) { el.classList.toggle('open', j === 0); });
     i = Math.max(0, Math.min(slides.length - 1, n));
     slides.forEach(function (s, j) { s.classList.toggle('on', j === i); });
@@ -765,6 +773,13 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   [].forEach.call(document.querySelectorAll('.themeBtn'), function (b) { b.addEventListener('click', toggleTheme); });
   if (sysDark.addEventListener) sysDark.addEventListener('change', labelTheme);
   labelTheme();
+  // Loops play only on a click (never on the arrow keys); a click on a playing loop pauses it.
+  [].forEach.call(document.querySelectorAll('.loop'), function (box) {
+    var v = box.querySelector('video');
+    box.addEventListener('click', function () { if (v.paused) { v.play(); } else { v.pause(); } });
+    v.addEventListener('play', function () { box.classList.add('playing'); });
+    v.addEventListener('pause', function () { box.classList.remove('playing'); });
+  });
   // The navigation shows while the mouse moves and fades out 2.5 s after it stops (unless the pointer is on it).
   var hud = document.getElementById('hud'), idle;
   function wake() {
