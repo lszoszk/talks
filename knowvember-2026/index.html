@@ -163,23 +163,26 @@ tr[class^="t-"] td:first-child { box-shadow: inset 4px 0 0 var(--accent); paddin
 .demo-grid .tip { margin: 0; font-size: 17px; }
 
 /* ---------- benchmark chart (slide on Ask vs Search) ---------- */
-.bench { display: grid; gap: 6px; }
+.bench { display: grid; gap: 8px; }
+.case.example { gap: 8px; padding: 14px 18px; }
+.case.example .step { font-size: 16px; line-height: 1.4; }
+.case.example .case-q { font-size: 16px; }
 .bench-top { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .bench-top .sw { display: inline-block; width: 18px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
 .sw.ask { background: linear-gradient(90deg, var(--c-hrdb) 50%, var(--c-trav) 50%); }
 .sw.search { background: var(--c-search); }
 .bench-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .bench-panels > * { min-width: 0; }
-.panel-h { font-size: 15px; padding-bottom: 3px; }
+.panel-h { font-size: 17px; padding-bottom: 4px; }
 .panel-h .src { font: 12px var(--mono); color: var(--muted); }
-.brow { display: grid; grid-template-columns: 128px 1fr; gap: 10px; align-items: center; padding: 4px 0; border-top: 1px solid var(--rule); }
-.brow .lab { font-size: 14px; color: var(--ink-2); }
-.bars { display: grid; gap: 2px; }
-.bw { display: flex; align-items: center; gap: 6px; height: 12px; }
-.bw .b { flex: none; height: 11px; width: calc((100% - 74px) * var(--v) / 100); min-width: 2px; border-radius: 0 4px 4px 0; }
+.brow { display: grid; grid-template-columns: 150px 1fr; gap: 12px; align-items: center; padding: 6px 0; border-top: 1px solid var(--rule); }
+.brow .lab { font-size: 16px; color: var(--ink-2); }
+.bars { display: grid; gap: 3px; }
+.bw { display: flex; align-items: center; gap: 8px; height: 15px; }
+.bw .b { flex: none; height: 14px; width: calc((100% - 86px) * var(--v) / 100); min-width: 2px; border-radius: 0 4px 4px 0; }
 .bw .b.ask { background: var(--accent); }
 .bw .b.search { background: var(--c-search); }
-.bw em { font: normal 12px/1 var(--sans); color: var(--ink-2); white-space: nowrap; }
+.bw em { font: normal 14px/1 var(--sans); color: var(--ink-2); white-space: nowrap; }
 
 /* ---------- the whole route ---------- */
 .path { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
@@ -192,6 +195,8 @@ tr[class^="t-"] td:first-child { box-shadow: inset 4px 0 0 var(--accent); paddin
 .path .sym { font: 600 16px/1.3 var(--mono); overflow-wrap: anywhere; }
 .path p { margin: 0; font-size: 18px; line-height: 1.4; }
 .path a { font: 13px var(--mono); }
+.takeaway { margin: 26px 0 0; padding: 14px 18px; background: var(--paper-2); border-radius: 4px; font-size: 19px; line-height: 1.45; }
+.takeaway b { font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-right: 8px; }
 .limits { grid-template-columns: 1fr 1fr; column-gap: 34px; row-gap: 10px; }
 ul.plain.limits li { font-size: 17px; line-height: 1.4; }
 
@@ -443,20 +448,11 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide" data-title="Does Ask find the source">
   <div class="kicker">Search tip · measured, not assumed</div>
   <h2>Does search by meaning find the right source?</h2>
-  <div class="body" style="gap:10px" data-build>
-    <div class="two" style="grid-template-columns:1fr 1fr;gap:22px">
-      <div class="case build-item open t-hrdb">
-        <div class="case-h">UN-HRDB · 1 of 389 cases</div>
-        <div class="step"><i>1</i><div><b>Source.</b> The Views CCPR/C/131/D/2635/2015: <span class="case-q">“The onus is on States parties to justify the limitations on the right protected by article 21 of the Covenant and to demonstrate that it does not serve as a disproportionate obstacle to the exercise of the right.”</span> They cite <b>CCPR/C/GC/37, para. 36</b>, the answer key.</div></div>
-        <div class="step"><i>2</i><div><b>Three questions.</b> (a) that sentence, copied; (b) a question written by Claude Sonnet 5.5: <span class="case-q">“Who must justify limits on assembly and show they do not unduly obstruct people exercising it?”</span> (c) keywords: <code>state burden justify assembly restrictions</code></div></div>
-        <div class="step ok"><i>3</i><div><b>Ask</b> puts para. 36 (a) first, (b) first, (c) fourth. <b>Search</b> finds nothing in all three.</div></div>
-      </div>
-      <div class="case build-item t-trav">
-        <div class="case-h">Travaux · 1 of 579 claims</div>
-        <div class="step"><i>1</i><div><b>Source.</b> Nowak's CCPR Commentary (2005), p. 490, note 20, on the French proposal to add “in a democratic society” to Article 21. It cites SR.169, SR.121 and <b>E/CN.4/SR.325, p. 20</b>, the answer key.</div></div>
-        <div class="step"><i>2</i><div><b>Three questions</b>, written by Claude Sonnet 5.5 from the note: (a) a statement: <span class="case-q">“French proposal to add the phrase necessary in a democratic society to the limitation clause on assembly, narrowly adopted…”</span> (b) a question: <span class="case-q">“Who proposed adding democratic society language to the restriction clause on assembly, and how close was the vote?”</span> (c) keywords: <code>necessary in a democratic society</code></div></div>
-        <div class="step ok"><i>3</i><div><b>Ask</b> puts SR.325, p. 20 (a) first, (b) fourth, after the Commission's report of the same vote, (c) first. <b>Search</b>: (a) and (b) nothing useful, (c) first.</div></div>
-      </div>
+  <div class="body" style="gap:16px" data-build>
+    <div class="case build-item open t-hrdb example">
+      <div class="case-h">One of 389 cases · UN-HRDB</div>
+      <div class="step"><i>1</i><div>The Views CCPR/C/131/D/2635/2015 cite <b>CCPR/C/GC/37, para. 36</b> for this sentence: <span class="case-q">“The onus is on States parties to justify the limitations on the right protected by article 21 of the Covenant…”</span></div></div>
+      <div class="step ok"><i>2</i><div><b>Ask</b> puts para. 36 first, for the sentence as copied and for a question rewritten by Claude Sonnet 5.5. <b>Search</b> finds nothing.</div></div>
     </div>
     <div class="build-item">
     <div class="bench">
@@ -588,6 +584,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <li class="t-vote" data-n="3"><div class="card"><b>Politics</b><small>HRC Voting</small><span class="sym">A/HRC/RES/25/38</span><p>Adopted 31 – 9 – 7 in 2014. Later, 19 amendments rejected</p><a href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">searchlibrary.ohchr.org ↗</a></div></li>
       <li class="t-uhri" data-n="4"><div class="card"><b>Practice</b><small>UHRI+</small><span class="sym">3,700+ recommendations</span><p>What States are told about peaceful assembly, until today</p><a href="https://uhri.ohchr.org/" target="_blank" rel="noopener">uhri.ohchr.org ↗</a></div></li>
     </ol>
+    <p class="takeaway"><b>Take it with you.</b> Every list of results exports with its UN symbols (CSV, XLSX, JSON, BibTeX, RIS for Zotero), your Workspace as Markdown, and every chart as PNG.</p>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span></span></div>
 </section>
