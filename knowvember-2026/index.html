@@ -13,16 +13,23 @@
   --serif: Georgia, "Iowan Old Style", "Times New Roman", serif;
   --sans: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* one colour per tool (checked for colour blindness, light and dark) */
+  --c-hrdb: #9b2335; --s-hrdb: #f3e3e5; --c-trav: #1d62b4; --s-trav: #e2ebf6;
+  --c-vote: #8a5a12; --s-vote: #f3e9d6; --c-uhri: #6a40a8; --s-uhri: #ece5f5; --c-search: #b9b0a1;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #17161a; --paper-2: #222027; --ink: #ece8df; --ink-2: #c9c3b8; --muted: #9a948a;
-    --rule: #3a3740; --accent: #e07a86; --accent-soft: #3a2328; --ok: #7cc28a;
+    --rule: #3a3740; --accent: #d96e7c; --accent-soft: #3a2328; --ok: #7cc28a;
+    --c-hrdb: #d96e7c; --s-hrdb: #3a2328; --c-trav: #5890da; --s-trav: #1b2840;
+    --c-vote: #bd8733; --s-vote: #33291a; --c-uhri: #9a78d8; --s-uhri: #2a2240; --c-search: #57524b;
   }
 }
 :root[data-theme="dark"] {
   --paper: #17161a; --paper-2: #222027; --ink: #ece8df; --ink-2: #c9c3b8; --muted: #9a948a;
-  --rule: #3a3740; --accent: #e07a86; --accent-soft: #3a2328; --ok: #7cc28a;
+  --rule: #3a3740; --accent: #d96e7c; --accent-soft: #3a2328; --ok: #7cc28a;
+  --c-hrdb: #d96e7c; --s-hrdb: #3a2328; --c-trav: #5890da; --s-trav: #1b2840;
+  --c-vote: #bd8733; --s-vote: #33291a; --c-uhri: #9a78d8; --s-uhri: #2a2240; --c-search: #57524b;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.45 var(--sans); }
@@ -66,7 +73,7 @@ td .src { display: block; font: 13px var(--mono); color: var(--muted); margin-to
 .route.steps3 { grid-template-columns: repeat(3, 1fr); }
 table.t14 th, table.t14 td { font-size: 16px; padding: 8px 12px 8px 0; }
 table.t14 td:first-child { width: 17%; }
-table.t15 th, table.t15 td { font-size: 19px; padding: 10px 14px 10px 0; }
+table.t15 th, table.t15 td { font-size: 17px; padding: 7px 14px 7px 0; }
 table.t15 td:first-child { width: 30%; }
 table.t14 thead th, table.t15 thead th { font-size: 12px; }
 .case { background: var(--paper-2); border-radius: 4px; padding: 16px 18px; display: grid; gap: 8px; align-content: start; }
@@ -102,6 +109,72 @@ body.deck .build-item:not(.open) { opacity: 0; transform: translateX(40px); }
 .tools li { font-size: 20px; }
 .tools .host { font: 13px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
 .close > *, .two > *, .principles > *, .route > * { min-width: 0; }
+
+/* ---------- one colour per tool ---------- */
+.t-hrdb { --accent: var(--c-hrdb); --accent-soft: var(--s-hrdb); }
+.t-trav { --accent: var(--c-trav); --accent-soft: var(--s-trav); }
+.t-vote { --accent: var(--c-vote); --accent-soft: var(--s-vote); }
+.t-uhri { --accent: var(--c-uhri); --accent-soft: var(--s-uhri); }
+tr[class^="t-"] td:first-child { box-shadow: inset 4px 0 0 var(--accent); padding-left: 14px; }
+.route > div[class^="t-"] { border-top: 3px solid var(--accent); }
+.tools li[class^="t-"]::before { background: var(--accent); height: 4px; }
+
+/* ---------- section slides ---------- */
+.slide.divider { background: var(--accent); color: var(--paper); }
+.divider .kicker { color: var(--paper); opacity: .85; }
+.divider .foot { color: var(--paper); opacity: .8; border-top-color: currentColor; }
+.divider .foot a { border-bottom-color: currentColor; }
+.divider .body { display: grid; grid-template-columns: auto 1fr; column-gap: 56px; align-content: center; align-items: center; }
+.divider .num { grid-row: span 2; font: 400 220px/.8 var(--serif); }
+.divider h2 { font-size: 60px; margin: 0; align-self: end; }
+.divider .q { font: 400 30px/1.35 var(--sans); margin: 14px 0 0; max-width: 28ch; align-self: start; }
+
+/* ---------- demo slides: a screenshot of the tool ---------- */
+.demo-grid { display: grid; grid-template-columns: 1fr var(--shotw, 600px); gap: 36px; align-items: start; }
+.demo-grid > * { min-width: 0; }
+.demo-grid ul.plain li { font-size: 20px; }
+.shot { margin: 0; border: 1px solid var(--rule); border-radius: 6px; overflow: hidden; background: var(--paper-2); box-shadow: 0 10px 28px rgba(0, 0, 0, .13); }
+.shot-bar { display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-bottom: 1px solid var(--rule); font: 11px/1 var(--mono); color: var(--muted); }
+.shot-bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--rule); flex: none; }
+.shot-bar span:not(.demo) { margin-left: 8px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.shot-bar .demo { padding: 4px 7px; font-size: 10px; }
+.shot img { display: block; width: 100%; height: auto; }
+.try { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 12px; font-size: 16px; }
+.demo-grid .opens { margin-top: 10px; }
+.demo-grid .tip { margin-top: 12px; font-size: 17px; }
+
+/* ---------- benchmark chart (slide on Ask vs Search) ---------- */
+.bench { display: grid; gap: 6px; }
+.bench-top { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; font: 600 11px/1 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.bench-top .sw { display: inline-block; width: 18px; height: 10px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+.sw.ask { background: linear-gradient(90deg, var(--c-hrdb) 50%, var(--c-trav) 50%); }
+.sw.search { background: var(--c-search); }
+.bench-panels { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.bench-panels > * { min-width: 0; }
+.panel-h { font-size: 15px; padding-bottom: 3px; }
+.panel-h .src { font: 12px var(--mono); color: var(--muted); }
+.brow { display: grid; grid-template-columns: 128px 1fr; gap: 10px; align-items: center; padding: 4px 0; border-top: 1px solid var(--rule); }
+.brow .lab { font-size: 14px; color: var(--ink-2); }
+.bars { display: grid; gap: 2px; }
+.bw { display: flex; align-items: center; gap: 6px; height: 12px; }
+.bw .b { flex: none; height: 11px; width: calc((100% - 74px) * var(--v) / 100); min-width: 2px; border-radius: 0 4px 4px 0; }
+.bw .b.ask { background: var(--accent); }
+.bw .b.search { background: var(--c-search); }
+.bw em { font: normal 12px/1 var(--sans); color: var(--ink-2); white-space: nowrap; }
+
+/* ---------- the whole route ---------- */
+.path { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 26px; }
+.path > li { position: relative; padding-top: 46px; min-width: 0; }
+.path > li::before { content: attr(data-n); position: absolute; top: 0; left: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: var(--paper); font: 600 14px/30px var(--mono); text-align: center; }
+.path > li:not(:last-child)::after { content: ""; position: absolute; top: 14px; left: 38px; right: -18px; height: 2px; background: var(--rule); }
+.path .card { background: var(--paper-2); border-top: 3px solid var(--accent); border-radius: 0 0 4px 4px; padding: 14px 16px 16px; display: grid; gap: 8px; }
+.path b { font: 600 12px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.path small { font: 12px var(--mono); color: var(--muted); }
+.path .sym { font: 600 16px/1.3 var(--mono); overflow-wrap: anywhere; }
+.path p { margin: 0; font-size: 18px; line-height: 1.4; }
+.path a { font: 13px var(--mono); }
+.limits { grid-template-columns: 1fr 1fr; column-gap: 34px; row-gap: 10px; }
+ul.plain.limits li { font-size: 17px; line-height: 1.4; }
 
 /* ---------- title slide: Find – Cite – Check on CCPR/C/GC/37 para. 40 ---------- */
 .title-grid { display: grid; grid-template-columns: 1fr 470px; gap: 48px; align-items: center; }
@@ -167,6 +240,14 @@ body.read .principles, body.read .route, body.read .two, body.read .close { grid
 body.read .close .qr { max-width: 220px; }
 body.read .table-wrap { overflow-x: auto; }
 body.read .foot { display: none; }
+body.read .demo-grid, body.read .bench-panels, body.read .path, body.read .limits { grid-template-columns: 1fr; }
+body.read .path > li::after { display: none; }
+body.read table.t14 { table-layout: fixed; }
+body.read table.t14 td, body.read table.t14 th { overflow-wrap: anywhere; }
+body.read .slide.divider { padding: 36px 20px 28px; }
+body.read .divider .num { font-size: 110px; }
+body.read .divider h2 { font-size: 34px; }
+body.read .divider .q { font-size: 21px; }
 .readbar { display: none; }
 body.read .readbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; max-width: 860px; margin: 0 auto;
   padding: 12px 16px; font: 12px var(--mono); color: var(--muted); border-bottom: 1px solid var(--rule); }
@@ -190,7 +271,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <div class="readbar"><span>Find It. Cite It. Check It · Knowvember, OHCHR, 10 November 2026</span><span><button type="button" class="themeBtn">Dark</button> <button type="button" id="toDeck">Slides</button></span></div>
 <main id="deck">
 
-<!-- 1 -->
 <section class="slide" data-title="Title">
   <div class="kicker">Knowvember · OHCHR · 10 November 2026</div>
   <div class="body title-grid">
@@ -212,7 +292,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <div class="foot"><span>lszoszk.github.io/talks/knowvember-2026</span><span>1</span></div>
 </section>
 
-<!-- 2 -->
 <section class="slide" data-title="Why these tools">
   <div class="kicker">Why these tools</div>
   <h2>From Ctrl+F to open tools</h2>
@@ -228,7 +307,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <div class="foot"><span>Find It. Cite It. Check It</span><span>2</span></div>
 </section>
 
-<!-- 3 -->
 <section class="slide" data-title="Three principles">
   <div class="kicker">Design principles</div>
   <h2>Three principles behind all four tools</h2>
@@ -242,7 +320,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <div class="foot"><span>Find It. Cite It. Check It</span><span>3</span></div>
 </section>
 
-<!-- 4 -->
 <section class="slide" data-title="Four tools">
   <div class="kicker">Four tools, four official sources</div>
   <h2>Each one ends where an official record begins</h2>
@@ -250,56 +327,58 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <table>
       <thead><tr><th>Tool</th><th>What it holds</th><th>Links to</th></tr></thead>
       <tbody>
-        <tr><td><b><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">UN Human Rights Database</a></b></td><td>323,000+ paragraphs: General Comments, jurisprudence of the treaty bodies, reports of the Special Procedures</td><td class="mono">docs.un.org</td></tr>
-        <tr><td><b><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">UN Travaux Préparatoires</a></b></td><td>29,694 speeches from the drafting of the UDHR, the ICCPR and the ICESCR (1946–1966), with votes and amendments</td><td class="mono">UN scans (undocs.org, UN Digital Library)</td></tr>
-        <tr><td><b><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">HRC Voting</a></b></td><td>7,420 records of the Commission on Human Rights, the Human Rights Council and the Third Committee of the General Assembly; 2,736 of them decided by a recorded vote</td><td class="mono">searchlibrary.ohchr.org</td></tr>
-        <tr><td><b><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">UHRI+</a></b></td><td>278,000+ recommendations and observations addressed to States by the UPR, the treaty bodies and the Special Procedures</td><td class="mono">uhri.ohchr.org</td></tr>
+        <tr class="t-hrdb"><td><b><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">UN Human Rights Database</a></b></td><td>323,000+ paragraphs: General Comments, jurisprudence of the treaty bodies, reports of the Special Procedures</td><td class="mono">docs.un.org</td></tr>
+        <tr class="t-trav"><td><b><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">UN Travaux Préparatoires</a></b></td><td>29,694 speeches from the drafting of the UDHR, the ICCPR and the ICESCR (1946–1966), with votes and amendments</td><td class="mono">UN scans (undocs.org, UN Digital Library)</td></tr>
+        <tr class="t-vote"><td><b><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">HRC Voting</a></b></td><td>7,420 records of the Commission on Human Rights, the Human Rights Council and the Third Committee of the General Assembly; 2,736 of them decided by a recorded vote</td><td class="mono">searchlibrary.ohchr.org</td></tr>
+        <tr class="t-uhri"><td><b><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">UHRI+</a></b></td><td>278,000+ recommendations and observations addressed to States by the UPR, the treaty bodies and the Special Procedures</td><td class="mono">uhri.ohchr.org</td></tr>
       </tbody>
     </table>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>4</span></div>
 </section>
 
-<!-- 5 -->
 <section class="slide" data-title="Today's question">
   <div class="kicker">One question for the whole session</div>
   <h2>“Necessary in a democratic society”</h2>
   <div class="body">
     <p class="big">Article 21 ICCPR allows restrictions on peaceful assembly only if they are necessary in a democratic society. What does that mean, where do these words come from, and what do States do with them today?</p>
     <div class="route">
-      <div><b>Find</b><span>General Comment No. 37<br><small class="mono">UN Human Rights Database</small></span></div>
-      <div><b>Origin</b><span>The drafting in 1952<br><small class="mono">Travaux Préparatoires</small></span></div>
-      <div><b>Politics</b><span>Votes on peaceful protests<br><small class="mono">HRC Voting</small></span></div>
-      <div><b>Practice</b><span>Recommendations to States<br><small class="mono">UHRI+</small></span></div>
+      <div class="t-hrdb"><b>Find</b><span>General Comment No. 37<br><small class="mono">UN Human Rights Database</small></span></div>
+      <div class="t-trav"><b>Origin</b><span>The drafting in 1952<br><small class="mono">Travaux Préparatoires</small></span></div>
+      <div class="t-vote"><b>Politics</b><span>Votes on peaceful protests<br><small class="mono">HRC Voting</small></span></div>
+      <div class="t-uhri"><b>Practice</b><span>Recommendations to States<br><small class="mono">UHRI+</small></span></div>
     </div>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>5</span></div>
 </section>
 
-<!-- 6 -->
-<section class="slide" data-title="UN-HRDB: find">
+<!-- part 1 -->
+<section class="slide divider t-hrdb" data-title="Part 1: UN Human Rights Database">
+  <div class="kicker">Part 1 of 4 · Find</div>
+  <div class="body">
+    <div class="num">1</div>
+    <h2>UN Human Rights Database</h2>
+    <p class="q">What does “necessary in a democratic society” mean?</p>
+  </div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">lszoszk.github.io/generalcomments</a></span><span></span></div>
+</section>
+
+
+<section class="slide t-hrdb" data-title="UN-HRDB: find">
   <div class="kicker">1 · UN Human Rights Database · Find and cite</div>
   <h2>The paragraph, with its citation</h2>
-  <div class="body two">
+  <div class="body demo-grid">
     <blockquote class="quote">Article 21 provides that any restrictions must be “necessary in a democratic society”. Restrictions must therefore be necessary and proportionate in the context of a society based on democracy, the rule of law, political pluralism and human rights, as opposed to being merely reasonable or expedient.<cite>CCPR/C/GC/37, para. 40</cite></blockquote>
     <div>
-      <span class="demo">Live demo</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Search <code data-copy='"necessary in a democratic society"'>"necessary in a democratic society"</code></li>
-        <li>Filter: Human Rights Committee (CCPR)</li>
-        <li>Open the paragraph: footnotes and neighbouring paragraphs</li>
-        <li>Copy it with the citation</li>
-        <li>↗ the document on docs.un.org</li>
-        <li>The same words in the Committee's Views</li>
-      </ol>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Search</span><span class="demo">Live demo</span></div><img src="img/search.jpg" alt="UN Human Rights Database, Search: two paragraphs of General Comments with the phrase necessary in a democratic society marked, GC 27 para. 11 and GC 37 para. 40" width="1280" height="793"></figure>
+      <div class="try"><span>Search <code data-copy='"necessary in a democratic society"'>"necessary in a democratic society"</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/generalcomments/?q=%22necessary%20in%20a%20democratic%20society%22&tb=CCPR#search" target="_blank" rel="noopener">Open this search ↗</a><a class="open" href="https://docs.un.org/en/CCPR/C/GC/37" target="_blank" rel="noopener">GC 37 on docs.un.org ↗</a></div>
     </div>
   </div>
-  <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">lszoszk.github.io/generalcomments</a></span><span>6</span></div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">lszoszk.github.io/generalcomments</a></span><span></span></div>
 </section>
 
-<!-- 7 -->
-<section class="slide" data-title="UN-HRDB: check">
+<section class="slide t-hrdb" data-title="UN-HRDB: check">
   <div class="kicker">1 · UN Human Rights Database · Check</div>
   <h2>Spot the two errors</h2>
   <div class="body">
@@ -314,12 +393,11 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/#check" target="_blank" rel="noopener">lszoszk.github.io/generalcomments → Check</a></span><span>7</span></div>
 </section>
 
-<!-- 8 -->
-<section class="slide" data-title="Ask">
+<section class="slide t-hrdb" data-title="Ask">
   <div class="kicker">1 · UN Human Rights Database · Ask</div>
   <h2>A question in your own words</h2>
-  <div class="body two">
-    <div style="display:grid;gap:16px">
+  <div class="body demo-grid">
+    <div style="display:grid;gap:14px">
       <p class="pasted" data-copy="Do organizers have to ask the police for permission before holding a protest?">Do organizers have to ask the police for permission before holding a protest?</p>
       <ul class="plain">
         <li><b>Search</b> (every word must appear): 0 paragraphs</li>
@@ -328,33 +406,26 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <blockquote class="quote">Having to apply for permission from the authorities undercuts the idea that peaceful assembly is a basic right.<cite>CCPR/C/GC/37, para. 70</cite></blockquote>
     </div>
     <div>
-      <span class="demo">Live demo</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Type the question in <b>Ask</b></li>
-        <li>Read the paragraphs: verbatim, in the order of relevance</li>
-        <li>Open para. 70: notification is permissible, permission is not</li>
-        <li>↗ the document on docs.un.org</li>
-      </ol>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Ask</span><span class="demo">Live demo</span></div><img src="img/ask.jpg" alt="UN Human Rights Database, Ask: the question about police permission and, as the top match, GC 37 para. 70" width="1280" height="720"></figure>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/generalcomments/#ask" target="_blank" rel="noopener">Open Ask ↗</a></div>
-      <p class="tip" style="margin-top:16px">A model only finds and orders the paragraphs, and every word on the screen is the Committee's.</p>
+      <p class="tip">A model only finds and orders the paragraphs, and every word on the screen is the Committee's.</p>
     </div>
   </div>
-  <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/#ask" target="_blank" rel="noopener">lszoszk.github.io/generalcomments → Ask</a></span><span>8</span></div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/#ask" target="_blank" rel="noopener">lszoszk.github.io/generalcomments → Ask</a></span><span></span></div>
 </section>
 
-<!-- 8b -->
 <section class="slide" data-title="Does Ask find the source">
   <div class="kicker">Search tip · measured, not assumed</div>
   <h2>Does search by meaning find the right source?</h2>
   <div class="body" style="gap:10px" data-build>
     <div class="two" style="grid-template-columns:1fr 1fr;gap:22px">
-      <div class="case build-item open">
+      <div class="case build-item open t-hrdb">
         <div class="case-h">UN-HRDB · 1 of 389 cases</div>
         <div class="step"><i>1</i><div><b>Source.</b> The Views CCPR/C/131/D/2635/2015: <span class="case-q">“The onus is on States parties to justify the limitations on the right protected by article 21 of the Covenant and to demonstrate that it does not serve as a disproportionate obstacle to the exercise of the right.”</span> They cite <b>CCPR/C/GC/37, para. 36</b>, the answer key.</div></div>
         <div class="step"><i>2</i><div><b>Three questions.</b> (a) that sentence, copied; (b) a question written by Claude Sonnet 5.5: <span class="case-q">“Who must justify limits on assembly and show they do not unduly obstruct people exercising it?”</span> (c) keywords: <code>state burden justify assembly restrictions</code></div></div>
         <div class="step ok"><i>3</i><div><b>Ask</b> puts para. 36 (a) first, (b) first, (c) fourth. <b>Search</b> finds nothing in all three.</div></div>
       </div>
-      <div class="case build-item">
+      <div class="case build-item t-trav">
         <div class="case-h">Travaux · 1 of 579 claims</div>
         <div class="step"><i>1</i><div><b>Source.</b> Nowak's CCPR Commentary (2005), p. 490, note 20, on the French proposal to add “in a democratic society” to Article 21. It cites SR.169, SR.121 and <b>E/CN.4/SR.325, p. 20</b>, the answer key.</div></div>
         <div class="step"><i>2</i><div><b>Three questions</b>, written by Claude Sonnet 5.5 from the note: (a) a statement: <span class="case-q">“French proposal to add the phrase necessary in a democratic society to the limitation clause on assembly, narrowly adopted…”</span> (b) a question: <span class="case-q">“Who proposed adding democratic society language to the restriction clause on assembly, and how close was the vote?”</span> (c) keywords: <code>necessary in a democratic society</code></div></div>
@@ -362,24 +433,43 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       </div>
     </div>
     <div class="build-item">
-    <table class="tiers">
-      <thead><tr><th>All cases · right source in the first 10</th><th>(a) copied or stated</th><th>(b) a question</th><th>(c) keywords</th></tr></thead>
-      <tbody>
-        <tr><td><b>UN-HRDB</b> <span class="src">389 cases</span></td><td>Ask <b>53%</b> · Search 2%</td><td>Ask <b>42%</b> · Search 0%</td><td>Ask <b>34%</b> · Search 9%</td></tr>
-        <tr><td><b>Travaux</b> <span class="src">579 claims from <a href="https://books.google.com/books?id=R-Z4QgAACAAJ" target="_blank" rel="noopener">Nowak (2005)</a> and <a href="https://books.google.com/books?id=J0jbAgAAQBAJ" target="_blank" rel="noopener">Saul, Kinley and Mowbray (2014)</a></span></td><td>Ask <b>82%</b> · Search 1%</td><td>Ask <b>73%</b> · Search 1%</td><td>Ask 26% · Search <b>45%</b></td></tr>
-      </tbody>
-    </table>
+    <div class="bench">
+      <div class="bench-top"><span>All cases · right source in the first 10</span><span><i class="sw ask"></i>Ask</span><span><i class="sw search"></i>Search</span></div>
+      <div class="bench-panels">
+        <div class="t-hrdb"><div class="panel-h"><b>UN-HRDB</b> <span class="src">389 cases</span></div>
+<div class="brow"><span class="lab">(a) copied or stated</span><div class="bars"><div class="bw" title="UN-HRDB · (a) copied or stated · Ask: 53% of 389 cases"><i class="b ask" style="--v:53"></i><em>Ask <b>53%</b></em></div><div class="bw" title="UN-HRDB · (a) copied or stated · Search: 2% of 389 cases"><i class="b search" style="--v:2"></i><em>Search 2%</em></div></div></div>
+<div class="brow"><span class="lab">(b) a question</span><div class="bars"><div class="bw" title="UN-HRDB · (b) a question · Ask: 42% of 389 cases"><i class="b ask" style="--v:42"></i><em>Ask <b>42%</b></em></div><div class="bw" title="UN-HRDB · (b) a question · Search: 0% of 389 cases"><i class="b search" style="--v:0"></i><em>Search 0%</em></div></div></div>
+<div class="brow"><span class="lab">(c) keywords</span><div class="bars"><div class="bw" title="UN-HRDB · (c) keywords · Ask: 34% of 389 cases"><i class="b ask" style="--v:34"></i><em>Ask <b>34%</b></em></div><div class="bw" title="UN-HRDB · (c) keywords · Search: 9% of 389 cases"><i class="b search" style="--v:9"></i><em>Search 9%</em></div></div></div>
+</div>
+        <div class="t-trav"><div class="panel-h"><b>Travaux</b> <span class="src">579 claims from <a href="https://books.google.com/books?id=R-Z4QgAACAAJ" target="_blank" rel="noopener">Nowak (2005)</a> and <a href="https://books.google.com/books?id=J0jbAgAAQBAJ" target="_blank" rel="noopener">Saul, Kinley and Mowbray (2014)</a></span></div>
+<div class="brow"><span class="lab">(a) copied or stated</span><div class="bars"><div class="bw" title="Travaux · (a) copied or stated · Ask: 82% of 579 claims"><i class="b ask" style="--v:82"></i><em>Ask <b>82%</b></em></div><div class="bw" title="Travaux · (a) copied or stated · Search: 1% of 579 claims"><i class="b search" style="--v:1"></i><em>Search 1%</em></div></div></div>
+<div class="brow"><span class="lab">(b) a question</span><div class="bars"><div class="bw" title="Travaux · (b) a question · Ask: 73% of 579 claims"><i class="b ask" style="--v:73"></i><em>Ask <b>73%</b></em></div><div class="bw" title="Travaux · (b) a question · Search: 1% of 579 claims"><i class="b search" style="--v:1"></i><em>Search 1%</em></div></div></div>
+<div class="brow"><span class="lab">(c) keywords</span><div class="bars"><div class="bw" title="Travaux · (c) keywords · Ask: 26% of 579 claims"><i class="b ask" style="--v:26"></i><em>Ask <b>26%</b></em></div><div class="bw" title="Travaux · (c) keywords · Search: 45% of 579 claims"><i class="b search" style="--v:45"></i><em>Search 45%</em></div></div></div>
+</div>
+      </div>
+    </div>
     <p style="margin:0;font-size:15px;color:var(--ink-2)">Lower bounds: the answer keys are frozen in time, and a newer document that answers better counts as a miss. A question in your own words: use <b>Ask</b>. A few words: use <b>Search</b>.</p>
     </div>
   </div>
   <div class="foot"><span>UN-HRDB: 7–8 November 2026 · Travaux: 4 and 8 November 2026</span><span>9</span></div>
 </section>
 
-<!-- 9 -->
-<section class="slide" data-title="Travaux">
+<!-- part 2 -->
+<section class="slide divider t-trav" data-title="Part 2: UN Travaux Préparatoires">
+  <div class="kicker">Part 2 of 4 · Origin</div>
+  <div class="body">
+    <div class="num">2</div>
+    <h2>UN Travaux Préparatoires</h2>
+    <p class="q">Where do these words come from?</p>
+  </div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">lszoszk.github.io/travaux-preparatoires</a></span><span></span></div>
+</section>
+
+
+<section class="slide t-trav" data-title="Travaux">
   <div class="kicker">2 · UN Travaux Préparatoires · Origin</div>
   <h2>6 June 1952: nine votes to eight</h2>
-  <div class="body two">
+  <div class="body demo-grid">
     <div style="display:grid;gap:16px">
       <blockquote class="quote">The French amendment (E/CN.4/L.201) to insert the words “in a democratic society” after “necessary” was adopted by 9 votes to 8, with 1 abstention.<cite>E/CN.4/SR.325, p. 20</cite></blockquote>
       <ul class="plain">
@@ -388,91 +478,94 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       </ul>
     </div>
     <div>
-      <span class="demo">Live demo</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Article 21 ICCPR: drafts, meetings, votes, amendments</li>
-        <li>Search <code data-copy='"democratic society"'>"democratic society"</code></li>
-        <li>Record: <code data-copy="E/CN.4/SR.325">E/CN.4/SR.325</code></li>
-        <li>Open a speech: speaker, delegation, page</li>
-        <li>↗ the UN scan of that page</li>
-      </ol>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/travaux-preparatoires · Search</span><span class="demo">Live demo</span></div><img src="img/travaux.jpg" alt="UN Travaux Préparatoires, Search: the vote on the French amendment in E/CN.4/SR.325, p. 20, with the record open on the right" width="1280" height="704"></figure>
+      <div class="try"><span>Search <code data-copy='"democratic society"'>"democratic society"</code></span><span>Record <code data-copy="E/CN.4/SR.325">E/CN.4/SR.325</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=article&i=ICCPR&n=21" target="_blank" rel="noopener">Article 21 ICCPR ↗</a><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=search&q=%22democratic%20society%22&symbol=E%2FCN.4%2FSR.325" target="_blank" rel="noopener">This search ↗</a></div>
-      <p class="tip" style="margin-top:16px">Summary records paraphrase in the third person: check the scan before you quote.</p>
+      <p class="tip">Summary records paraphrase in the third person: check the scan before you quote.</p>
     </div>
   </div>
-  <div class="foot"><span><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">lszoszk.github.io/travaux-preparatoires</a></span><span>9</span></div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">lszoszk.github.io/travaux-preparatoires</a></span><span></span></div>
 </section>
 
-<!-- 10 -->
-<section class="slide" data-title="HRC Voting">
+<!-- part 3 -->
+<section class="slide divider t-vote" data-title="Part 3: HRC Voting">
+  <div class="kicker">Part 3 of 4 · Politics</div>
+  <div class="body">
+    <div class="num">3</div>
+    <h2>HRC Voting</h2>
+    <p class="q">How do States vote on peaceful protests?</p>
+  </div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">lszoszk.github.io/hrc-voting</a></span><span></span></div>
+</section>
+
+
+<section class="slide t-vote" data-title="HRC Voting">
   <div class="kicker">3 · HRC Voting · Politics</div>
   <h2>Peaceful protests at the Human Rights Council</h2>
-  <div class="body two">
-    <div class="table-wrap"><table>
-      <thead><tr><th>Year</th><th>Resolution</th><th>Yes – no – abstain</th></tr></thead>
-      <tbody>
-        <tr><td>2014</td><td class="mono">A/HRC/RES/25/38</td><td>31 – 9 – 7</td></tr>
-        <tr><td>2016</td><td class="mono">A/HRC/RES/31/37</td><td>31 – 5 – 10</td></tr>
-        <tr><td>2018–2024</td><td>four resolutions</td><td>without a vote</td></tr>
-      </tbody>
-    </table></div>
-    <div>
+  <div class="body demo-grid" style="--shotw:560px">
+    <div style="display:grid;gap:18px">
+      <div class="table-wrap"><table>
+        <thead><tr><th>Year</th><th>Resolution</th><th>Yes – no – abstain</th></tr></thead>
+        <tbody>
+          <tr><td>2014</td><td class="mono">A/HRC/RES/25/38</td><td>31 – 9 – 7</td></tr>
+          <tr><td>2016</td><td class="mono">A/HRC/RES/31/37</td><td>31 – 5 – 10</td></tr>
+          <tr><td>2018–2024</td><td>four resolutions</td><td>without a vote</td></tr>
+        </tbody>
+      </table></div>
       <p class="big" style="font-size:24px">Between 2016 and 2024, 19 amendments to these resolutions were put to a vote. All were rejected.</p>
-      <span class="demo" style="margin-top:16px">Live demo</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Topics: <code data-copy="Right to Assembly - Public Demonstrations">Right to Assembly - Public Demonstrations</code></li>
-        <li><i>Resolutions only</i> shows the 2 recorded votes; <i>With amendments</i> adds the 19 amendments</li>
-        <li>How did your State vote, and on which amendments?</li>
-        <li>↗ the record in the OHCHR Library</li>
-      </ol>
+    </div>
+    <div>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/hrc-voting · Topics</span><span class="demo">Live demo</span></div><img src="img/voting.jpg" alt="HRC Voting, Topics: the subject Right to Assembly - Public Demonstrations with amendments, 21 recorded votes from 2014 to 2024 and the share of Yes votes over time" width="1280" height="808"></figure>
+      <div class="try"><span>Topics <code data-copy="Right to Assembly - Public Demonstrations">Right to Assembly - Public Demonstrations</code></span><span>Scope: <i>With amendments</i></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">Open HRC Voting ↗</a><a class="open" href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">25/38 in the OHCHR Library ↗</a></div>
     </div>
   </div>
-  <div class="foot"><span><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">lszoszk.github.io/hrc-voting</a></span><span>10</span></div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">lszoszk.github.io/hrc-voting</a></span><span></span></div>
 </section>
 
-<!-- 11 -->
-<section class="slide" data-title="UHRI+">
+<!-- part 4 -->
+<section class="slide divider t-uhri" data-title="Part 4: UHRI+">
+  <div class="kicker">Part 4 of 4 · Practice</div>
+  <div class="body">
+    <div class="num">4</div>
+    <h2>UHRI+</h2>
+    <p class="q">What are States told to do?</p>
+  </div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">lszoszk.github.io/UnitedNations_recommendations</a></span><span></span></div>
+</section>
+
+
+<section class="slide t-uhri" data-title="UHRI+">
   <div class="kicker">4 · UHRI+ · Practice</div>
   <h2>What States are told about peaceful assembly</h2>
-  <div class="body two">
-    <div>
+  <div class="body demo-grid">
+    <div style="display:grid;gap:18px">
       <p class="big">3,700+ recommendations and observations carry the theme “right to peaceful assembly” in UHRI+.</p>
-      <p class="lead" style="font-size:19px">UHRI+ is the same data, cleaned, with visualizations and a statistics overlay. Every record opens in UHRI.</p>
+      <p class="lead" style="font-size:19px;margin:0">UHRI+ is the same data, cleaned, with visualizations and a statistics overlay. Every record opens in UHRI.</p>
     </div>
     <div>
-      <span class="demo">Live demo</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Theme: <code data-copy="Right to peaceful assembly">Right to peaceful assembly</code></li>
-        <li>Body: UPR, CCPR, Special Procedures</li>
-        <li>Country and years</li>
-        <li>↗ the record on uhri.ohchr.org</li>
-      </ol>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/UnitedNations_recommendations · Search</span><span class="demo">Live demo</span></div><img src="img/uhri.jpg" alt="UHRI+, Search: 3,723 recommendations with the theme Right to peaceful assembly, newest first" width="1280" height="698"></figure>
+      <div class="try"><span>Theme <code data-copy="Right to peaceful assembly">Right to peaceful assembly</code></span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/UnitedNations_recommendations/dashboard.html#view=search&theme=Right%20to%20peaceful%20assembly" target="_blank" rel="noopener">Open UHRI+, this theme ↗</a></div>
     </div>
   </div>
-  <div class="foot"><span><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">lszoszk.github.io/UnitedNations_recommendations</a></span><span>11</span></div>
+  <div class="foot"><span><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">lszoszk.github.io/UnitedNations_recommendations</a></span><span></span></div>
 </section>
 
-<!-- 12 -->
 <section class="slide" data-title="From paragraph to vote">
   <div class="kicker">The whole route</div>
   <h2>From paragraph to vote, each step one click from the record</h2>
-  <div class="body table-wrap">
-    <table>
-      <thead><tr><th>Step</th><th>What we found</th><th>Official record</th></tr></thead>
-      <tbody>
-        <tr><td>Find</td><td>CCPR/C/GC/37, para. 40</td><td class="mono"><a href="https://docs.un.org/en/CCPR/C/GC/37" target="_blank" rel="noopener">docs.un.org</a></td></tr>
-        <tr><td>Origin</td><td>E/CN.4/SR.325, p. 20: adopted 9 – 8 – 1</td><td class="mono"><a href="https://undocs.org/E/CN.4/SR.325" target="_blank" rel="noopener">UN scan</a></td></tr>
-        <tr><td>Politics</td><td>A/HRC/RES/25/38: 31 – 9 – 7</td><td class="mono"><a href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">searchlibrary.ohchr.org</a></td></tr>
-        <tr><td>Practice</td><td>3,700+ recommendations on peaceful assembly</td><td class="mono"><a href="https://uhri.ohchr.org/" target="_blank" rel="noopener">uhri.ohchr.org</a></td></tr>
-      </tbody>
-    </table>
+  <div class="body">
+    <ol class="path">
+      <li class="t-hrdb" data-n="1"><div class="card"><b>Find</b><small>UN Human Rights Database</small><span class="sym">CCPR/C/GC/37, para. 40</span><p>Necessary and proportionate, not merely reasonable or expedient (2020)</p><a href="https://docs.un.org/en/CCPR/C/GC/37" target="_blank" rel="noopener">docs.un.org ↗</a></div></li>
+      <li class="t-trav" data-n="2"><div class="card"><b>Origin</b><small>Travaux Préparatoires</small><span class="sym">E/CN.4/SR.325, p. 20</span><p>The French amendment adopted 9 – 8 – 1 on 6 June 1952</p><a href="https://undocs.org/E/CN.4/SR.325" target="_blank" rel="noopener">UN scan ↗</a></div></li>
+      <li class="t-vote" data-n="3"><div class="card"><b>Politics</b><small>HRC Voting</small><span class="sym">A/HRC/RES/25/38</span><p>Adopted 31 – 9 – 7 in 2014. Later, 19 amendments rejected</p><a href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">searchlibrary.ohchr.org ↗</a></div></li>
+      <li class="t-uhri" data-n="4"><div class="card"><b>Practice</b><small>UHRI+</small><span class="sym">3,700+ recommendations</span><p>What States are told about peaceful assembly, until today</p><a href="https://uhri.ohchr.org/" target="_blank" rel="noopener">uhri.ohchr.org ↗</a></div></li>
+    </ol>
   </div>
-  <div class="foot"><span>Find It. Cite It. Check It</span><span>12</span></div>
+  <div class="foot"><span>Find It. Cite It. Check It</span><span></span></div>
 </section>
 
-<!-- 12b -->
 <section class="slide" data-title="MCP">
   <div class="kicker">Beyond the browser · MCP</div>
   <h2>Your AI assistant, connected to the same data</h2>
@@ -482,9 +575,9 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <table class="t14">
         <thead><tr><th>Connector</th><th>Address</th></tr></thead>
         <tbody>
-          <tr><td><b>UN-HRDB</b><span class="src">with the UHRI recommendations</span></td><td class="mono"><span data-copy="https://150.254.115.204/unhrdb-mcp-rpc/mcp">https://150.254.115.204/unhrdb-mcp-rpc/mcp</span></td></tr>
-          <tr><td><b>Travaux</b></td><td class="mono"><span data-copy="https://150.254.115.204/travaux-api/mcp">https://150.254.115.204/travaux-api/mcp</span></td></tr>
-          <tr><td><b>HRC Voting</b></td><td>on your own computer: <a href="https://github.com/lszoszk/mcp-hrc-voting" target="_blank" rel="noopener">github.com/lszoszk/mcp-hrc-voting</a></td></tr>
+          <tr class="t-hrdb"><td><b>UN-HRDB</b><span class="src">with the UHRI recommendations</span></td><td class="mono"><span data-copy="https://150.254.115.204/unhrdb-mcp-rpc/mcp">https://150.254.115.204/unhrdb-mcp-rpc/mcp</span></td></tr>
+          <tr class="t-trav"><td><b>Travaux</b></td><td class="mono"><span data-copy="https://150.254.115.204/travaux-api/mcp">https://150.254.115.204/travaux-api/mcp</span></td></tr>
+          <tr class="t-vote"><td><b>HRC Voting</b></td><td>on your own computer: <a href="https://github.com/lszoszk/mcp-hrc-voting" target="_blank" rel="noopener">github.com/lszoszk/mcp-hrc-voting</a></td></tr>
         </tbody>
       </table>
       <p class="tip" style="margin:0">The conversation goes to the company that runs the assistant: no confidential text there. The tools themselves only see the search terms the assistant sends.</p>
@@ -503,41 +596,30 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <div class="foot"><span>modelcontextprotocol.io</span><span>14</span></div>
 </section>
 
-<!-- 13a -->
-<section class="slide" data-title="How current">
-  <div class="kicker">Maintenance</div>
-  <h2>How current the data are, and where your searches go</h2>
-  <div class="body table-wrap">
+<section class="slide" data-title="How current and limits">
+  <div class="kicker">Before you rely on them</div>
+  <h2>How current the data are, and what to keep in mind</h2>
+  <div class="body table-wrap" style="gap:16px">
     <table class="t14 t15">
       <thead><tr><th>Tool</th><th>Newest</th><th>Updated</th><th>Your search runs</th></tr></thead>
       <tbody>
-        <tr><td><b>UN Human Rights Database</b></td><td>5 Nov 2026<span class="src">jurisprudence: 13 May 2026</span></td><td>daily</td><td>browser · server</td></tr>
-        <tr><td><b>UN Travaux Préparatoires</b></td><td>closed, 1946–1966</td><td>corrections only</td><td>server</td></tr>
-        <tr><td><b>HRC Voting</b></td><td>vote of 24 Sep 2026</td><td>after each session</td><td>browser</td></tr>
-        <tr><td><b>UHRI+</b></td><td>9 Jul 2026 · 278,511 records</td><td>daily</td><td>server</td></tr>
+        <tr class="t-hrdb"><td><b>UN Human Rights Database</b></td><td>5 Nov 2026<span class="src">jurisprudence: 13 May 2026</span></td><td>daily</td><td>browser · server</td></tr>
+        <tr class="t-trav"><td><b>UN Travaux Préparatoires</b></td><td>closed, 1946–1966</td><td>corrections only</td><td>server</td></tr>
+        <tr class="t-vote"><td><b>HRC Voting</b></td><td>vote of 24 Sep 2026</td><td>after each session</td><td>browser</td></tr>
+        <tr class="t-uhri"><td><b>UHRI+</b></td><td>9 Jul 2026 · 278,511 records</td><td>daily</td><td>server</td></tr>
       </tbody>
     </table>
-    <p class="tip" style="margin-top:14px">Server: a virtual machine of Adam Mickiewicz University in Poznań, web log kept 14 days. Ask also sends the question to Voyage AI (owned by MongoDB).</p>
-  </div>
-  <div class="foot"><span>Find It. Cite It. Check It</span><span>14</span></div>
-</section>
-
-<!-- 13 -->
-<section class="slide" data-title="Limits">
-  <div class="kicker">Before you rely on them</div>
-  <h2>What to keep in mind</h2>
-  <div class="body">
-    <ul class="plain">
-      <li>These tools are unofficial and OHCHR has not endorsed them. In case of doubt, the official record prevails.</li>
-      <li>Travaux: the text is OCR (about 0.5% of characters wrong) and ten documents are machine translations from French, marked as such.</li>
-      <li>Search by meaning (Ask) in UN-HRDB covers the General Comments only, and the question is sent to Voyage AI (owned by MongoDB).</li>
+    <ul class="plain limits">
+      <li>The tools are unofficial and OHCHR has not endorsed them. In case of doubt, the official record prevails.</li>
+      <li>Travaux: the text is OCR (about 0.5% of characters wrong). Ten documents are machine translations from French, marked as such.</li>
+      <li>Server: a virtual machine of Adam Mickiewicz University in Poznań, web log kept 14 days. Ask (General Comments only in UN-HRDB) also sends the question to Voyage AI (owned by MongoDB).</li>
       <li>If you spot an error, tell me. Errors I find in the sources, I report back.</li>
     </ul>
   </div>
-  <div class="foot"><span>Find It. Cite It. Check It</span><span>13</span></div>
+  <div class="foot"><span>Find It. Cite It. Check It</span><span></span></div>
 </section>
 
-<!-- 14 -->
+
 <section class="slide" data-title="Links and questions">
   <div class="kicker">Slides, tools, questions</div>
   <h2>Questions</h2>
@@ -545,10 +627,10 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <div class="qr"><svg role="img" aria-label="QR code: lszoszk.github.io/talks/knowvember-2026" version="1.1" viewBox="0 0 37 37" xmlns="http://www.w3.org/2000/svg"><path d="M2,2H3V3H2zM3,2H4V3H3zM4,2H5V3H4zM5,2H6V3H5zM6,2H7V3H6zM7,2H8V3H7zM8,2H9V3H8zM11,2H12V3H11zM15,2H16V3H15zM18,2H19V3H18zM19,2H20V3H19zM20,2H21V3H20zM21,2H22V3H21zM22,2H23V3H22zM23,2H24V3H23zM24,2H25V3H24zM25,2H26V3H25zM28,2H29V3H28zM29,2H30V3H29zM30,2H31V3H30zM31,2H32V3H31zM32,2H33V3H32zM33,2H34V3H33zM34,2H35V3H34zM2,3H3V4H2zM8,3H9V4H8zM11,3H12V4H11zM13,3H14V4H13zM14,3H15V4H14zM15,3H16V4H15zM16,3H17V4H16zM17,3H18V4H17zM19,3H20V4H19zM22,3H23V4H22zM23,3H24V4H23zM28,3H29V4H28zM34,3H35V4H34zM2,4H3V5H2zM4,4H5V5H4zM5,4H6V5H5zM6,4H7V5H6zM8,4H9V5H8zM10,4H11V5H10zM11,4H12V5H11zM13,4H14V5H13zM15,4H16V5H15zM17,4H18V5H17zM18,4H19V5H18zM19,4H20V5H19zM20,4H21V5H20zM22,4H23V5H22zM23,4H24V5H23zM25,4H26V5H25zM26,4H27V5H26zM28,4H29V5H28zM30,4H31V5H30zM31,4H32V5H31zM32,4H33V5H32zM34,4H35V5H34zM2,5H3V6H2zM4,5H5V6H4zM5,5H6V6H5zM6,5H7V6H6zM8,5H9V6H8zM10,5H11V6H10zM11,5H12V6H11zM12,5H13V6H12zM14,5H15V6H14zM16,5H17V6H16zM18,5H19V6H18zM22,5H23V6H22zM28,5H29V6H28zM30,5H31V6H30zM31,5H32V6H31zM32,5H33V6H32zM34,5H35V6H34zM2,6H3V7H2zM4,6H5V7H4zM5,6H6V7H5zM6,6H7V7H6zM8,6H9V7H8zM10,6H11V7H10zM11,6H12V7H11zM15,6H16V7H15zM17,6H18V7H17zM20,6H21V7H20zM24,6H25V7H24zM25,6H26V7H25zM26,6H27V7H26zM28,6H29V7H28zM30,6H31V7H30zM31,6H32V7H31zM32,6H33V7H32zM34,6H35V7H34zM2,7H3V8H2zM8,7H9V8H8zM10,7H11V8H10zM11,7H12V8H11zM14,7H15V8H14zM15,7H16V8H15zM17,7H18V8H17zM18,7H19V8H18zM19,7H20V8H19zM20,7H21V8H20zM22,7H23V8H22zM26,7H27V8H26zM28,7H29V8H28zM34,7H35V8H34zM2,8H3V9H2zM3,8H4V9H3zM4,8H5V9H4zM5,8H6V9H5zM6,8H7V9H6zM7,8H8V9H7zM8,8H9V9H8zM10,8H11V9H10zM12,8H13V9H12zM14,8H15V9H14zM16,8H17V9H16zM18,8H19V9H18zM20,8H21V9H20zM22,8H23V9H22zM24,8H25V9H24zM26,8H27V9H26zM28,8H29V9H28zM29,8H30V9H29zM30,8H31V9H30zM31,8H32V9H31zM32,8H33V9H32zM33,8H34V9H33zM34,8H35V9H34zM10,9H11V10H10zM16,9H17V10H16zM17,9H18V10H17zM20,9H21V10H20zM23,9H24V10H23zM25,9H26V10H25zM26,9H27V10H26zM2,10H3V11H2zM4,10H5V11H4zM5,10H6V11H5zM6,10H7V11H6zM7,10H8V11H7zM8,10H9V11H8zM11,10H12V11H11zM14,10H15V11H14zM15,10H16V11H15zM16,10H17V11H16zM17,10H18V11H17zM19,10H20V11H19zM20,10H21V11H20zM22,10H23V11H22zM24,10H25V11H24zM28,10H29V11H28zM29,10H30V11H29zM30,10H31V11H30zM31,10H32V11H31zM32,10H33V11H32zM3,11H4V12H3zM4,11H5V12H4zM5,11H6V12H5zM6,11H7V12H6zM9,11H10V12H9zM10,11H11V12H10zM11,11H12V12H11zM12,11H13V12H12zM13,11H14V12H13zM16,11H17V12H16zM18,11H19V12H18zM20,11H21V12H20zM21,11H22V12H21zM22,11H23V12H22zM23,11H24V12H23zM25,11H26V12H25zM28,11H29V12H28zM29,11H30V12H29zM31,11H32V12H31zM32,11H33V12H32zM34,11H35V12H34zM2,12H3V13H2zM6,12H7V13H6zM7,12H8V13H7zM8,12H9V13H8zM10,12H11V13H10zM11,12H12V13H11zM12,12H13V13H12zM13,12H14V13H13zM17,12H18V13H17zM18,12H19V13H18zM20,12H21V13H20zM27,12H28V13H27zM28,12H29V13H28zM30,12H31V13H30zM32,12H33V13H32zM33,12H34V13H33zM2,13H3V14H2zM12,13H13V14H12zM13,13H14V14H13zM16,13H17V14H16zM17,13H18V14H17zM23,13H24V14H23zM25,13H26V14H25zM27,13H28V14H27zM30,13H31V14H30zM31,13H32V14H31zM32,13H33V14H32zM33,13H34V14H33zM34,13H35V14H34zM3,14H4V15H3zM4,14H5V15H4zM5,14H6V15H5zM6,14H7V15H6zM7,14H8V15H7zM8,14H9V15H8zM9,14H10V15H9zM12,14H13V15H12zM17,14H18V15H17zM20,14H21V15H20zM21,14H22V15H21zM25,14H26V15H25zM27,14H28V15H27zM29,14H30V15H29zM30,14H31V15H30zM31,14H32V15H31zM34,14H35V15H34zM2,15H3V16H2zM3,15H4V16H3zM4,15H5V16H4zM16,15H17V16H16zM17,15H18V16H17zM18,15H19V16H18zM19,15H20V16H19zM22,15H23V16H22zM24,15H25V16H24zM25,15H26V16H25zM26,15H27V16H26zM28,15H29V16H28zM31,15H32V16H31zM33,15H34V16H33zM34,15H35V16H34zM2,16H3V17H2zM4,16H5V17H4zM5,16H6V17H5zM6,16H7V17H6zM7,16H8V17H7zM8,16H9V17H8zM11,16H12V17H11zM12,16H13V17H12zM19,16H20V17H19zM21,16H22V17H21zM27,16H28V17H27zM28,16H29V17H28zM33,16H34V17H33zM2,17H3V18H2zM5,17H6V18H5zM6,17H7V18H6zM9,17H10V18H9zM10,17H11V18H10zM12,17H13V18H12zM18,17H19V18H18zM20,17H21V18H20zM21,17H22V18H21zM22,17H23V18H22zM23,17H24V18H23zM24,17H25V18H24zM27,17H28V18H27zM28,17H29V18H28zM31,17H32V18H31zM32,17H33V18H32zM2,18H3V19H2zM3,18H4V19H3zM4,18H5V19H4zM5,18H6V19H5zM8,18H9V19H8zM10,18H11V19H10zM11,18H12V19H11zM12,18H13V19H12zM19,18H20V19H19zM21,18H22V19H21zM25,18H26V19H25zM26,18H27V19H26zM27,18H28V19H27zM29,18H30V19H29zM30,18H31V19H30zM34,18H35V19H34zM4,19H5V20H4zM5,19H6V20H5zM6,19H7V20H6zM10,19H11V20H10zM12,19H13V20H12zM14,19H15V20H14zM18,19H19V20H18zM19,19H20V20H19zM20,19H21V20H20zM21,19H22V20H21zM22,19H23V20H22zM23,19H24V20H23zM25,19H26V20H25zM28,19H29V20H28zM29,19H30V20H29zM31,19H32V20H31zM32,19H33V20H32zM34,19H35V20H34zM3,20H4V21H3zM4,20H5V21H4zM5,20H6V21H5zM6,20H7V21H6zM7,20H8V21H7zM8,20H9V21H8zM10,20H11V21H10zM11,20H12V21H11zM17,20H18V21H17zM19,20H20V21H19zM24,20H25V21H24zM26,20H27V21H26zM29,20H30V21H29zM30,20H31V21H30zM32,20H33V21H32zM33,20H34V21H33zM2,21H3V22H2zM3,21H4V22H3zM5,21H6V22H5zM6,21H7V22H6zM9,21H10V22H9zM10,21H11V22H10zM15,21H16V22H15zM17,21H18V22H17zM18,21H19V22H18zM19,21H20V22H19zM20,21H21V22H20zM22,21H23V22H22zM23,21H24V22H23zM25,21H26V22H25zM26,21H27V22H26zM28,21H29V22H28zM29,21H30V22H29zM30,21H31V22H30zM31,21H32V22H31zM32,21H33V22H32zM33,21H34V22H33zM34,21H35V22H34zM3,22H4V23H3zM4,22H5V23H4zM5,22H6V23H5zM7,22H8V23H7zM8,22H9V23H8zM9,22H10V23H9zM12,22H13V23H12zM14,22H15V23H14zM15,22H16V23H15zM17,22H18V23H17zM18,22H19V23H18zM22,22H23V23H22zM25,22H26V23H25zM26,22H27V23H26zM27,22H28V23H27zM29,22H30V23H29zM30,22H31V23H30zM31,22H32V23H31zM33,22H34V23H33zM34,22H35V23H34zM2,23H3V24H2zM3,23H4V24H3zM4,23H5V24H4zM5,23H6V24H5zM7,23H8V24H7zM10,23H11V24H10zM13,23H14V24H13zM14,23H15V24H14zM16,23H17V24H16zM17,23H18V24H17zM19,23H20V24H19zM20,23H21V24H20zM25,23H26V24H25zM26,23H27V24H26zM28,23H29V24H28zM31,23H32V24H31zM34,23H35V24H34zM2,24H3V25H2zM5,24H6V25H5zM8,24H9V25H8zM9,24H10V25H9zM14,24H15V25H14zM15,24H16V25H15zM17,24H18V25H17zM18,24H19V25H18zM20,24H21V25H20zM22,24H23V25H22zM24,24H25V25H24zM26,24H27V25H26zM27,24H28V25H27zM28,24H29V25H28zM29,24H30V25H29zM30,24H31V25H30zM31,24H32V25H31zM33,24H34V25H33zM2,25H3V26H2zM4,25H5V26H4zM5,25H6V26H5zM6,25H7V26H6zM9,25H10V26H9zM10,25H11V26H10zM12,25H13V26H12zM13,25H14V26H13zM17,25H18V26H17zM23,25H24V26H23zM25,25H26V26H25zM26,25H27V26H26zM31,25H32V26H31zM32,25H33V26H32zM2,26H3V27H2zM5,26H6V27H5zM6,26H7V27H6zM8,26H9V27H8zM9,26H10V27H9zM10,26H11V27H10zM13,26H14V27H13zM15,26H16V27H15zM16,26H17V27H16zM17,26H18V27H17zM18,26H19V27H18zM19,26H20V27H19zM22,26H23V27H22zM24,26H25V27H24zM26,26H27V27H26zM27,26H28V27H27zM28,26H29V27H28zM29,26H30V27H29zM30,26H31V27H30zM31,26H32V27H31zM10,27H11V28H10zM11,27H12V28H11zM13,27H14V28H13zM15,27H16V28H15zM16,27H17V28H16zM18,27H19V28H18zM20,27H21V28H20zM21,27H22V28H21zM22,27H23V28H22zM25,27H26V28H25zM26,27H27V28H26zM30,27H31V28H30zM32,27H33V28H32zM34,27H35V28H34zM2,28H3V29H2zM3,28H4V29H3zM4,28H5V29H4zM5,28H6V29H5zM6,28H7V29H6zM7,28H8V29H7zM8,28H9V29H8zM12,28H13V29H12zM13,28H14V29H13zM14,28H15V29H14zM15,28H16V29H15zM17,28H18V29H17zM18,28H19V29H18zM20,28H21V29H20zM22,28H23V29H22zM24,28H25V29H24zM25,28H26V29H25zM26,28H27V29H26zM28,28H29V29H28zM30,28H31V29H30zM32,28H33V29H32zM2,29H3V30H2zM8,29H9V30H8zM10,29H11V30H10zM16,29H17V30H16zM18,29H19V30H18zM23,29H24V30H23zM24,29H25V30H24zM25,29H26V30H25zM26,29H27V30H26zM30,29H31V30H30zM31,29H32V30H31zM32,29H33V30H32zM33,29H34V30H33zM34,29H35V30H34zM2,30H3V31H2zM4,30H5V31H4zM5,30H6V31H5zM6,30H7V31H6zM8,30H9V31H8zM10,30H11V31H10zM13,30H14V31H13zM14,30H15V31H14zM15,30H16V31H15zM16,30H17V31H16zM20,30H21V31H20zM21,30H22V31H21zM23,30H24V31H23zM26,30H27V31H26zM27,30H28V31H27zM28,30H29V31H28zM29,30H30V31H29zM30,30H31V31H30zM31,30H32V31H31zM2,31H3V32H2zM4,31H5V32H4zM5,31H6V32H5zM6,31H7V32H6zM8,31H9V32H8zM10,31H11V32H10zM12,31H13V32H12zM17,31H18V32H17zM18,31H19V32H18zM19,31H20V32H19zM22,31H23V32H22zM23,31H24V32H23zM25,31H26V32H25zM27,31H28V32H27zM30,31H31V32H30zM31,31H32V32H31zM32,31H33V32H32zM33,31H34V32H33zM34,31H35V32H34zM2,32H3V33H2zM4,32H5V33H4zM5,32H6V33H5zM6,32H7V33H6zM8,32H9V33H8zM10,32H11V33H10zM12,32H13V33H12zM16,32H17V33H16zM19,32H20V33H19zM21,32H22V33H21zM24,32H25V33H24zM26,32H27V33H26zM27,32H28V33H27zM28,32H29V33H28zM29,32H30V33H29zM31,32H32V33H31zM2,33H3V34H2zM8,33H9V34H8zM11,33H12V34H11zM13,33H14V34H13zM14,33H15V34H14zM15,33H16V34H15zM18,33H19V34H18zM21,33H22V34H21zM22,33H23V34H22zM23,33H24V34H23zM24,33H25V34H24zM25,33H26V34H25zM27,33H28V34H27zM30,33H31V34H30zM31,33H32V34H31zM32,33H33V34H32zM2,34H3V35H2zM3,34H4V35H3zM4,34H5V35H4zM5,34H6V35H5zM6,34H7V35H6zM7,34H8V35H7zM8,34H9V35H8zM10,34H11V35H10zM11,34H12V35H11zM12,34H13V35H12zM13,34H14V35H13zM14,34H15V35H14zM19,34H20V35H19zM20,34H21V35H20zM21,34H22V35H21zM24,34H25V35H24zM25,34H26V35H25zM26,34H27V35H26zM27,34H28V35H27zM29,34H30V35H29zM31,34H32V35H31zM33,34H34V35H33z" id="qr-path" fill="#000000" fill-opacity="1" fill-rule="nonzero" stroke="none"/></svg><div class="url">lszoszk.github.io/talks/knowvember-2026</div></div>
     <div>
       <ul class="plain tools">
-        <li><a href="https://lszoszk.github.io/generalcomments/">UN Human Rights Database</a> <span class="host">lszoszk.github.io/generalcomments</span></li>
-        <li><a href="https://lszoszk.github.io/travaux-preparatoires/">UN Travaux Préparatoires</a> <span class="host">lszoszk.github.io/travaux-preparatoires</span></li>
-        <li><a href="https://lszoszk.github.io/hrc-voting/">HRC Voting</a> <span class="host">lszoszk.github.io/hrc-voting</span></li>
-        <li><a href="https://lszoszk.github.io/UnitedNations_recommendations/">UHRI+</a> <span class="host">lszoszk.github.io/UnitedNations_recommendations</span></li>
+        <li class="t-hrdb"><a href="https://lszoszk.github.io/generalcomments/">UN Human Rights Database</a> <span class="host">lszoszk.github.io/generalcomments</span></li>
+        <li class="t-trav"><a href="https://lszoszk.github.io/travaux-preparatoires/">UN Travaux Préparatoires</a> <span class="host">lszoszk.github.io/travaux-preparatoires</span></li>
+        <li class="t-vote"><a href="https://lszoszk.github.io/hrc-voting/">HRC Voting</a> <span class="host">lszoszk.github.io/hrc-voting</span></li>
+        <li class="t-uhri"><a href="https://lszoszk.github.io/UnitedNations_recommendations/">UHRI+</a> <span class="host">lszoszk.github.io/UnitedNations_recommendations</span></li>
       </ul>
       <p class="lead" style="font-size:18px">The data are open on Hugging Face and Zenodo, and each tool can be connected to an AI assistant (MCP).</p>
       <p class="lead" style="font-size:18px">Łukasz Szoszkiewicz · <a href="mailto:l.szoszkiewicz@amu.edu.pl">l.szoszkiewicz@amu.edu.pl</a></p>
@@ -585,6 +667,8 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     var sp = document.getElementById('specimen');
     if (sp && sp._restart && i === 0) sp._restart();
   }
+  // Footer numbers follow the order of the slides.
+  slides.forEach(function (s, j) { var f = s.querySelector('.foot span:last-child'); if (f) f.textContent = j + 1; });
   function setMode(read) {
     body.classList.toggle('read', read); body.classList.toggle('deck', !read);
     fit(); if (!read) go(i);
