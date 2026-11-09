@@ -156,7 +156,9 @@ tr[class^="t-"] td:first-child { box-shadow: inset 4px 0 0 var(--accent); paddin
 .zclose:hover { background: rgba(255, 255, 255, .25); }
 .zhint { position: absolute; bottom: 12px; left: 0; right: 0; margin: 0; text-align: center; font: 12px var(--mono); color: rgba(255, 255, 255, .7); }
 @media print { .zoombox, .loop .zoom { display: none !important; } }
-.try { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; margin-top: 12px; font-size: 16px; }
+.try { display: flex; flex-wrap: wrap; gap: 5px 7px; align-items: center; margin-top: 12px; font-size: 15px; line-height: 1.3; }
+.try-h { font: 600 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-right: 3px; }
+.try .to { font-style: normal; color: var(--muted); }
 .demo-grid .opens { margin-top: 10px; }
 .demo-grid .tip { margin-top: 12px; font-size: 17px; }
 
@@ -392,7 +394,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <blockquote class="quote">Article 21 provides that any restrictions must be “necessary in a democratic society”. Restrictions must therefore be necessary and proportionate in the context of a society based on democracy, the rule of law, political pluralism and human rights, as opposed to being merely reasonable or expedient.<cite>CCPR/C/GC/37, para. 40</cite></blockquote>
     <div>
       <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/unhrdb-loop-poster.jpg" width="1280" height="960" aria-label="UN Human Rights Database: the search for necessary in a democratic society, GC 37 para. 40 and its citation copied"><source src="video/unhrdb-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 12-second loop">▶ Play · 12 s</button><button type="button" class="zoom" aria-label="Enlarge the video" title="Enlarge (Esc to close)">⤢</button></div></figure>
-      <div class="try"><span>Search <code data-copy='"necessary in a democratic society"'>"necessary in a democratic society"</code></span></div>
+      <div class="try"><b class="try-h">Try it</b><span>Search <code data-copy='"necessary in a democratic society"'>"necessary in a democratic society"</code></span><i class="to">→</i><span>filter CCPR</span><i class="to">→</i><span>open ¶40</span><i class="to">→</i><span>Copy citation</span><i class="to">→</i><span>docs.un.org</span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/generalcomments/?q=%22necessary%20in%20a%20democratic%20society%22&tb=CCPR#search" target="_blank" rel="noopener">Open this search ↗</a><a class="open" href="https://docs.un.org/en/CCPR/C/GC/37" target="_blank" rel="noopener">GC 37 on docs.un.org ↗</a></div>
     </div>
   </div>
@@ -428,6 +430,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
     <div>
       <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/generalcomments · Ask</span><span class="demo">Live demo</span></div><img src="img/ask.jpg" alt="UN Human Rights Database, Ask: the question about police permission and, as the top match, GC 37 para. 70" width="1280" height="720"></figure>
+      <div class="try"><b class="try-h">Try it</b><span>Ask</span><i class="to">→</i><span>paste the question</span><i class="to">→</i><span>open ¶70</span><i class="to">→</i><span>docs.un.org</span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/generalcomments/#ask" target="_blank" rel="noopener">Open Ask ↗</a></div>
       <p class="tip">A model only finds and orders the paragraphs, and every word on the screen is the Committee's.</p>
     </div>
@@ -500,7 +503,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
     <div>
       <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/travaux-preparatoires · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/travaux-loop-poster.jpg" width="1280" height="960" aria-label="UN Travaux Préparatoires: the search for democratic society, then the record E/CN.4/SR.325 with the vote on the French amendment"><source src="video/travaux-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 10-second loop">▶ Play · 10 s</button><button type="button" class="zoom" aria-label="Enlarge the video" title="Enlarge (Esc to close)">⤢</button></div></figure>
-      <div class="try"><span>Search <code data-copy='"democratic society"'>"democratic society"</code></span><span>Record <code data-copy="E/CN.4/SR.325">E/CN.4/SR.325</code></span></div>
+      <div class="try"><b class="try-h">Try it</b><span>Search <code data-copy='"democratic society"'>"democratic society"</code></span><i class="to">→</i><span>record <code data-copy="E/CN.4/SR.325">E/CN.4/SR.325</code></span><i class="to">→</i><span>open a speech</span><i class="to">→</i><span>UN scan of the page</span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=article&i=ICCPR&n=21" target="_blank" rel="noopener">Article 21 ICCPR ↗</a><a class="open" href="https://lszoszk.github.io/travaux-preparatoires/#view=search&q=%22democratic%20society%22&symbol=E%2FCN.4%2FSR.325" target="_blank" rel="noopener">This search ↗</a></div>
       <p class="tip">Summary records paraphrase in the third person: check the scan before you quote.</p>
     </div>
@@ -537,7 +540,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
     <div>
       <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/hrc-voting · Topics</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/hrc-voting-loop-poster.jpg" width="1280" height="960" aria-label="HRC Voting: the topic Right to Assembly - Public Demonstrations, the votes, and the map of one amendment"><source src="video/hrc-voting-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 12-second loop">▶ Play · 12 s</button><button type="button" class="zoom" aria-label="Enlarge the video" title="Enlarge (Esc to close)">⤢</button></div></figure>
-      <div class="try"><span>Topics <code data-copy="Right to Assembly - Public Demonstrations">Right to Assembly - Public Demonstrations</code></span><span>Scope: <i>With amendments</i></span></div>
+      <div class="try"><b class="try-h">Try it</b><span>Topics <code data-copy="Right to Assembly - Public Demonstrations">Right to Assembly - Public Demonstrations</code></span><i class="to">→</i><span>scope <i>With amendments</i></span><i class="to">→</i><span>your State's votes</span><i class="to">→</i><span>OHCHR Library record</span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">Open HRC Voting ↗</a><a class="open" href="https://searchlibrary.ohchr.org/record/35466" target="_blank" rel="noopener">25/38 in the OHCHR Library ↗</a></div>
     </div>
   </div>
@@ -566,7 +569,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
     <div>
       <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>lszoszk.github.io/UnitedNations_recommendations · Search</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/uhri-loop-poster.jpg" width="1280" height="880" aria-label="UHRI+ overview: the theme Right to peaceful assembly narrows 278,511 records to 3,723 and the world map changes"><source src="video/uhri-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 10-second loop">▶ Play · 10 s</button><button type="button" class="zoom" aria-label="Enlarge the video" title="Enlarge (Esc to close)">⤢</button></div></figure>
-      <div class="try"><span>Theme <code data-copy="Right to peaceful assembly">Right to peaceful assembly</code></span></div>
+      <div class="try"><b class="try-h">Try it</b><span>Theme <code data-copy="Right to peaceful assembly">Right to peaceful assembly</code></span><i class="to">→</i><span>the map</span><i class="to">→</i><span>body, country, years</span><i class="to">→</i><span>record on uhri.ohchr.org</span></div>
       <div class="opens"><a class="open" href="https://lszoszk.github.io/UnitedNations_recommendations/dashboard.html#view=search&theme=Right%20to%20peaceful%20assembly" target="_blank" rel="noopener">Open UHRI+, this theme ↗</a></div>
     </div>
   </div>
