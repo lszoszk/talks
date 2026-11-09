@@ -208,10 +208,14 @@ body.deck .slide { position: absolute; width: 1280px; height: 720px; padding: 52
   transform-origin: center center; opacity: 0; visibility: hidden; }
 body.deck .slide.on { opacity: 1; visibility: visible; }
 .hud { display: none; }
-body.deck .hud { display: flex; position: fixed; right: 14px; top: 10px; gap: 8px; align-items: center; z-index: 6;
-  font: 12px var(--mono); color: var(--muted); }
-.hud button { font: 12px var(--mono); color: var(--muted); background: transparent; border: 1px solid var(--rule); border-radius: 3px; padding: 3px 8px; cursor: pointer; }
-.hud button:hover { color: var(--ink); border-color: var(--ink); }
+body.deck .hud { display: flex; position: fixed; right: 14px; top: 12px; gap: 2px; align-items: center; z-index: 6;
+  font: 12px var(--mono); color: var(--muted); background: var(--paper); border: 1px solid var(--rule); border-radius: 999px;
+  padding: 3px 5px; box-shadow: 0 4px 16px rgba(0, 0, 0, .14); transition: opacity .4s; }
+/* The navigation fades out when the mouse is still, and comes back when it moves. */
+body.deck .hud.idle { opacity: 0; pointer-events: none; }
+.hud #count { padding: 0 6px; }
+.hud button { font: 12px var(--mono); color: var(--muted); background: transparent; border: 0; border-radius: 999px; padding: 5px 10px; cursor: pointer; }
+.hud button:hover { color: var(--ink); background: var(--paper-2); }
 button.copy { font: 600 11px/1 var(--mono); letter-spacing: .06em; text-transform: uppercase; color: var(--accent);
   background: var(--paper); border: 1px solid var(--accent); border-radius: 3px; padding: 4px 7px; margin-left: 8px;
   cursor: pointer; vertical-align: middle; }
@@ -761,6 +765,15 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   [].forEach.call(document.querySelectorAll('.themeBtn'), function (b) { b.addEventListener('click', toggleTheme); });
   if (sysDark.addEventListener) sysDark.addEventListener('change', labelTheme);
   labelTheme();
+  // The navigation shows while the mouse moves and fades out 2.5 s after it stops (unless the pointer is on it).
+  var hud = document.getElementById('hud'), idle;
+  function wake() {
+    hud.classList.remove('idle'); clearTimeout(idle);
+    idle = setTimeout(function () { if (!hud.matches(':hover')) hud.classList.add('idle'); }, 2500);
+  }
+  document.addEventListener('mousemove', wake);
+  document.addEventListener('touchstart', wake, { passive: true });
+  wake();
 })();
 </script>
 </body>
