@@ -595,7 +595,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
 <section class="slide" data-title="MCP">
   <div class="kicker">Beyond the browser · MCP</div>
   <h2>Your AI assistant, connected to the same data</h2>
-  <div class="body two">
+  <div class="body demo-grid" style="--shotw:480px">
     <div style="display:grid;gap:12px">
       <p class="lead" style="margin:0;font-size:20px">The Model Context Protocol (MCP) is an open standard that lets an AI assistant (Claude, ChatGPT and others) query a database while it answers. The tool returns the verbatim paragraph with its UN symbol, and the assistant writes around it.</p>
       <table class="t14">
@@ -609,14 +609,8 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
       <p class="tip" style="margin:0">The conversation goes to the company that runs the assistant: no confidential text there. The tools themselves only see the search terms the assistant sends.</p>
     </div>
     <div>
-      <span class="demo">Live demo in Claude</span>
-      <ol class="steps" style="margin-top:14px">
-        <li>Customize → Connectors → Add custom connector, paste the address</li>
-        <li>Ask: <span data-copy="What does the Human Rights Committee say about notifying the authorities before a peaceful assembly? Quote the paragraphs with their symbols.">“What does the Human Rights Committee say about notifying the authorities before a peaceful assembly? Quote the paragraphs with their symbols.”</span></li>
-        <li>Watch the tool calls: what the assistant searched for</li>
-        <li>Open a cited paragraph ↗: one click from the source</li>
-        <li>Paste the answer into <b>Check</b>: every quotation compared with the text</li>
-      </ol>
+      <figure class="shot"><div class="shot-bar"><i></i><i></i><i></i><span>claude.ai · with the un-hrdb connector</span><span class="demo">Live demo</span></div><div class="loop"><video muted loop playsinline preload="auto" poster="img/claude-loop-poster.jpg" width="1182" height="766" aria-label="Claude with the un-hrdb connector: the question on notifying the authorities, the tool asking for approval, the searches it ran, and paragraphs 70 to 73 of CCPR/C/GC/37 quoted with their symbols"><source src="video/claude-loop.mp4" type="video/mp4"></video><button type="button" class="play" aria-label="Play the 17-second loop">▶ Play · 17 s</button><button type="button" class="zoom" aria-label="Enlarge the video" title="Enlarge (Esc to close)">⤢</button></div></figure>
+      <div class="try"><b class="try-h">Try it</b><span>Customize → Connectors → Add custom connector</span><i class="to">→</i><span>paste the address</span><i class="to">→</i><span>ask <span data-copy="What does the Human Rights Committee say about notifying the authorities before a peaceful assembly? Quote the paragraphs with their symbols.">this question</span></span><i class="to">→</i><span>watch the tool calls</span><i class="to">→</i><span>paste the answer into <b>Check</b></span></div>
     </div>
   </div>
   <div class="foot"><span>modelcontextprotocol.io</span><span>14</span></div>
