@@ -102,7 +102,6 @@ body.deck .build-item:not(.open) { opacity: 0; transform: translateX(40px); }
 .tools li { font-size: 20px; }
 .tools .host { font: 13px var(--mono); color: var(--muted); overflow-wrap: anywhere; }
 .close > *, .two > *, .principles > *, .route > * { min-width: 0; }
-aside.notes { display: none; }
 
 /* ---------- title slide: Find – Cite – Check on CCPR/C/GC/37 para. 40 ---------- */
 .title-grid { display: grid; grid-template-columns: 1fr 470px; gap: 48px; align-items: center; }
@@ -135,9 +134,6 @@ body.deck main { position: fixed; inset: 0; display: grid; place-items: center; 
 body.deck .slide { position: absolute; width: 1280px; height: 720px; padding: 52px 72px 30px; gap: 14px;
   transform-origin: center center; opacity: 0; visibility: hidden; }
 body.deck .slide.on { opacity: 1; visibility: visible; }
-body.deck.show-notes .slide.on aside.notes { display: block; position: fixed; left: 0; right: 0; bottom: 0;
-  max-height: 34vh; overflow: auto; background: var(--paper-2); border-top: 2px solid var(--accent);
-  padding: 12px 24px; font: 15px/1.45 var(--sans); z-index: 5; }
 .hud { display: none; }
 body.deck .hud { display: flex; position: fixed; right: 14px; top: 10px; gap: 8px; align-items: center; z-index: 6;
   font: 12px var(--mono); color: var(--muted); }
@@ -183,7 +179,7 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   body main { position: static !important; display: block !important; max-width: none !important; padding: 0 !important; }
   .slide { position: relative !important; width: 1280px !important; height: 720px !important; padding: 52px 72px 30px !important;
     opacity: 1 !important; visibility: visible !important; transform: none !important; page-break-after: always; break-after: page; border: 0 !important; }
-  .hud, .bar, .readbar, aside.notes { display: none !important; }
+  .hud, .bar, .readbar { display: none !important; }
 }
 </style>
 <script>try { var t = localStorage.getItem("kv-theme"); if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t); } catch (e) {}</script>
@@ -214,7 +210,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>lszoszk.github.io/talks/knowvember-2026</span><span>1</span></div>
-  <aside class="notes"><b>0:00–1:00.</b> Thank Alfonso and the Dynamic Knowledge and Library Team. Say the plan: about 45 minutes of searching on one question, then about 15 minutes for questions. Questions in the chat any time; Alfonso collects them. The link to these slides is on the last slide.</aside>
 </section>
 
 <!-- 2 -->
@@ -231,7 +226,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <p class="tip build-item">Generative AI helps me build the tools. It does not answer your questions: every result is the text of a UN document.</p>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>2</span></div>
-  <aside class="notes"><b>1:00–3:00.</b> Tell the story without names: "a member of one of the treaty bodies told me that, when he joined, members kept sending each other Word files and PDFs of the General Comments; his innovation was one Word file, so that Ctrl+F worked across all of them." Tell it with warmth: one small tool changed the way they worked. Then the project of 2022 (not named) and the apps. Spoken line: "AI built the fishing rod; the fish come from the UN documents." It leads into principle 1.</aside>
 </section>
 
 <!-- 3 -->
@@ -246,7 +240,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>3</span></div>
-  <aside class="notes"><b>3:00–5:00.</b> Principle 1: the search by meaning (Ask) uses a model only to find and order paragraphs; no model writes an answer. Principle 3 is the complementarity: the tools end where your systems begin. Announce: "you will see each principle in every demo".</aside>
 </section>
 
 <!-- 4 -->
@@ -265,7 +258,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </table>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>4</span></div>
-  <aside class="notes"><b>5:00–5:45.</b> One sentence per row. Point out that HRC Voting is built on the records of the OHCHR Library and UHRI+ on the Universal Human Rights Index.</aside>
 </section>
 
 <!-- 5 -->
@@ -282,7 +274,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>5</span></div>
-  <aside class="notes"><b>5:45–7:00.</b> Question to the chat: "Where would you look first?" Take two answers, then start.</aside>
 </section>
 
 <!-- 6 -->
@@ -305,7 +296,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/" target="_blank" rel="noopener">lszoszk.github.io/generalcomments</a></span><span>6</span></div>
-  <aside class="notes"><b>7:00–12:00.</b> Tabs ready: UN-HRDB with the phrase typed. Show the paragraph count, then GC 37 para. 40, the dossier (footnotes 43–45), Copy citation, the official link. Switch the scope to jurisprudence to show the phrase applied in individual cases. Principles 2 and 3 in action.</aside>
 </section>
 
 <!-- 7 -->
@@ -322,7 +312,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <a class="open" href="https://lszoszk.github.io/generalcomments/#check" target="_blank" rel="noopener">Open Check ↗</a>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/#check" target="_blank" rel="noopener">lszoszk.github.io/generalcomments → Check</a></span><span>7</span></div>
-  <aside class="notes"><b>12:00–16:00.</b> Give 60 seconds for the chat. The errors: the passage is in para. 40, not 41; the quotation turns "democracy, the rule of law, political pluralism and human rights" into "democracy and the rule of law" (an inserted "and" that cuts the list). Then run Check live: it reports "found in ¶ 40, not in the cited ¶ 41" and strikes out the inserted "and". Invite people to paste a sentence of their own (the check runs in the browser; nothing is sent).</aside>
 </section>
 
 <!-- 8 -->
@@ -351,7 +340,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/generalcomments/#ask" target="_blank" rel="noopener">lszoszk.github.io/generalcomments → Ask</a></span><span>8</span></div>
-  <aside class="notes"><b>16:00–18:00.</b> Ask covers the General Comments only. The question is sent to Voyage AI (owned by MongoDB), which embeds it and re-ranks the candidates; nothing is generated. Second and third results: para. 75 (dialogue with law enforcement) and para. 71 (a failure to notify does not make participation unlawful). Same question in Search gives nothing, because Search requires every word.</aside>
 </section>
 
 <!-- 8b -->
@@ -385,7 +373,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>UN-HRDB: 7–8 November 2026 · Travaux: 4 and 8 November 2026</span><span>9</span></div>
-  <aside class="notes"><b>18:00–21:00.</b> (a) is the easiest case: a copied sentence repeats the wording of the source, so it overstates what a user gets; (b) is the realistic one: a question in plain language, written by Claude Sonnet 5.5 (Anthropic) from each passage or claim without copying four words in a row; (c) is what people type into a search box. Any of the words (OR), for comparison: UN-HRDB 38% / 28% / 28%, Travaux 49% / 31% / 23%. Ask against OR on (b): UN-HRDB +13.9 points (95% CI 9.5 to 18.5), Travaux +41 points. In 39 of the 389 UN-HRDB cases the cited General Comment was later replaced; Ask returns the newer one and the case counts as a miss (without them: (a) 59%, (b) 47%, (c) 37%). The drafting records are a closed corpus (1946–1966), so Travaux gives the cleaner measure. Search does not switch to OR by itself: it requires every word, so a sentence or a question finds nothing. A score near 100% would be suspicious (quotations of ten words or more were removed from the UN-HRDB set for this reason). Nowak's text is not shown: the commentaries are copyrighted and stay private in the project.</aside>
 </section>
 
 <!-- 9 -->
@@ -414,7 +401,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/travaux-preparatoires/" target="_blank" rel="noopener">lszoszk.github.io/travaux-preparatoires</a></span><span>9</span></div>
-  <aside class="notes"><b>21:00–27:00.</b> Commission on Human Rights, 8th session. Show the article history of ICCPR art. 21 (the draft changed from "for any lawful purpose" in 1947 to the final text), the 9–8–1 vote, Roosevelt's and Cassin's speeches, Morozov's reply, and the scan. Final adoption in the Third Committee in 1961 (A/C.3/SR.1085), 67–0. Mention the film on the tour if time allows.</aside>
 </section>
 
 <!-- 10 -->
@@ -443,7 +429,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/hrc-voting/" target="_blank" rel="noopener">lszoszk.github.io/hrc-voting</a></span><span>10</span></div>
-  <aside class="notes"><b>27:00–32:00.</b> Recorded votes: 2014 31–9–7; 2016 31–5–10 (six amendments rejected that year). 2018 (38/11), 2020 (44/20), 2022 (50/21), 2024 (56/10) adopted without a vote; 13 amendments voted and rejected (2024: four, 4 to 9 votes in favour). Ask the room for a State, show its votes. The topic card counts only texts decided by a roll-call: the six resolutions adopted without a vote are in the catalogue (Texts tab) but not on the chart; "typical support 67%" is the average share of Yes in 2014 (31 of 47) and 2016 (31 of 46). Newest vote in the data: 24 September 2026 (63rd session).</aside>
 </section>
 
 <!-- 11 -->
@@ -467,7 +452,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span><a href="https://lszoszk.github.io/UnitedNations_recommendations/" target="_blank" rel="noopener">lszoszk.github.io/UnitedNations_recommendations</a></span><span>11</span></div>
-  <aside class="notes"><b>32:00–37:00.</b> Use the State from the HRC Voting demo: votes in Geneva next to the recommendations the State received. Show a recommendation that cites General Comment No. 37, closing the loop to slide 6.</aside>
 </section>
 
 <!-- 12 -->
@@ -486,7 +470,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </table>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>12</span></div>
-  <aside class="notes"><b>37:00–38:00.</b> Recap the three principles on this table: verbatim text, the smallest citable unit, the official record.</aside>
 </section>
 
 <!-- 12b -->
@@ -518,7 +501,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>modelcontextprotocol.io</span><span>14</span></div>
-  <aside class="notes"><b>38:00–41:00.</b> MCP was published by Anthropic in November 2024 as an open standard; other assistants support it too. Here a language model does write: it is the assistant, not the tool, so principle 1 holds for the tools and the answer still has to be checked (Check, slide 7). The connectors are read-only and need no account; the UN-HRDB one also serves the UHRI recommendations. Your figure from Budapest: in October, about 50% more searches came through MCP than through the websites. Expected answer: GC 37 paras. 70–71 (notification, not permission).</aside>
 </section>
 
 <!-- 13a -->
@@ -538,7 +520,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     <p class="tip" style="margin-top:14px">Server: a virtual machine of Adam Mickiewicz University in Poznań, web log kept 14 days. Ask also sends the question to Voyage AI (owned by MongoDB).</p>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>14</span></div>
-  <aside class="notes"><b>41:00–42:00.</b> Updates: UN-HRDB, a daily check of UN Documents and a weekly check of OHCHR JURIS, every new document reviewed before it is added; Travaux, a closed corpus, OCR and article tags corrected in rounds (last: 4 November 2026); HRC Voting, newest vote 24 September 2026 (63rd session); UHRI+, a daily check of the OHCHR export and a full reconciliation every month. Browser · server for UN-HRDB: the General Comments are searched in the browser, the rest on the server. The pages themselves come from GitHub Pages. HRC Voting holds the 63rd session of the Council up to 24 September 2026. Every Monday the university server checks UN Documents for Council resolutions newer than the published data (and whether new summary records of the Third Committee are out); it only reports, and the votes are added by hand once the OHCHR Library catalogues the session, because the catalogue cannot be read automatically (it sits behind a bot check). Possible question to the Library team: an export or an API for the voting records. The same weekly check looks for new cases on OHCHR JURIS for UN-HRDB. UHRI+ found nothing new on 8 November: the export of the Universal Human Rights Index has nothing published after 9 July. The monthly reconciliation catches records added later to older documents (e.g., reports of the Subcommittee on Prevention of Torture). A good moment to offer to report errors and gaps back. Privacy: in the browser means the search never leaves the computer (the General Comments in UN-HRDB, all of HRC Voting); the rest goes to the university server, which keeps only daily totals from its log after 14 days (no addresses, no searches). Each tool shows its date: the lag follows the sources (the OHCHR Library, the Universal Human Rights Index, UN Documents).</aside>
 </section>
 
 <!-- 13 -->
@@ -554,7 +535,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </ul>
   </div>
   <div class="foot"><span>Find It. Cite It. Check It</span><span>13</span></div>
-  <aside class="notes"><b>42:00–43:00.</b> Say these before anyone asks. The last point is the offer to the Library team.</aside>
 </section>
 
 <!-- 14 -->
@@ -575,7 +555,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     </div>
   </div>
   <div class="foot"><span>Knowvember · OHCHR · 10 November 2026</span><span>14</span></div>
-  <aside class="notes"><b>43:00–60:00.</b> Leave this slide on during questions: the QR code opens these slides on a phone. Prepared questions in case of silence: "Is this official?", "How often is it updated?", "Can I use it in a report?"</aside>
 </section>
 
 </main>
@@ -583,7 +562,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
   <button type="button" id="prevBtn" title="Previous slide (←)" aria-label="Previous slide">‹</button>
   <span id="count">1 / 17</span>
   <button type="button" id="nextBtn" title="Next slide (→)" aria-label="Next slide">›</button>
-  <button type="button" id="notesBtn" title="Speaker notes (N)">Notes</button>
   <button type="button" id="readBtn" title="Read as a page">Page</button>
   <button type="button" class="themeBtn" title="Dark or light (D)">Dark</button>
 </div>
@@ -625,7 +603,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     else if (k === 'ArrowLeft' || k === 'PageUp') { go(i - 1); e.preventDefault(); }
     else if (k === 'Home') go(0);
     else if (k === 'End') go(slides.length - 1);
-    else if (k === 'n' || k === 'N') body.classList.toggle('show-notes');
     else if (k === 'd' || k === 'D') toggleTheme();
   });
   // Boxes that slide in one by one: forward (-> / space / clicker) or a click on the row brings the next one
@@ -685,7 +662,6 @@ body.read .readbar { display: flex; justify-content: space-between; align-items:
     sp._restart = cycle;
     cycle();
   })();
-  document.getElementById('notesBtn').addEventListener('click', function () { body.classList.toggle('show-notes'); });
   document.getElementById('readBtn').addEventListener('click', function () { setMode(true); window.scrollTo(0, 0); });
   document.getElementById('toDeck').addEventListener('click', function () { setMode(false); });
   // Dark or light: follows the system until chosen with the button or D; the choice is kept in this browser.
