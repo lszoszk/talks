@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Opinie Rady PUO</title>
+<style>
+  /* ===== Windows 98 ===== */
+  :root {
+    --desk: #008080; --face: #c0c0c0; --navy: #000080;
+    --raised: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
+    --sunken: inset 1px 1px #808080, inset -1px -1px #fff, inset 2px 2px #0a0a0a, inset -2px -2px #dfdfdf;
+    --A: #ff0000; --B: #ff8000; --C: #ffd700; --D: #80c000; --E: #008000;
+    --F: #008080; --G: #0000ff; --H: #4b0082; --I: #a020f0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--desk); color: #000; }
+  body { font: 20px/1.45 Tahoma, "MS Sans Serif", "Microsoft Sans Serif", Verdana, Arial, sans-serif; }
+  .wrap { max-width: 1500px; margin: 20px auto 40px; padding: 4px 4px 8px; background: var(--face); box-shadow: var(--raised); }
+  .titlebar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: linear-gradient(90deg, #000080, #1084d0); color: #fff; padding: 6px 6px 6px 14px; }
+  h1 { font-size: 34px; font-weight: bold; margin: 0; }
+  .tb-btns span { display: inline-block; width: 34px; height: 30px; margin-left: 4px; background: var(--face); color: #000;
+    text-align: center; line-height: 28px; font-weight: bold; font-size: 20px; box-shadow: var(--raised); }
+  .sub { font-size: 22px; margin: 10px 14px 0; }
+  .spectrum { height: 6px; margin: 10px 14px 4px;
+    background: linear-gradient(90deg, #ff0000, #ff8000, #ffd700, #008000, #0000ff, #a020f0); }
+  section { margin: 14px; padding: 3px 3px 16px; background: var(--face); box-shadow: var(--raised); }
+  section > h2 { margin: 0 0 14px; padding: 4px 12px; font-size: 24px; font-weight: bold; color: #fff;
+    background: linear-gradient(90deg, #000080, #1084d0); }
+  section > div { margin: 0 14px; }
+  .todo { color: #808080; font-style: italic; }
+  a { color: #0000ee; }
+  a:visited { color: #551a8b; }
+  button, select, input { font: inherit; color: #000; border: none; border-radius: 0; }
+  button { background: var(--face); padding: 8px 18px; cursor: pointer; box-shadow: var(--raised); }
+  button:active { box-shadow: var(--sunken); }
+  select, input { background: #fff; box-shadow: var(--sunken); padding: 6px 10px; }
+  /* liczniki */
+  #stats { display: flex; flex-wrap: wrap; gap: 14px; }
+  .stat { background: #fff; box-shadow: var(--sunken); padding: 12px 22px; min-width: 180px; }
+  .stat b { display: block; font-size: 40px; color: var(--navy); }
+  .stat span { font-size: 20px; }
+  /* filtry */
+  #filters { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; }
+  #filters label { display: flex; flex-direction: column; font-size: 20px; gap: 4px; }
+  #filters select { min-width: 200px; max-width: 520px; }
+  /* wyszukiwarka */
+  #q { width: 100%; padding: 12px 16px; font-size: 26px; }
+  .hint { color: #222; font-size: 20px; margin: 8px 0 0; }
+  .grp { background: #fff; box-shadow: var(--sunken); padding: 14px 20px; margin: 16px 0; }
+  .grp h3 { margin: 0 0 10px; font-size: 24px; color: var(--navy); cursor: pointer; }
+  .hit { border-left: 4px solid var(--navy); padding: 6px 0 6px 16px; margin: 12px 0; font-size: 19px; }
+  .cite { color: #444; font-size: 20px; }
+  mark { background: #ffff00; color: #000; padding: 0 2px; }
+  /* etykiety */
+  .tag { display: inline-block; padding: 1px 12px; font-size: 20px; border: 1px solid #000; background: #fff; margin-right: 6px; }
+  .o-zasadne { background: #b8d8ff; }
+  .o-zasadne-z-zastrzezeniem { background: #dde6ff; }
+  .o-niezasadne { background: #ffcf99; }
+  .o-czesciowo { background: #fff3a0; }
+  .dot { display: inline-block; width: 16px; height: 16px; border: 1px solid #000; vertical-align: -1px; margin-right: 6px; }
+  /* lista */
+  #list { background: #fff; box-shadow: var(--sunken); padding: 0 20px; }
+  .item { padding: 16px 0; border-bottom: 1px dotted #808080; }
+  .item:last-child { border-bottom: none; }
+  .item .head { font-size: 24px; font-weight: bold; }
+  .item .meta { margin-top: 6px; }
+  .item details { margin-top: 8px; }
+  .item summary { cursor: pointer; color: var(--navy); }
+  .open { cursor: pointer; color: var(--navy); text-decoration: underline; }
+  /* widok uchwały */
+  #doc { position: fixed; inset: 0; background: rgba(0,128,128,.92); overflow-y: auto; display: none; z-index: 10; padding: 10px 0; }
+  #doc .wrap { max-width: 1200px; padding: 4px 4px 20px; }
+  #docBody { padding: 0 20px; }
+  #docBody > h2 { font-size: 28px; color: var(--navy); }
+  #doc .close { position: sticky; top: 12px; float: right; margin: 10px; }
+  .pt { font-size: 19px; margin: 10px 0; display: flex; gap: 14px; }
+  .pt .n { color: #444; min-width: 56px; text-align: right; }
+  .pt.is-hit { background: #ffffcc; outline: 1px dotted #000; }
+  .sec { font-size: 24px; font-weight: bold; color: var(--navy); border-bottom: 2px solid #808080; margin: 28px 0 8px; }
+  /* wykres */
+  #chart svg { width: 100%; height: auto; background: #fff; box-shadow: var(--sunken); }
+  #chart text { fill: #000; font-size: 18px; }
+  .legend { margin-top: 10px; }
+  .legend span { cursor: pointer; margin-right: 18px; white-space: nowrap; display: inline-block; }
+  #loading { margin: 10px 14px 0; font-size: 24px; color: var(--navy); font-weight: bold; }
+  footer { font-size: 16px; margin: 14px 14px 4px; padding: 4px 10px; box-shadow: var(--sunken); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="titlebar"><h1>Opinie Rady PUO</h1><div class="tb-btns" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div></div>
+    <p class="sub">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania, 2019–2026 · art. 119a Ordynacji podatkowej</p>
+    <div class="spectrum"></div>
+  </header>
+
+  <div id="loading">Wczytuję treść uchwał…</div>
+
+  <section><h2>Liczniki</h2><div id="stats"><span class="todo">Liczniki – w budowie</span></div></section>
+  <section><h2>Filtry</h2><div id="filters"><span class="todo">Filtry – w budowie</span></div></section>
+  <section>
+    <h2>Wyszukiwarka w treści uchwał</h2>
+    <div id="search">
+      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="np. korzyść podatkowa · „sztuczny sposób” · zasadnosc">
+      <p class="hint">Kilka słów – punkt musi zawierać wszystkie. Fraza w cudzysłowie – dokładnie ta fraza. Wielkość liter i polskie znaki nie mają znaczenia. Tekst skanów przeszedł OCR, więc możliwe są literówki.</p>
+      <div id="results"></div>
+    </div>
+  </section>
+  <section>
+    <h2>Uchwały w kolejnych latach według schematu optymalizacyjnego</h2>
+    <div id="chart"><span class="todo">Wykres – w budowie</span></div>
+  </section>
+  <section>
+    <h2>Lista uchwał</h2>
+    <div id="list"><span class="todo">Lista uchwał – w budowie</span></div>
+  </section>
+
+  <footer>Narzędzie demonstracyjne zbudowane na żywo przez Claude Code. Treść: uchwały Rady PUO (gov.pl); kategorie i streszczenia: opracowanie własne, do sprawdzenia w uchwale.</footer>
+</div>
+
+<div id="doc"><div class="wrap"><button class="close" onclick="closeDoc()">✕ Zamknij</button><div id="docBody"></div></div></div>
+
+<script>
+// ===== ETAP 1: dane i liczniki =====
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const PL = {'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'};
+// normalizacja znak po znaku: ta sama długość co oryginał (potrzebne do podświetlania)
+function norm(s) {
+  let out = '';
+  for (let i = 0; i < s.length; i++) {
+    let c = s[i].toLowerCase();
+    if (c.length !== 1) c = s[i];
+    if (c === '\n' || c === '\r' || c === '\t' || c === ' ') c = ' ';
+    out += PL[c] || c;
+  }
+  return out;
+}
+const OUTCOMES = ['zasadne', 'zasadne z zastrzeżeniem', 'częściowo', 'niezasadne'];
+const oClass = o => 'o-' + norm(o).replace(/\s+/g, '-');
+const year = d => d.date.slice(0, 4);
+const docLabel = d => `Uchwała ${d.nr}/${year(d)}`;
+
+let U = [], P = [], byId = {}, ptsByDoc = {}, pointsLoaded = false;
+const S = { scheme: '', outcome: '', tax: '', term: '', q: '' };
+
+function filtered() {
+  return U.filter(d =>
+    (!S.scheme || d.scheme_type === S.scheme) &&
+    (!S.outcome || d.outcome === S.outcome) &&
+    (!S.tax || (d.tax || []).includes(S.tax)) &&
+    (!S.term || d.term === S.term));
+}
+
+function renderStats(docs) {
+  const pages = docs.reduce((a, d) => a + (d.n_pages || 0), 0);
+  const pts = pointsLoaded ? docs.reduce((a, d) => a + (ptsByDoc[d.id] || []).length, 0) : '…';
+  const dist = OUTCOMES.map(o => {
+    const n = docs.filter(d => d.outcome === o).length;
+    return `<span class="tag ${oClass(o)}">${esc(o)}: ${n}</span>`;
+  }).join(' ');
+  const of = docs.length !== U.length ? `<span> z ${U.length}</span>` : '';
+  $('stats').innerHTML = `
+    <div class="stat"><b>${docs.length}</b><span>${pl(docs.length, 'uchwała', 'uchwały', 'uchwał')}${of}</span></div>
+    <div class="stat"><b>${pages}</b><span>${pl(pages, 'strona', 'strony', 'stron')}</span></div>
+    <div class="stat"><b>${pts}</b><span>${typeof pts === 'number' ? pl(pts, 'punkt', 'punkty', 'punktów') : 'punktów'}</span></div>
+    <div class="stat"><span>Rozstrzygnięcie: czy zastosowanie art. 119a jest zasadne</span><div style="margin-top:8px">${dist}</div></div>`;
+}
+
+function render() {
+  const docs = filtered();
+  renderStats(docs);
+  renderList(docs);
+  renderChart(docs);
+  shown = 50;
+  renderSearch(docs);
+}
+
+async function load() {
+  try {
+    U = await fetch('dane/uchwaly.json').then(r => r.json());
+    U.sort((a, b) => a.date.localeCompare(b.date) || a.nr - b.nr);
+    U.forEach(d => { byId[d.id] = d; ptsByDoc[d.id] = []; });
+    init();
+    render();
+    P = await fetch('dane/punkty.json').then(r => r.json());
+    P.forEach(p => { p.n = norm(p.text || ''); (ptsByDoc[p.doc_id] ||= []).push(p); });
+    pointsLoaded = true;
+    $('loading').style.display = 'none';
+    render();
+  } catch (e) {
+    $('loading').textContent = 'Nie udało się wczytać danych (' + e.message + '). Uruchom stronę przez lokalny serwer, np. python3 -m http.server.';
+  }
+}
+// ===== ETAP 2: filtry i lista =====
+const SCHEMES = {};
+const schemeColor = t => `var(--${t || 'X'}, #777)`;
+const fmtDate = s => s.split('-').reverse().join('.');
+
+function sel(label, key, values) {
+  return `<label>${label}<select id="f-${key}"><option value="">wszystkie</option>${
+    values.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>`;
+}
+
+function init() {
+  U.forEach(d => { if (d.scheme_type) SCHEMES[d.scheme_type] = d.scheme_type_name; });
+  const taxes = [...new Set(U.flatMap(d => d.tax || []))].sort();
+  const terms = [...new Set(U.map(d => d.term))].sort((a, b) => a.length - b.length || a.localeCompare(b));
+  $('filters').innerHTML =
+    sel('Schemat optymalizacyjny', 'scheme', Object.keys(SCHEMES).sort().map(k => [k, k + ' – ' + SCHEMES[k]])) +
+    sel('Rozstrzygnięcie', 'outcome', OUTCOMES.filter(o => U.some(d => d.outcome === o)).map(o => [o, o])) +
+    sel('Podatek', 'tax', taxes.map(t => [t, t])) +
+    sel('Kadencja Rady', 'term', terms.map(t => [t, 'kadencja ' + t])) +
+    '<button id="reset">Wyczyść filtry</button>';
+  ['scheme', 'outcome', 'tax', 'term'].forEach(k => {
+    $('f-' + k).onchange = e => setFilter(k, e.target.value);
+  });
+  $('reset').onclick = () => { ['scheme', 'outcome', 'tax', 'term'].forEach(k => { S[k] = ''; $('f-' + k).value = ''; }); render(); };
+}
+
+function setFilter(key, val) {
+  S[key] = val;
+  $('f-' + key).value = val;
+  render();
+}
+
+function renderList(docs) {
+  $('list').innerHTML = docs.length ? docs.map(d => `
+    <div class="item">
+      <div class="head"><span class="open" data-doc="${esc(d.id)}">${esc(docLabel(d))}</span> · ${fmtDate(d.date)} · kadencja ${esc(d.term)}</div>
+      <div class="meta"><span class="dot" style="background:${schemeColor(d.scheme_type)}"></span>Schemat optymalizacyjny ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)}</div>
+      <div class="meta"><span class="tag ${oClass(d.outcome)}">${esc(d.outcome)}</span>
+        Podatek: ${esc((d.tax || []).join(', '))}${d.dissent_noted ? ' · <span class="tag">zdanie odrębne</span>' : ''}
+        · <a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a></div>
+      <details><summary>Zespół czynności – streszczenie (opracowanie własne)</summary><p>${esc(d.scheme_summary)}</p></details>
+    </div>`).join('') : '<p class="todo">Brak uchwał spełniających filtry.</p>';
+}
+// ===== ETAP 3: wyszukiwarka =====
+let shown = 50, lastTerms = [], qTimer = null;
+const PART = { preamble: 'wstęp', operative: 'sentencja', reasoning: 'uzasadnienie' };
+const QUOTES = /["„“”]/g;
+
+function pl(n, one, few, many) {
+  const a = n % 10, b = n % 100;
+  return n === 1 ? one : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? few : many;
+}
+
+function parseQuery(q) {
+  const terms = [];
+  q = q.replace(/["„“”]([^"„“”]+)["„“”]/g, (m, ph) => {
+    const t = norm(ph.trim().replace(/\s+/g, ' '));
+    if (t) terms.push(t);
+    return ' ';
+  });
+  q.split(/\s+/).forEach(w => {
+    w = norm(w.replace(QUOTES, ''));
+    if (w) terms.push(w);
+  });
+  return terms;
+}
+
+function search(docs, terms) {
+  const allowed = new Set(docs.map(d => d.id));
+  const groups = new Map();
+  for (const p of P) {
+    if (!allowed.has(p.doc_id)) continue;
+    if (terms.every(t => p.n.includes(t))) {
+      if (!groups.has(p.doc_id)) groups.set(p.doc_id, []);
+      groups.get(p.doc_id).push(p);
+    }
+  }
+  return [...groups].map(([id, pts]) => ({ d: byId[id], pts }))
+    .filter(g => g.d)
+    .sort((a, b) => b.pts.length - a.pts.length || a.d.date.localeCompare(b.d.date));
+}
+
+function highlight(text, n, terms) {
+  const r = [];
+  terms.forEach(t => {
+    let i = n.indexOf(t);
+    while (i !== -1) { r.push([i, i + t.length]); i = n.indexOf(t, i + t.length); }
+  });
+  r.sort((a, b) => a[0] - b[0]);
+  let out = '', pos = 0;
+  for (const [s, e] of r) {
+    if (e <= pos) continue;
+    const st = Math.max(s, pos);
+    out += esc(text.slice(pos, st)) + '<mark>' + esc(text.slice(st, e)) + '</mark>';
+    pos = e;
+  }
+  return out + esc(text.slice(pos));
+}
+
+const citeOf = (d, p) => p.pkt != null ? `${docLabel(d)}, pkt ${p.pkt}` : `${docLabel(d)}, ${PART[p.part] || p.part}`;
+const pdfLink = (d, p) =>
+  `<a href="${esc(d.pdf_url)}${p.page ? '#page=' + p.page : ''}" target="_blank" rel="noopener">PDF, s. ${p.page ?? '?'}</a>`;
+
+function hitHtml(d, p, terms) {
+  let t = p.text || '', n = p.n, pre = '', post = '';
+  if (t.length > 700) {
+    const first = Math.min(...terms.map(x => n.indexOf(x)).filter(i => i >= 0));
+    const s = Math.max(0, first - 250), e = Math.min(t.length, s + 700);
+    pre = s > 0 ? '… ' : ''; post = e < t.length ? ' …' : '';
+    t = t.slice(s, e); n = n.slice(s, e);
+  }
+  return `<div class="hit"><div class="cite"><span class="open" data-doc="${esc(d.id)}" data-pt="${esc(p.id)}">${esc(citeOf(d, p))}</span> · ${pdfLink(d, p)}</div>${pre}${highlight(t, n, terms)}${post}</div>`;
+}
+
+function renderSearch(docs) {
+  const box = $('results');
+  const terms = parseQuery(S.q);
+  lastTerms = terms;
+  if (!terms.length) { box.innerHTML = ''; return; }
+  if (!pointsLoaded) { box.innerHTML = '<p class="hint">Wczytuję treść uchwał…</p>'; return; }
+  const groups = search(docs, terms);
+  const total = groups.reduce((a, g) => a + g.pts.length, 0);
+  let html = `<p class="hint">Trafienia: ${total} ${pl(total, 'punkt', 'punkty', 'punktów')} w ${groups.length} ${pl(groups.length, 'uchwale', 'uchwałach', 'uchwałach')}${docs.length < U.length ? ' (w zakresie filtrów)' : ''}.</p>`;
+  html += groups.slice(0, shown).map(g => `
+    <div class="grp">
+      <h3 data-doc="${esc(g.d.id)}"><span class="dot" style="background:${schemeColor(g.d.scheme_type)}"></span>${esc(docLabel(g.d))} · ${fmtDate(g.d.date)}
+        <span class="cite">· schemat ${esc(g.d.scheme_type)} · ${g.pts.length} ${pl(g.pts.length, 'trafienie', 'trafienia', 'trafień')}</span>
+        <span class="tag ${oClass(g.d.outcome)}">${esc(g.d.outcome)}</span></h3>
+      ${g.pts.slice(0, 5).map(p => hitHtml(g.d, p, terms)).join('')}
+      ${g.pts.length > 5 ? `<button data-doc="${esc(g.d.id)}">Pokaż wszystkie trafienia w uchwale (${g.pts.length})</button>` : ''}
+    </div>`).join('');
+  if (groups.length > shown) html += `<button id="more">Pokaż więcej (jeszcze ${groups.length - shown})</button>`;
+  box.innerHTML = html;
+  if ($('more')) $('more').onclick = () => { shown += 50; renderSearch(filtered()); };
+}
+
+$('q').addEventListener('input', e => {
+  clearTimeout(qTimer);
+  qTimer = setTimeout(() => { S.q = e.target.value; shown = 50; renderSearch(filtered()); }, 200);
+});
+// ===== ETAP 4: widok uchwały =====
+function openDoc(id, ptId) {
+  const d = byId[id];
+  if (!d) return;
+  const terms = lastTerms;
+  let html = `<h2 style="margin-right:160px">${esc(d.title || docLabel(d))}</h2>
+    <p><span class="tag ${oClass(d.outcome)}">${esc(d.outcome)}</span>
+      <span class="dot" style="background:${schemeColor(d.scheme_type)}"></span>Schemat optymalizacyjny ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)}
+      · Podatek: ${esc((d.tax || []).join(', '))}${d.dissent_noted ? ' · <span class="tag">zdanie odrębne</span>' : ''}
+      · <a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a></p>`;
+  if (terms.length) html += `<p class="hint">Podświetlone: punkty pasujące do wyszukiwania.</p>`;
+  if (!pointsLoaded) html += '<p class="hint">Wczytuję treść uchwał…</p>';
+  let sec = null, page = null;
+  for (const p of ptsByDoc[id] || []) {
+    const secName = p.section || PART[p.part] || '';
+    if (secName !== sec) { sec = secName; html += `<div class="sec">${esc(sec)}</div>`; }
+    const hit = terms.length && terms.every(t => p.n.includes(t));
+    const pageLink = p.page !== page ? ` <span class="cite">· ${pdfLink(d, p)}</span>` : '';
+    page = p.page;
+    html += `<div class="pt${hit ? ' is-hit' : ''}" id="pt-${esc(p.id)}"><span class="n">${p.pkt != null ? esc(String(p.pkt).replace(/\.?$/, '.')) : ''}</span>
+      <div>${hit ? highlight(p.text || '', p.n, terms) : esc(p.text)}${pageLink}</div></div>`;
+  }
+  $('docBody').innerHTML = html;
+  $('doc').style.display = 'block';
+  $('doc').scrollTop = 0;
+  const target = (ptId && document.getElementById('pt-' + ptId)) || $('docBody').querySelector('.is-hit');
+  if (target) target.scrollIntoView({ block: 'center' });
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-doc]');
+  if (el && !e.target.closest('a')) openDoc(el.dataset.doc, el.dataset.pt);
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDoc(); });
+function closeDoc() { document.getElementById('doc').style.display = 'none'; }
+// ===== ETAP 5: wykres =====
+function renderChart(docs) {
+  const years = [...new Set(U.map(year))].sort();
+  const keys = Object.keys(SCHEMES).sort();
+  const counts = years.map(y => {
+    const c = {};
+    docs.filter(d => year(d) === y).forEach(d => { c[d.scheme_type] = (c[d.scheme_type] || 0) + 1; });
+    return c;
+  });
+  const totals = counts.map(c => keys.reduce((a, k) => a + (c[k] || 0), 0));
+  const max = Math.max(1, ...totals);
+  const W = 1400, H = 440, L = 60, B = 50, T = 40, ph = H - B - T, bw = (W - L) / years.length;
+  const step = Math.max(1, Math.ceil(max / 5));
+  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Liczba uchwał w kolejnych latach według schematu optymalizacyjnego">`;
+  for (let v = 0; v <= max; v += step) {
+    const y = H - B - v / max * ph;
+    s += `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="#c0c0c0"/><text x="${L - 12}" y="${y + 6}" text-anchor="end">${v}</text>`;
+  }
+  years.forEach((yr, i) => {
+    const x = L + i * bw + bw * 0.15, w = bw * 0.7;
+    let top = H - B;
+    keys.forEach(k => {
+      const n = counts[i][k] || 0;
+      if (!n) return;
+      const h = n / max * ph;
+      top -= h;
+      s += `<rect x="${x}" y="${top}" width="${w}" height="${h}" style="fill:${schemeColor(k)};cursor:pointer" stroke="#000" stroke-width="2" data-scheme="${k}"><title>${yr} · schemat ${k} (${esc(SCHEMES[k])}): ${n}</title></rect>`;
+    });
+    s += `<text x="${x + w / 2}" y="${H - B + 32}" text-anchor="middle">${yr}</text>`;
+    if (totals[i]) s += `<text x="${x + w / 2}" y="${top - 10}" text-anchor="middle" style="fill:#000;font-weight:bold">${totals[i]}</text>`;
+  });
+  s += '</svg>';
+  const legend = keys.map(k => `<span data-scheme="${k}" style="opacity:${!S.scheme || S.scheme === k ? 1 : .35}"><span class="dot" style="background:${schemeColor(k)}"></span>${k} – ${esc(SCHEMES[k])}</span>`).join('');
+  $('chart').innerHTML = s + `<div class="legend">${legend}</div><p class="hint">Kliknij kolor schematu, aby ustawić filtr (ponowne kliknięcie go zdejmuje).</p>`;
+}
+
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-scheme]');
+  if (el) setFilter('scheme', S.scheme === el.dataset.scheme ? '' : el.dataset.scheme);
+});
+
+load();
+</script>
+
+<!-- opublikowano 2026-11-17 21:54:38 -->
+<script src="../statystyki.js" defer></script>
+</body>
+</html>
