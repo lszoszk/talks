@@ -5,415 +5,464 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Opinie Rady PUO</title>
 <style>
-  /* ===== Windows 98 ===== */
   :root {
-    --desk: #008080; --face: #c0c0c0; --navy: #000080;
-    --raised: inset -1px -1px #0a0a0a, inset 1px 1px #fff, inset -2px -2px #808080, inset 2px 2px #dfdfdf;
-    --sunken: inset 1px 1px #808080, inset -1px -1px #fff, inset 2px 2px #0a0a0a, inset -2px -2px #dfdfdf;
-    --A: #ff0000; --B: #ff8000; --C: #ffd700; --D: #80c000; --E: #008000;
-    --F: #008080; --G: #0000ff; --H: #4b0082; --I: #a020f0;
+    --bg: #000; --fg: #f2f2f2; --dim: #a8a8a8; --line: #2a2a2a; --panel: #0d0d0d;
+    --s-a: #e8333a; --s-b: #f2622e; --s-c: #f7a21b; --s-d: #f5e130; --s-e: #4cc35a;
+    --s-f: #2fb8c4; --s-g: #3a7be8; --s-h: #6a4fd6; --s-i: #b14fd1;
   }
   * { box-sizing: border-box; }
-  html, body { margin: 0; background: var(--desk); color: #000; }
-  body { font: 20px/1.45 Tahoma, "MS Sans Serif", "Microsoft Sans Serif", Verdana, Arial, sans-serif; }
-  .wrap { max-width: 1500px; margin: 20px auto 40px; padding: 4px 4px 8px; background: var(--face); box-shadow: var(--raised); }
-  .titlebar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    background: linear-gradient(90deg, #000080, #1084d0); color: #fff; padding: 6px 6px 6px 14px; }
-  h1 { font-size: 34px; font-weight: bold; margin: 0; }
-  .tb-btns span { display: inline-block; width: 34px; height: 30px; margin-left: 4px; background: var(--face); color: #000;
-    text-align: center; line-height: 28px; font-weight: bold; font-size: 20px; box-shadow: var(--raised); }
-  .sub { font-size: 22px; margin: 10px 14px 0; }
-  .spectrum { height: 6px; margin: 10px 14px 4px;
-    background: linear-gradient(90deg, #ff0000, #ff8000, #ffd700, #008000, #0000ff, #a020f0); }
-  section { margin: 14px; padding: 3px 3px 16px; background: var(--face); box-shadow: var(--raised); }
-  section > h2 { margin: 0 0 14px; padding: 4px 12px; font-size: 24px; font-weight: bold; color: #fff;
-    background: linear-gradient(90deg, #000080, #1084d0); }
-  section > div { margin: 0 14px; }
-  .todo { color: #808080; font-style: italic; }
-  a { color: #0000ee; }
-  a:visited { color: #551a8b; }
-  button, select, input { font: inherit; color: #000; border: none; border-radius: 0; }
-  button { background: var(--face); padding: 8px 18px; cursor: pointer; box-shadow: var(--raised); }
-  button:active { box-shadow: var(--sunken); }
-  select, input { background: #fff; box-shadow: var(--sunken); padding: 6px 10px; }
-  /* liczniki */
-  #stats { display: flex; flex-wrap: wrap; gap: 14px; }
-  .stat { background: #fff; box-shadow: var(--sunken); padding: 12px 22px; min-width: 180px; }
-  .stat b { display: block; font-size: 40px; color: var(--navy); }
-  .stat span { font-size: 20px; }
-  /* filtry */
-  #filters { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; }
-  #filters label { display: flex; flex-direction: column; font-size: 20px; gap: 4px; }
-  #filters select { min-width: 200px; max-width: 520px; }
-  /* wyszukiwarka */
-  #q { width: 100%; padding: 12px 16px; font-size: 26px; }
-  .hint { color: #222; font-size: 20px; margin: 8px 0 0; }
-  .grp { background: #fff; box-shadow: var(--sunken); padding: 14px 20px; margin: 16px 0; }
-  .grp h3 { margin: 0 0 10px; font-size: 24px; color: var(--navy); cursor: pointer; }
-  .hit { border-left: 4px solid var(--navy); padding: 6px 0 6px 16px; margin: 12px 0; font-size: 19px; }
-  .cite { color: #444; font-size: 20px; }
-  mark { background: #ffff00; color: #000; padding: 0 2px; }
-  /* etykiety */
-  .tag { display: inline-block; padding: 1px 12px; font-size: 20px; border: 1px solid #000; background: #fff; margin-right: 6px; }
-  .o-zasadne { background: #b8d8ff; }
-  .o-zasadne-z-zastrzezeniem { background: #dde6ff; }
-  .o-niezasadne { background: #ffcf99; }
-  .o-czesciowo { background: #fff3a0; }
-  .dot { display: inline-block; width: 16px; height: 16px; border: 1px solid #000; vertical-align: -1px; margin-right: 6px; }
-  /* lista */
-  #list { background: #fff; box-shadow: var(--sunken); padding: 0 20px; }
-  .item { padding: 16px 0; border-bottom: 1px dotted #808080; }
-  .item:last-child { border-bottom: none; }
-  .item .head { font-size: 24px; font-weight: bold; }
-  .item .meta { margin-top: 6px; }
-  .item details { margin-top: 8px; }
-  .item summary { cursor: pointer; color: var(--navy); }
-  .open { cursor: pointer; color: var(--navy); text-decoration: underline; }
-  /* widok uchwały */
-  #doc { position: fixed; inset: 0; background: rgba(0,128,128,.92); overflow-y: auto; display: none; z-index: 10; padding: 10px 0; }
-  #doc .wrap { max-width: 1200px; padding: 4px 4px 20px; }
-  #docBody { padding: 0 20px; }
-  #docBody > h2 { font-size: 28px; color: var(--navy); }
-  #doc .close { position: sticky; top: 12px; float: right; margin: 10px; }
-  .pt { font-size: 19px; margin: 10px 0; display: flex; gap: 14px; }
-  .pt .n { color: #444; min-width: 56px; text-align: right; }
-  .pt.is-hit { background: #ffffcc; outline: 1px dotted #000; }
-  .sec { font-size: 24px; font-weight: bold; color: var(--navy); border-bottom: 2px solid #808080; margin: 28px 0 8px; }
-  /* wykres */
-  #chart svg { width: 100%; height: auto; background: #fff; box-shadow: var(--sunken); }
-  #chart text { fill: #000; font-size: 18px; }
-  .legend { margin-top: 10px; }
-  .legend span { cursor: pointer; margin-right: 18px; white-space: nowrap; display: inline-block; }
-  #loading { margin: 10px 14px 0; font-size: 24px; color: var(--navy); font-weight: bold; }
-  footer { font-size: 16px; margin: 14px 14px 4px; padding: 4px 10px; box-shadow: var(--sunken); }
+  html { font-size: 20px; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+    font-family: "Helvetica Neue", Arial, "Segoe UI", sans-serif; line-height: 1.45; }
+  main { max-width: 1500px; margin: 0 auto; padding: 0 32px 40px; }
+  header { max-width: 1500px; margin: 0 auto; padding: 32px 32px 0; }
+  .title-row { display: flex; align-items: baseline; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  h1 { font-size: 2.6rem; margin: 0; font-weight: 300; letter-spacing: .02em; }
+  h1 b { font-weight: 700; }
+  .greet { font-size: 1.3rem; color: var(--s-d); font-weight: 600; }
+  .subtitle { color: var(--dim); font-size: 1.1rem; margin: 6px 0 16px; }
+  .spectrum { height: 6px; background: linear-gradient(90deg, var(--s-a), var(--s-b), var(--s-c), var(--s-d),
+    var(--s-e), var(--s-f), var(--s-g), var(--s-h), var(--s-i)); margin-bottom: 24px; }
+  section { margin: 28px 0; }
+  h2 { font-size: 1.5rem; font-weight: 400; margin: 0 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+  .wip { color: var(--dim); font-style: italic; padding: 18px; border: 1px dashed var(--line); }
+  .loading { font-size: 1.3rem; color: var(--s-d); }
+  .counters { display: flex; flex-wrap: wrap; gap: 18px; }
+  .counter { background: var(--panel); border: 1px solid var(--line); padding: 14px 20px; min-width: 180px; }
+  .counter .num { font-size: 2.2rem; font-weight: 700; }
+  .counter .lbl { color: var(--dim); font-size: 1rem; }
+  .filters { display: flex; flex-wrap: wrap; gap: 16px; align-items: end; }
+  .filters label { display: flex; flex-direction: column; font-size: 1rem; color: var(--dim); gap: 4px; }
+  select, input[type=search], button { font: inherit; font-size: 1rem; background: #111; color: var(--fg);
+    border: 1px solid #444; padding: 8px 12px; }
+  select { max-width: 520px; }
+  button { cursor: pointer; }
+  button:hover { border-color: var(--fg); }
+  input[type=search] { width: 100%; font-size: 1.4rem; padding: 14px 18px; }
+  .hint { color: var(--dim); font-size: 1rem; margin-top: 6px; }
+  .doc { border-left: 6px solid #555; background: var(--panel); padding: 14px 20px; margin-bottom: 14px; }
+  .doc-head { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: baseline; }
+  .doc-title { font-size: 1.25rem; font-weight: 700; color: var(--fg); cursor: pointer; text-decoration: underline;
+    text-decoration-color: #555; text-underline-offset: 4px; background: none; border: 0; padding: 0; }
+  .doc-title:hover { text-decoration-color: var(--fg); }
+  .meta { color: var(--dim); font-size: 1rem; }
+  .scheme { font-size: 1rem; }
+  .scheme .dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .tag { display: inline-block; font-size: 1rem; padding: 2px 10px; border-radius: 3px; font-weight: 600; color: #000; }
+  .o-zasadne { background: #7fd67f; }
+  .o-zasadne-z-zastrzezeniem { background: #e6d36a; }
+  .o-czesciowo { background: #f0a868; }
+  .o-niezasadne { background: #f08080; }
+  .dissent { font-size: 1rem; color: var(--s-d); border: 1px solid var(--s-d); padding: 1px 8px; border-radius: 3px; }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; color: var(--dim); font-size: 1rem; }
+  details p { font-size: 1rem; margin: 8px 0 0; max-width: 1200px; }
+  a { color: #8cc4ff; }
+  .pdf { font-size: 1rem; }
+  mark { background: var(--s-d); color: #000; padding: 0 2px; }
+  .hits-summary { font-size: 1.1rem; margin: 12px 0; }
+  .hit { margin: 12px 0 0; padding: 10px 0 0; border-top: 1px solid var(--line); }
+  .cite { font-weight: 700; font-size: 1rem; }
+  .hit-text { font-size: 18px; margin: 4px 0; white-space: pre-line; }
+  .count { color: var(--s-d); font-weight: 700; }
+  .more { margin-top: 10px; }
+  #viewer { position: fixed; inset: 0; background: rgba(0,0,0,.97); overflow-y: auto; z-index: 10; display: none; }
+  #viewer.open { display: block; }
+  .viewer-bar { position: sticky; top: 0; background: #000; border-bottom: 1px solid var(--line); padding: 14px 32px;
+    display: flex; gap: 16px; align-items: center; flex-wrap: wrap; z-index: 2; }
+  .viewer-body { max-width: 1200px; margin: 0 auto; padding: 10px 32px 60px; }
+  .viewer-body h3 { font-size: 1.3rem; margin: 30px 0 10px; color: var(--s-c); font-weight: 600; }
+  .pt { display: grid; grid-template-columns: 70px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid #161616; }
+  .pt .no { color: var(--dim); font-size: 18px; text-align: right; }
+  .pt .txt { font-size: 18px; white-space: pre-line; }
+  .pt .pg { font-size: 1rem; }
+  .pt.is-hit { background: #15130a; }
+  .chart-wrap { display: grid; grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr); gap: 24px; align-items: start; }
+  @media (max-width: 1000px) { .chart-wrap { grid-template-columns: 1fr; } }
+  #chart svg { width: 100%; height: auto; display: block; }
+  #chart svg rect.seg { cursor: pointer; }
+  #chart svg rect.seg:hover { stroke: #fff; stroke-width: 2; }
+  .legend button { display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; margin-bottom: 6px;
+    background: none; border: 1px solid transparent; font-size: 1rem; padding: 4px 8px; }
+  .legend button.active { border-color: #fff; }
+  .legend .sw { flex: 0 0 22px; height: 22px; }
+  footer { max-width: 1500px; margin: 40px auto 0; padding: 18px 32px 30px; color: var(--dim);
+    font-size: 0.8rem; border-top: 1px solid var(--line); }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <header>
-    <div class="titlebar"><h1>Opinie Rady PUO</h1><div class="tb-btns" aria-hidden="true"><span>_</span><span>□</span><span>×</span></div></div>
-    <p class="sub">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania, 2019–2026 · art. 119a Ordynacji podatkowej</p>
-    <div class="spectrum"></div>
-  </header>
-
-  <div id="loading">Wczytuję treść uchwał…</div>
-
-  <section><h2>Liczniki</h2><div id="stats"><span class="todo">Liczniki – w budowie</span></div></section>
-  <section><h2>Filtry</h2><div id="filters"><span class="todo">Filtry – w budowie</span></div></section>
-  <section>
+<header>
+  <div class="title-row">
+    <h1><b>Opinie Rady PUO</b> 2019–2026</h1>
+    <div class="greet">Poznań pozdrawia</div>
+  </div>
+  <div class="subtitle">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania w sprawie wniosków Szefa KAS o zastosowanie art. 119a Ordynacji podatkowej</div>
+  <div class="spectrum"></div>
+</header>
+<main>
+  <section id="sec-counters">
+    <div id="counters" class="wip">Liczniki – w budowie</div>
+  </section>
+  <section id="sec-filters">
+    <h2>Filtry</h2>
+    <div id="filters" class="wip">Filtry – w budowie</div>
+  </section>
+  <section id="sec-search">
     <h2>Wyszukiwarka w treści uchwał</h2>
-    <div id="search">
-      <input id="q" type="search" autocomplete="off" spellcheck="false" placeholder="np. korzyść podatkowa · „sztuczny sposób” · zasadnosc">
-      <p class="hint">Kilka słów – punkt musi zawierać wszystkie. Fraza w cudzysłowie – dokładnie ta fraza. Wielkość liter i polskie znaki nie mają znaczenia. Tekst skanów przeszedł OCR, więc możliwe są literówki.</p>
-      <div id="results"></div>
-    </div>
+    <div id="search" class="wip">Wyszukiwarka – w budowie</div>
   </section>
-  <section>
+  <section id="sec-chart">
     <h2>Uchwały w kolejnych latach według schematu optymalizacyjnego</h2>
-    <div id="chart"><span class="todo">Wykres – w budowie</span></div>
+    <div id="chart" class="wip">Wykres – w budowie</div>
   </section>
-  <section>
+  <section id="sec-list">
     <h2>Lista uchwał</h2>
-    <div id="list"><span class="todo">Lista uchwał – w budowie</span></div>
+    <div id="list" class="wip">Lista uchwał – w budowie</div>
   </section>
-
-  <footer>Narzędzie demonstracyjne zbudowane na żywo przez Claude Code. Treść: uchwały Rady PUO (gov.pl); kategorie i streszczenia: opracowanie własne, do sprawdzenia w uchwale.</footer>
-</div>
-
-<div id="doc"><div class="wrap"><button class="close" onclick="closeDoc()">✕ Zamknij</button><div id="docBody"></div></div></div>
-
+</main>
+<div id="viewer"></div>
 <script>
-// ===== ETAP 1: dane i liczniki =====
+const OUTCOMES = ['zasadne', 'zasadne z zastrzeżeniem', 'częściowo', 'niezasadne'];
+const PART_LABEL = { preamble: 'wstęp', operative: 'sentencja', reasoning: 'uzasadnienie' };
+let DOCS = [], POINTS = [], DOC_BY_ID = {}, POINTS_BY_DOC = {};
+
 const $ = id => document.getElementById(id);
-const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const PL = {'ą':'a','ć':'c','ę':'e','ł':'l','ń':'n','ó':'o','ś':'s','ź':'z','ż':'z'};
-// normalizacja znak po znaku: ta sama długość co oryginał (potrzebne do podświetlania)
-function norm(s) {
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const docYear = d => d.date.slice(0, 4);
+const docLabel = d => `Uchwała ${d.nr}/${docYear(d)}`;
+const fmtDate = iso => { const [y, m, dd] = iso.split('-'); return `${dd}.${m}.${y}`; };
+
+function renderCounters(docs, nPoints) {
+  const byOutcome = OUTCOMES.map(o => [o, docs.filter(d => d.outcome === o).length]);
+  const pages = docs.reduce((s, d) => s + (d.n_pages || 0), 0);
+  const el = $('counters');
+  el.className = 'counters';
+  el.innerHTML =
+    `<div class="counter"><div class="num">${docs.length}</div><div class="lbl">uchwał</div></div>` +
+    byOutcome.map(([o, n]) => `<div class="counter"><div class="num">${n}</div><div class="lbl">${esc(o)}</div></div>`).join('') +
+    `<div class="counter"><div class="num">${pages.toLocaleString('pl-PL')}</div><div class="lbl">stron</div></div>` +
+    `<div class="counter"><div class="num">${nPoints.toLocaleString('pl-PL')}</div><div class="lbl">punktów</div></div>`;
+}
+
+async function init() {
+  $('counters').innerHTML = '<span class="loading">Wczytuję treść uchwał…</span>';
+  try {
+    const [u, p] = await Promise.all([
+      fetch('dane/uchwaly.json').then(r => r.json()),
+      fetch('dane/punkty.json').then(r => r.json())
+    ]);
+    DOCS = u.slice().sort((a, b) => a.date.localeCompare(b.date) || a.nr - b.nr);
+    POINTS = p;
+    DOCS.forEach(d => { DOC_BY_ID[d.id] = d; POINTS_BY_DOC[d.id] = []; });
+    POINTS.forEach(pt => { (POINTS_BY_DOC[pt.doc_id] ||= []).push(pt); });
+    afterLoad();
+  } catch (e) {
+    $('counters').innerHTML = `<span class="loading">Nie udało się wczytać danych: ${esc(e.message)}. Otwórz stronę przez lokalny serwer (np. python3 -m http.server).</span>`;
+  }
+}
+
+const SCHEME_COLOR = s => `var(--s-${String(s).toLowerCase()})`;
+const outcomeClass = o => 'o-' + fold(o).replace(/\s+/g, '-');
+const FILTER = { scheme: '', outcome: '', tax: '', term: '' };
+
+// zamiana każdego znaku na jeden znak: małe litery, bez polskich znaków (ta sama długość tekstu)
+const FOLD_CACHE = {};
+function fold(s) {
   let out = '';
-  for (let i = 0; i < s.length; i++) {
-    let c = s[i].toLowerCase();
-    if (c.length !== 1) c = s[i];
-    if (c === '\n' || c === '\r' || c === '\t' || c === ' ') c = ' ';
-    out += PL[c] || c;
+  for (const ch of String(s)) {
+    let c = FOLD_CACHE[ch];
+    if (c === undefined) {
+      if (ch.length !== 1) c = ch;
+      else {
+        c = ch.toLowerCase();
+        c = c === 'ł' ? 'l' : (c.normalize('NFD')[0] || c);
+        if (/\s/.test(c)) c = ' ';
+      }
+      FOLD_CACHE[ch] = c;
+    }
+    out += c;
   }
   return out;
 }
-const OUTCOMES = ['zasadne', 'zasadne z zastrzeżeniem', 'częściowo', 'niezasadne'];
-const oClass = o => 'o-' + norm(o).replace(/\s+/g, '-');
-const year = d => d.date.slice(0, 4);
-const docLabel = d => `Uchwała ${d.nr}/${year(d)}`;
 
-let U = [], P = [], byId = {}, ptsByDoc = {}, pointsLoaded = false;
-const S = { scheme: '', outcome: '', tax: '', term: '', q: '' };
-
-function filtered() {
-  return U.filter(d =>
-    (!S.scheme || d.scheme_type === S.scheme) &&
-    (!S.outcome || d.outcome === S.outcome) &&
-    (!S.tax || (d.tax || []).includes(S.tax)) &&
-    (!S.term || d.term === S.term));
+function filteredDocs() {
+  return DOCS.filter(d =>
+    (!FILTER.scheme || d.scheme_type === FILTER.scheme) &&
+    (!FILTER.outcome || d.outcome === FILTER.outcome) &&
+    (!FILTER.tax || (d.tax || []).includes(FILTER.tax)) &&
+    (!FILTER.term || d.term === FILTER.term));
 }
 
-function renderStats(docs) {
-  const pages = docs.reduce((a, d) => a + (d.n_pages || 0), 0);
-  const pts = pointsLoaded ? docs.reduce((a, d) => a + (ptsByDoc[d.id] || []).length, 0) : '…';
-  const dist = OUTCOMES.map(o => {
-    const n = docs.filter(d => d.outcome === o).length;
-    return `<span class="tag ${oClass(o)}">${esc(o)}: ${n}</span>`;
-  }).join(' ');
-  const of = docs.length !== U.length ? `<span> z ${U.length}</span>` : '';
-  $('stats').innerHTML = `
-    <div class="stat"><b>${docs.length}</b><span>${pl(docs.length, 'uchwała', 'uchwały', 'uchwał')}${of}</span></div>
-    <div class="stat"><b>${pages}</b><span>${pl(pages, 'strona', 'strony', 'stron')}</span></div>
-    <div class="stat"><b>${pts}</b><span>${typeof pts === 'number' ? pl(pts, 'punkt', 'punkty', 'punktów') : 'punktów'}</span></div>
-    <div class="stat"><span>Rozstrzygnięcie: czy zastosowanie art. 119a jest zasadne</span><div style="margin-top:8px">${dist}</div></div>`;
-}
-
-function render() {
-  const docs = filtered();
-  renderStats(docs);
-  renderList(docs);
-  renderChart(docs);
-  shown = 50;
-  renderSearch(docs);
-}
-
-async function load() {
-  try {
-    U = await fetch('dane/uchwaly.json').then(r => r.json());
-    U.sort((a, b) => a.date.localeCompare(b.date) || a.nr - b.nr);
-    U.forEach(d => { byId[d.id] = d; ptsByDoc[d.id] = []; });
-    init();
-    render();
-    P = await fetch('dane/punkty.json').then(r => r.json());
-    P.forEach(p => { p.n = norm(p.text || ''); (ptsByDoc[p.doc_id] ||= []).push(p); });
-    pointsLoaded = true;
-    $('loading').style.display = 'none';
-    render();
-  } catch (e) {
-    $('loading').textContent = 'Nie udało się wczytać danych (' + e.message + '). Uruchom stronę przez lokalny serwer, np. python3 -m http.server.';
-  }
-}
-// ===== ETAP 2: filtry i lista =====
-const SCHEMES = {};
-const schemeColor = t => `var(--${t || 'X'}, #777)`;
-const fmtDate = s => s.split('-').reverse().join('.');
-
-function sel(label, key, values) {
-  return `<label>${label}<select id="f-${key}"><option value="">wszystkie</option>${
-    values.map(([v, t]) => `<option value="${esc(v)}">${esc(t)}</option>`).join('')}</select></label>`;
-}
-
-function init() {
-  U.forEach(d => { if (d.scheme_type) SCHEMES[d.scheme_type] = d.scheme_type_name; });
-  const taxes = [...new Set(U.flatMap(d => d.tax || []))].sort();
-  const terms = [...new Set(U.map(d => d.term))].sort((a, b) => a.length - b.length || a.localeCompare(b));
-  $('filters').innerHTML =
-    sel('Schemat optymalizacyjny', 'scheme', Object.keys(SCHEMES).sort().map(k => [k, k + ' – ' + SCHEMES[k]])) +
-    sel('Rozstrzygnięcie', 'outcome', OUTCOMES.filter(o => U.some(d => d.outcome === o)).map(o => [o, o])) +
-    sel('Podatek', 'tax', taxes.map(t => [t, t])) +
-    sel('Kadencja Rady', 'term', terms.map(t => [t, 'kadencja ' + t])) +
-    '<button id="reset">Wyczyść filtry</button>';
+function renderFilters() {
+  const schemes = {};
+  DOCS.forEach(d => { schemes[d.scheme_type] = d.scheme_type_name; });
+  const taxes = [...new Set(DOCS.flatMap(d => d.tax || []))].sort();
+  const terms = [...new Set(DOCS.map(d => d.term))];
+  const opt = (v, t) => `<option value="${esc(v)}">${esc(t)}</option>`;
+  const el = $('filters');
+  el.className = 'filters';
+  el.innerHTML =
+    `<label>Schemat optymalizacyjny<select id="f-scheme">${opt('', 'wszystkie')}${Object.keys(schemes).sort().map(k => opt(k, k + ' – ' + schemes[k])).join('')}</select></label>` +
+    `<label>Rozstrzygnięcie<select id="f-outcome">${opt('', 'wszystkie')}${OUTCOMES.map(o => opt(o, o)).join('')}</select></label>` +
+    `<label>Podatek<select id="f-tax">${opt('', 'wszystkie')}${taxes.map(t => opt(t, t)).join('')}</select></label>` +
+    `<label>Kadencja<select id="f-term">${opt('', 'wszystkie')}${terms.map(t => opt(t, t + ' kadencja')).join('')}</select></label>` +
+    `<button id="f-reset">Wyczyść filtry</button>`;
   ['scheme', 'outcome', 'tax', 'term'].forEach(k => {
-    $('f-' + k).onchange = e => setFilter(k, e.target.value);
+    $('f-' + k).addEventListener('change', e => { FILTER[k] = e.target.value; update(); });
   });
-  $('reset').onclick = () => { ['scheme', 'outcome', 'tax', 'term'].forEach(k => { S[k] = ''; $('f-' + k).value = ''; }); render(); };
+  $('f-reset').addEventListener('click', () => setFilters({ scheme: '', outcome: '', tax: '', term: '' }));
 }
 
-function setFilter(key, val) {
-  S[key] = val;
-  $('f-' + key).value = val;
-  render();
+function setFilters(obj) {
+  Object.assign(FILTER, obj);
+  ['scheme', 'outcome', 'tax', 'term'].forEach(k => { $('f-' + k).value = FILTER[k]; });
+  update();
+}
+
+function docHeadHtml(d) {
+  return `<div class="doc-head">
+      <button class="doc-title" data-open="${esc(d.id)}">${esc(docLabel(d))}</button>
+      <span class="meta">z dnia ${fmtDate(d.date)} · ${esc(d.term)} kadencja</span>
+      <span class="tag ${outcomeClass(d.outcome)}">${esc(d.outcome)}</span>
+      ${d.dissent_noted ? '<span class="dissent">zdanie odrębne</span>' : ''}
+    </div>
+    <div class="scheme"><span class="dot" style="background:${SCHEME_COLOR(d.scheme_type)}"></span>Schemat ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)} · <span class="meta">podatek: ${esc((d.tax || []).join(', '))}</span></div>`;
 }
 
 function renderList(docs) {
-  $('list').innerHTML = docs.length ? docs.map(d => `
-    <div class="item">
-      <div class="head"><span class="open" data-doc="${esc(d.id)}">${esc(docLabel(d))}</span> · ${fmtDate(d.date)} · kadencja ${esc(d.term)}</div>
-      <div class="meta"><span class="dot" style="background:${schemeColor(d.scheme_type)}"></span>Schemat optymalizacyjny ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)}</div>
-      <div class="meta"><span class="tag ${oClass(d.outcome)}">${esc(d.outcome)}</span>
-        Podatek: ${esc((d.tax || []).join(', '))}${d.dissent_noted ? ' · <span class="tag">zdanie odrębne</span>' : ''}
-        · <a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a></div>
-      <details><summary>Zespół czynności – streszczenie (opracowanie własne)</summary><p>${esc(d.scheme_summary)}</p></details>
-    </div>`).join('') : '<p class="todo">Brak uchwał spełniających filtry.</p>';
+  const el = $('list');
+  el.className = '';
+  if (!docs.length) { el.innerHTML = '<p class="meta">Brak uchwał spełniających filtry.</p>'; return; }
+  el.innerHTML = `<p class="meta">Uchwał: ${docs.length}</p>` + docs.map(d => `
+    <div class="doc" style="border-left-color:${SCHEME_COLOR(d.scheme_type)}">
+      ${docHeadHtml(d)}
+      <details><summary>Zespół czynności – streszczenie (opracowanie własne)</summary><p>${esc(d.scheme_summary || '')}</p></details>
+      <div class="pdf"><a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a></div>
+    </div>`).join('');
 }
-// ===== ETAP 3: wyszukiwarka =====
-let shown = 50, lastTerms = [], qTimer = null;
-const PART = { preamble: 'wstęp', operative: 'sentencja', reasoning: 'uzasadnienie' };
-const QUOTES = /["„“”]/g;
 
-function pl(n, one, few, many) {
-  const a = n % 10, b = n % 100;
-  return n === 1 ? one : (a >= 2 && a <= 4 && (b < 12 || b > 14)) ? few : many;
-}
+// ---------- wyszukiwarka ----------
+let TERMS = [];          // znormalizowane słowa / frazy z zapytania
+let SHOW_DOCS = 50;      // ile uchwał z trafieniami pokazać
+const HITS_PER_DOC = 3;  // ile trafień na uchwałę w wynikach
 
 function parseQuery(q) {
   const terms = [];
-  q = q.replace(/["„“”]([^"„“”]+)["„“”]/g, (m, ph) => {
-    const t = norm(ph.trim().replace(/\s+/g, ' '));
-    if (t) terms.push(t);
+  const rest = String(q).replace(/["„”“]([^"„”“]+)["„”“]/g, (m, phrase) => {
+    const f = fold(phrase).replace(/\s+/g, ' ').trim();
+    if (f) terms.push(f);
     return ' ';
   });
-  q.split(/\s+/).forEach(w => {
-    w = norm(w.replace(QUOTES, ''));
-    if (w) terms.push(w);
-  });
+  fold(rest).split(/\s+/).forEach(w => { w = w.replace(/^[^\p{L}\p{N}]+|[^\p{L}\p{N}]+$/gu, ''); if (w) terms.push(w); });
   return terms;
 }
 
-function search(docs, terms) {
-  const allowed = new Set(docs.map(d => d.id));
-  const groups = new Map();
-  for (const p of P) {
-    if (!allowed.has(p.doc_id)) continue;
-    if (terms.every(t => p.n.includes(t))) {
-      if (!groups.has(p.doc_id)) groups.set(p.doc_id, []);
-      groups.get(p.doc_id).push(p);
-    }
-  }
-  return [...groups].map(([id, pts]) => ({ d: byId[id], pts }))
-    .filter(g => g.d)
-    .sort((a, b) => b.pts.length - a.pts.length || a.d.date.localeCompare(b.d.date));
+function pointMatches(pt, terms) {
+  return terms.every(t => pt._f.includes(t));
 }
 
-function highlight(text, n, terms) {
-  const r = [];
+// podświetlenie: pozycje z tekstu znormalizowanego odpowiadają pozycjom w oryginale (fold nie zmienia długości)
+function highlight(text, terms) {
+  if (!terms.length) return esc(text);
+  const f = fold(text);
+  const ranges = [];
   terms.forEach(t => {
-    let i = n.indexOf(t);
-    while (i !== -1) { r.push([i, i + t.length]); i = n.indexOf(t, i + t.length); }
+    let i = f.indexOf(t);
+    while (i !== -1) { ranges.push([i, i + t.length]); i = f.indexOf(t, i + t.length); }
   });
-  r.sort((a, b) => a[0] - b[0]);
+  if (!ranges.length) return esc(text);
+  ranges.sort((a, b) => a[0] - b[0]);
+  const merged = [ranges[0]];
+  ranges.slice(1).forEach(r => { const last = merged[merged.length - 1]; if (r[0] <= last[1]) last[1] = Math.max(last[1], r[1]); else merged.push(r); });
   let out = '', pos = 0;
-  for (const [s, e] of r) {
-    if (e <= pos) continue;
-    const st = Math.max(s, pos);
-    out += esc(text.slice(pos, st)) + '<mark>' + esc(text.slice(st, e)) + '</mark>';
-    pos = e;
-  }
+  merged.forEach(([a, b]) => { out += esc(text.slice(pos, a)) + '<mark>' + esc(text.slice(a, b)) + '</mark>'; pos = b; });
   return out + esc(text.slice(pos));
 }
 
-const citeOf = (d, p) => p.pkt != null ? `${docLabel(d)}, pkt ${p.pkt}` : `${docLabel(d)}, ${PART[p.part] || p.part}`;
-const pdfLink = (d, p) =>
-  `<a href="${esc(d.pdf_url)}${p.page ? '#page=' + p.page : ''}" target="_blank" rel="noopener">PDF, s. ${p.page ?? '?'}</a>`;
-
-function hitHtml(d, p, terms) {
-  let t = p.text || '', n = p.n, pre = '', post = '';
-  if (t.length > 700) {
-    const first = Math.min(...terms.map(x => n.indexOf(x)).filter(i => i >= 0));
-    const s = Math.max(0, first - 250), e = Math.min(t.length, s + 700);
-    pre = s > 0 ? '… ' : ''; post = e < t.length ? ' …' : '';
-    t = t.slice(s, e); n = n.slice(s, e);
-  }
-  return `<div class="hit"><div class="cite"><span class="open" data-doc="${esc(d.id)}" data-pt="${esc(p.id)}">${esc(citeOf(d, p))}</span> · ${pdfLink(d, p)}</div>${pre}${highlight(t, n, terms)}${post}</div>`;
+// wycinek tekstu wokół pierwszego trafienia
+function snippet(text, terms, size = 500) {
+  if (text.length <= size) return text;
+  const f = fold(text);
+  let first = Math.min(...terms.map(t => { const i = f.indexOf(t); return i < 0 ? Infinity : i; }));
+  if (!isFinite(first)) first = 0;
+  const start = Math.max(0, first - 150);
+  const end = Math.min(text.length, start + size);
+  return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
 }
 
-function renderSearch(docs) {
-  const box = $('results');
-  const terms = parseQuery(S.q);
-  lastTerms = terms;
-  if (!terms.length) { box.innerHTML = ''; return; }
-  if (!pointsLoaded) { box.innerHTML = '<p class="hint">Wczytuję treść uchwał…</p>'; return; }
-  const groups = search(docs, terms);
-  const total = groups.reduce((a, g) => a + g.pts.length, 0);
-  let html = `<p class="hint">Trafienia: ${total} ${pl(total, 'punkt', 'punkty', 'punktów')} w ${groups.length} ${pl(groups.length, 'uchwale', 'uchwałach', 'uchwałach')}${docs.length < U.length ? ' (w zakresie filtrów)' : ''}.</p>`;
-  html += groups.slice(0, shown).map(g => `
-    <div class="grp">
-      <h3 data-doc="${esc(g.d.id)}"><span class="dot" style="background:${schemeColor(g.d.scheme_type)}"></span>${esc(docLabel(g.d))} · ${fmtDate(g.d.date)}
-        <span class="cite">· schemat ${esc(g.d.scheme_type)} · ${g.pts.length} ${pl(g.pts.length, 'trafienie', 'trafienia', 'trafień')}</span>
-        <span class="tag ${oClass(g.d.outcome)}">${esc(g.d.outcome)}</span></h3>
-      ${g.pts.slice(0, 5).map(p => hitHtml(g.d, p, terms)).join('')}
-      ${g.pts.length > 5 ? `<button data-doc="${esc(g.d.id)}">Pokaż wszystkie trafienia w uchwale (${g.pts.length})</button>` : ''}
-    </div>`).join('');
-  if (groups.length > shown) html += `<button id="more">Pokaż więcej (jeszcze ${groups.length - shown})</button>`;
-  box.innerHTML = html;
-  if ($('more')) $('more').onclick = () => { shown += 50; renderSearch(filtered()); };
+function citation(pt) {
+  const d = DOC_BY_ID[pt.doc_id];
+  const where = pt.pkt != null ? `pkt ${pt.pkt}` : (PART_LABEL[pt.part] || pt.part);
+  return `${docLabel(d)}, ${where}`;
 }
 
-$('q').addEventListener('input', e => {
-  clearTimeout(qTimer);
-  qTimer = setTimeout(() => { S.q = e.target.value; shown = 50; renderSearch(filtered()); }, 200);
-});
-// ===== ETAP 4: widok uchwały =====
-function openDoc(id, ptId) {
-  const d = byId[id];
+function pdfLink(pt) {
+  const d = DOC_BY_ID[pt.doc_id];
+  if (!d || !d.pdf_url) return '';
+  return pt.page ? `<a href="${esc(d.pdf_url)}#page=${pt.page}" target="_blank" rel="noopener">PDF, s. ${pt.page}</a>`
+                 : `<a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF</a>`;
+}
+
+function renderSearchBox() {
+  const el = $('search');
+  el.className = '';
+  el.innerHTML = `<input type="search" id="q" placeholder="np. korzyść podatkowa   albo   &quot;sztuczny sposób&quot;" autocomplete="off">
+    <div class="hint">Kilka słów – punkt musi zawierać wszystkie. Fraza w cudzysłowie – dokładnie ta fraza. Wielkość liter i polskie znaki bez znaczenia.</div>
+    <div id="results"></div>`;
+  let timer = null;
+  $('q').addEventListener('input', e => {
+    clearTimeout(timer);
+    timer = setTimeout(() => { TERMS = parseQuery(e.target.value); SHOW_DOCS = 50; update(); }, 200);
+  });
+}
+
+function renderResults(docs) {
+  const el = $('results');
+  if (!TERMS.length) { el.innerHTML = ''; return; }
+  const groups = [];
+  let total = 0;
+  docs.forEach(d => {
+    const hits = (POINTS_BY_DOC[d.id] || []).filter(pt => pointMatches(pt, TERMS));
+    if (hits.length) { groups.push([d, hits]); total += hits.length; }
+  });
+  if (!groups.length) { el.innerHTML = '<p class="hits-summary">Brak trafień w uchwałach spełniających filtry.</p>'; return; }
+  const shown = groups.slice(0, SHOW_DOCS);
+  el.innerHTML = `<p class="hits-summary">Trafienia: <span class="count">${total}</span> punktów w <span class="count">${groups.length}</span> uchwałach</p>` +
+    shown.map(([d, hits]) => `
+    <div class="doc" style="border-left-color:${SCHEME_COLOR(d.scheme_type)}">
+      ${docHeadHtml(d)}
+      <div class="meta">Trafień w uchwale: <span class="count">${hits.length}</span></div>
+      ${hits.slice(0, HITS_PER_DOC).map(pt => `
+        <div class="hit">
+          <div class="cite">${esc(citation(pt))} · ${pdfLink(pt)}</div>
+          <div class="hit-text">${highlight(snippet(pt.text, TERMS), TERMS)}</div>
+        </div>`).join('')}
+      ${hits.length > HITS_PER_DOC ? `<div class="more"><button data-open="${esc(d.id)}">Pokaż wszystkie ${hits.length} trafienia w uchwale</button></div>` : ''}
+    </div>`).join('') +
+    (groups.length > SHOW_DOCS ? `<button id="show-more" class="more">Pokaż więcej (${groups.length - SHOW_DOCS} uchwał)</button>` : '');
+  const more = $('show-more');
+  if (more) more.addEventListener('click', () => { SHOW_DOCS += 50; renderResults(filteredDocs()); });
+}
+
+// ---------- widok uchwały ----------
+function openDoc(id) {
+  const d = DOC_BY_ID[id];
   if (!d) return;
-  const terms = lastTerms;
-  let html = `<h2 style="margin-right:160px">${esc(d.title || docLabel(d))}</h2>
-    <p><span class="tag ${oClass(d.outcome)}">${esc(d.outcome)}</span>
-      <span class="dot" style="background:${schemeColor(d.scheme_type)}"></span>Schemat optymalizacyjny ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)}
-      · Podatek: ${esc((d.tax || []).join(', '))}${d.dissent_noted ? ' · <span class="tag">zdanie odrębne</span>' : ''}
-      · <a href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a></p>`;
-  if (terms.length) html += `<p class="hint">Podświetlone: punkty pasujące do wyszukiwania.</p>`;
-  if (!pointsLoaded) html += '<p class="hint">Wczytuję treść uchwał…</p>';
-  let sec = null, page = null;
-  for (const p of ptsByDoc[id] || []) {
-    const secName = p.section || PART[p.part] || '';
-    if (secName !== sec) { sec = secName; html += `<div class="sec">${esc(sec)}</div>`; }
-    const hit = terms.length && terms.every(t => p.n.includes(t));
-    const pageLink = p.page !== page ? ` <span class="cite">· ${pdfLink(d, p)}</span>` : '';
-    page = p.page;
-    html += `<div class="pt${hit ? ' is-hit' : ''}" id="pt-${esc(p.id)}"><span class="n">${p.pkt != null ? esc(String(p.pkt).replace(/\.?$/, '.')) : ''}</span>
-      <div>${hit ? highlight(p.text || '', p.n, terms) : esc(p.text)}${pageLink}</div></div>`;
-  }
-  $('docBody').innerHTML = html;
-  $('doc').style.display = 'block';
-  $('doc').scrollTop = 0;
-  const target = (ptId && document.getElementById('pt-' + ptId)) || $('docBody').querySelector('.is-hit');
-  if (target) target.scrollIntoView({ block: 'center' });
+  const pts = POINTS_BY_DOC[id] || [];
+  let lastSection = null, nHits = 0;
+  const body = pts.map(pt => {
+    let head = '';
+    const sec = pt.section || PART_LABEL[pt.part] || '';
+    if (sec !== lastSection) { head = `<h3>${esc(sec)}</h3>`; lastSection = sec; }
+    const hit = TERMS.length && pointMatches(pt, TERMS);
+    if (hit) nHits++;
+    const no = pt.pkt != null ? pt.pkt + '.' : (PART_LABEL[pt.part] || '');
+    return `${head}<div class="pt${hit ? ' is-hit' : ''}"><div class="no">${esc(no)}</div>
+      <div><div class="txt">${hit ? highlight(pt.text, TERMS) : esc(pt.text)}</div><div class="pg">${pdfLink(pt)}</div></div></div>`;
+  }).join('');
+  $('viewer').innerHTML = `
+    <div class="viewer-bar">
+      <button id="viewer-close">✕ Zamknij (Esc)</button>
+      <span class="doc-title" style="text-decoration:none;cursor:default">${esc(docLabel(d))}</span>
+      <span class="meta">z dnia ${fmtDate(d.date)}</span>
+      <span class="tag ${outcomeClass(d.outcome)}">${esc(d.outcome)}</span>
+      ${TERMS.length ? `<span class="meta">Trafień: <span class="count">${nHits}</span></span>` : ''}
+      <a class="pdf" href="${esc(d.pdf_url)}" target="_blank" rel="noopener">PDF uchwały (gov.pl)</a>
+    </div>
+    <div class="viewer-body">
+      <p class="meta">${esc(d.title || '')}</p>
+      <div class="scheme"><span class="dot" style="background:${SCHEME_COLOR(d.scheme_type)}"></span>Schemat ${esc(d.scheme_type)}: ${esc(d.scheme_type_name)}</div>
+      ${body || '<p class="meta">Brak punktów dla tej uchwały.</p>'}
+    </div>`;
+  const v = $('viewer');
+  v.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  $('viewer-close').addEventListener('click', closeDoc);
+  const first = v.querySelector('mark');
+  if (first) first.scrollIntoView({ block: 'center' }); else v.scrollTop = 0;
+}
+
+function closeDoc() {
+  $('viewer').classList.remove('open');
+  document.body.style.overflow = '';
 }
 
 document.addEventListener('click', e => {
-  const el = e.target.closest('[data-doc]');
-  if (el && !e.target.closest('a')) openDoc(el.dataset.doc, el.dataset.pt);
+  const t = e.target.closest('[data-open]');
+  if (t) openDoc(t.dataset.open);
 });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDoc(); });
-function closeDoc() { document.getElementById('doc').style.display = 'none'; }
-// ===== ETAP 5: wykres =====
+
+// ---------- wykres ----------
 function renderChart(docs) {
-  const years = [...new Set(U.map(year))].sort();
-  const keys = Object.keys(SCHEMES).sort();
-  const counts = years.map(y => {
-    const c = {};
-    docs.filter(d => year(d) === y).forEach(d => { c[d.scheme_type] = (c[d.scheme_type] || 0) + 1; });
-    return c;
-  });
-  const totals = counts.map(c => keys.reduce((a, k) => a + (c[k] || 0), 0));
+  const schemes = {};
+  DOCS.forEach(d => { schemes[d.scheme_type] = d.scheme_type_name; });
+  const keys = Object.keys(schemes).sort();
+  const allYears = DOCS.map(d => +docYear(d));
+  const years = [];
+  for (let y = Math.min(...allYears); y <= Math.max(...allYears); y++) years.push(y);
+  const counts = {};
+  years.forEach(y => { counts[y] = {}; keys.forEach(k => { counts[y][k] = 0; }); });
+  docs.forEach(d => { counts[+docYear(d)][d.scheme_type]++; });
+  const totals = years.map(y => keys.reduce((s, k) => s + counts[y][k], 0));
   const max = Math.max(1, ...totals);
-  const W = 1400, H = 440, L = 60, B = 50, T = 40, ph = H - B - T, bw = (W - L) / years.length;
+
+  const W = 1000, H = 440, L = 50, B = 50, T = 20, R = 10;
+  const slot = (W - L - R) / years.length, bw = slot * 0.62;
+  const sy = n => (H - B - T) * n / max;
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Liczba uchwał w latach według schematu">`;
   const step = Math.max(1, Math.ceil(max / 5));
-  let s = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Liczba uchwał w kolejnych latach według schematu optymalizacyjnego">`;
   for (let v = 0; v <= max; v += step) {
-    const y = H - B - v / max * ph;
-    s += `<line x1="${L}" x2="${W}" y1="${y}" y2="${y}" stroke="#c0c0c0"/><text x="${L - 12}" y="${y + 6}" text-anchor="end">${v}</text>`;
+    const y = H - B - sy(v);
+    svg += `<line x1="${L}" x2="${W - R}" y1="${y}" y2="${y}" stroke="#222"/><text x="${L - 10}" y="${y + 7}" fill="#a8a8a8" font-size="20" text-anchor="end">${v}</text>`;
   }
-  years.forEach((yr, i) => {
-    const x = L + i * bw + bw * 0.15, w = bw * 0.7;
-    let top = H - B;
+  years.forEach((y, i) => {
+    const x = L + i * slot + (slot - bw) / 2;
+    let acc = 0;
     keys.forEach(k => {
-      const n = counts[i][k] || 0;
+      const n = counts[y][k];
       if (!n) return;
-      const h = n / max * ph;
-      top -= h;
-      s += `<rect x="${x}" y="${top}" width="${w}" height="${h}" style="fill:${schemeColor(k)};cursor:pointer" stroke="#000" stroke-width="2" data-scheme="${k}"><title>${yr} · schemat ${k} (${esc(SCHEMES[k])}): ${n}</title></rect>`;
+      const h = sy(n), top = H - B - sy(acc) - h;
+      svg += `<rect class="seg" data-scheme="${k}" x="${x}" y="${top}" width="${bw}" height="${h}" style="fill:${SCHEME_COLOR(k)}" stroke="#000" stroke-width="1"><title>${y} · schemat ${k}: ${n}</title></rect>`;
+      acc += n;
     });
-    s += `<text x="${x + w / 2}" y="${H - B + 32}" text-anchor="middle">${yr}</text>`;
-    if (totals[i]) s += `<text x="${x + w / 2}" y="${top - 10}" text-anchor="middle" style="fill:#000;font-weight:bold">${totals[i]}</text>`;
+    svg += `<text x="${x + bw / 2}" y="${H - B + 30}" fill="#f2f2f2" font-size="22" text-anchor="middle">${y}</text>`;
+    if (totals[i]) svg += `<text x="${x + bw / 2}" y="${H - B - sy(totals[i]) - 8}" fill="#f2f2f2" font-size="20" text-anchor="middle">${totals[i]}</text>`;
   });
-  s += '</svg>';
-  const legend = keys.map(k => `<span data-scheme="${k}" style="opacity:${!S.scheme || S.scheme === k ? 1 : .35}"><span class="dot" style="background:${schemeColor(k)}"></span>${k} – ${esc(SCHEMES[k])}</span>`).join('');
-  $('chart').innerHTML = s + `<div class="legend">${legend}</div><p class="hint">Kliknij kolor schematu, aby ustawić filtr (ponowne kliknięcie go zdejmuje).</p>`;
+  svg += '</svg>';
+
+  const legend = keys.map(k => `<button data-scheme="${k}" class="${FILTER.scheme === k ? 'active' : ''}">
+      <span class="sw" style="background:${SCHEME_COLOR(k)}"></span><span><b>${k}</b> – ${esc(schemes[k])}</span></button>`).join('');
+  const el = $('chart');
+  el.className = 'chart-wrap';
+  el.innerHTML = `<div>${svg}</div><div class="legend"><div class="meta">Kliknij kolor, aby filtrować</div>${legend}</div>`;
+  el.querySelectorAll('[data-scheme]').forEach(n => n.addEventListener('click', () => {
+    const k = n.getAttribute('data-scheme');
+    setFilters({ scheme: FILTER.scheme === k ? '' : k });
+  }));
 }
 
-document.addEventListener('click', e => {
-  const el = e.target.closest('[data-scheme]');
-  if (el) setFilter('scheme', S.scheme === el.dataset.scheme ? '' : el.dataset.scheme);
-});
+function update() {
+  const docs = filteredDocs();
+  const nPoints = docs.reduce((s, d) => s + (POINTS_BY_DOC[d.id] || []).length, 0);
+  renderCounters(docs, nPoints);
+  renderResults(docs);
+  renderChart(docs);
+  renderList(docs);
+}
 
-load();
+function afterLoad() {
+  POINTS.forEach(pt => { pt.text = pt.text || ''; pt._f = fold(pt.text); });  // indeks budowany raz
+  renderFilters();
+  renderSearchBox();
+  update();
+}
+
+init();
 </script>
+<footer>Narzędzie demonstracyjne zbudowane na żywo przez Claude Code. Treść: uchwały Rady PUO (gov.pl); kategorie i streszczenia: opracowanie własne, do sprawdzenia w uchwale.</footer>
 
-<!-- opublikowano 2026-11-17 21:54:38 -->
+<!-- opublikowano 2026-11-17 23:21:06 -->
 <script src="../statystyki.js" defer></script>
 </body>
 </html>
