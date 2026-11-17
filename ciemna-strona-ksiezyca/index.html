@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ciemna strona Księżyca</title>
+<meta name="description" content="Wykład wstępny na Forum Podatkowym UAM (19.11.2026): jak sztuczna inteligencja wpływa na pracę prawników. Testy modeli na polskim materiale, eksperymenty, budowa aplikacji na żywo.">
+<meta property="og:title" content="Ciemna strona Księżyca · Łukasz Szoszkiewicz"><meta property="og:url" content="https://lszoszk.github.io/talks/ciemna-strona-ksiezyca/"><meta property="og:locale" content="pl_PL">
+<style>
+:root{
+  --bg:#050505; --ink:#ece9e2; --muted:#8f8f8f; --accent:#ffd166; --accent2:#ff7a45;
+  --card:#101010; --line:#2a2a2a; --live:#ef4444; --replay:#3a86ff; --ok:#3fb950;
+  --spectrum:linear-gradient(90deg,#e63946,#f77f00,#fcbf49,#52b788,#3a86ff,#8338ec);
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, monospace;
+  --sans:"Inter", -apple-system, "Helvetica Neue", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans);color:var(--ink)}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+#stage{flex:none;width:1600px;height:900px;position:relative;background:var(--bg);transform-origin:center center;overflow:hidden}
+.slide{position:absolute;inset:0;padding:80px 96px;display:none}
+.slide.on{display:block}
+h1{font-size:84px;line-height:1.02;margin:0 0 24px;letter-spacing:-1.5px}
+h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
+.kicker{font-family:var(--mono);font-size:20px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin-bottom:26px}
+.sub{font-size:32px;color:var(--muted);max-width:900px;line-height:1.3}
+.who{position:absolute;left:96px;bottom:80px;font-size:24px;color:var(--muted);line-height:1.5}
+.who b{color:var(--ink)}
+.hint{font-family:var(--mono);font-size:17px;color:var(--muted)}
+.hint kbd,.help kbd{font-family:var(--mono);background:var(--ink);color:#000;border-radius:6px;padding:2px 9px;font-size:16px}
+.cards{display:grid;grid-template-columns:repeat(3,300px);gap:28px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:28px 28px 24px;min-height:330px}
+.card .tag{font-family:var(--mono);font-size:15px;color:var(--accent2);letter-spacing:1px;text-transform:uppercase}
+.card h3{font-size:30px;margin:14px 0 12px;line-height:1.12}
+.card p{font-size:20px;line-height:1.38;margin:0;color:#cfcac0}
+.src{position:absolute;left:96px;bottom:36px;font-size:14px;color:var(--muted);max-width:880px;line-height:1.45}
+.src a{color:var(--muted)}
+
+/* ---------- live tile ---------- */
+#tile{position:absolute;right:28px;bottom:28px;width:500px;background:#0f172a;color:#e2e8f0;border-radius:16px;
+  box-shadow:0 18px 50px rgba(15,23,42,.35);overflow:hidden;font-family:var(--mono);z-index:20;transition:opacity .3s}
+#tile.hidden{opacity:0;pointer-events:none}
+#tile .hd{display:flex;align-items:center;gap:10px;padding:12px 16px 8px;font-size:15px;letter-spacing:1px}
+#dot{width:12px;height:12px;border-radius:50%;background:#64748b}
+#dot.live{background:var(--live);animation:pulse 1.2s infinite}
+#dot.replay{background:var(--replay);animation:pulse 1.6s infinite}
+#dot.done{background:#22c55e}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+#mode{text-transform:uppercase}
+#clock{margin-left:auto;font-size:22px;font-variant-numeric:tabular-nums;color:#fff}
+#now{padding:2px 16px 8px;font-family:var(--sans);font-size:21px;line-height:1.3;color:#fff;min-height:58px}
+#log{padding:0 16px 10px;font-size:13px;line-height:1.55;color:#94a3b8;height:84px;overflow:hidden}
+#log div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#log .err{color:#fca5a5}
+#mini{position:relative;height:225px;background:#fff;border-top:1px solid #1e293b;overflow:hidden}
+#mini iframe:not([src]){display:none}
+#mini iframe{position:absolute;left:0;top:0;width:1500px;height:675px;border:0;transform:scale(.3333);transform-origin:0 0;pointer-events:none;background:#fff}
+#mini .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#94a3b8;font-family:var(--sans);font-size:18px;background:repeating-linear-gradient(45deg,#f8fafc,#f8fafc 12px,#f1f5f9 12px,#f1f5f9 24px)}
+#stats{display:flex;justify-content:space-between;padding:8px 16px;font-size:13px;color:#94a3b8;border-top:1px solid #1e293b}
+#jobline{padding:0 16px 9px;font-size:12px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-height:9px}
+#jobline.ready{color:#86efac}
+#flash{position:absolute;inset:0;border:4px solid #22c55e;border-radius:0;opacity:0;pointer-events:none;transition:opacity .6s}
+#flash.on{opacity:1;transition:none}
+
+/* ---------- overlays ---------- */
+.ov{position:absolute;inset:0;z-index:40;display:none}
+.ov.on{display:block}
+#big{background:#0f172a}
+#big iframe{position:absolute;left:24px;top:24px;width:1170px;height:852px;border:0;border-radius:12px;background:#fff}
+#big .side{position:absolute;right:24px;top:24px;width:370px;height:852px;color:#e2e8f0;font-family:var(--mono);font-size:14px;line-height:1.55;overflow:hidden}
+#big .side h4{font-family:var(--sans);font-size:20px;margin:6px 0 10px;color:#fff}
+#biglog div{border-bottom:1px solid #1e293b;padding:5px 0}
+#raw{background:rgba(2,6,23,.96);color:#a7f3d0;font-family:var(--mono);font-size:13px;line-height:1.5;padding:24px 28px;overflow:hidden}
+#raw pre{margin:0;white-space:pre-wrap;word-break:break-all}
+#ask{background:rgba(15,23,42,.6)}
+#ask form{position:absolute;left:200px;right:200px;top:300px;background:#151515;border:1px solid #333;border-radius:16px;padding:32px}
+#ask label{display:block;font-size:26px;font-weight:700;margin-bottom:14px}
+#ask input{width:100%;font-size:26px;padding:14px 16px;background:#000;color:var(--ink);border:2px solid var(--accent);border-radius:10px;font-family:var(--sans)}
+#ask p{color:var(--muted);font-size:17px;margin:12px 0 0}
+#help{background:rgba(15,23,42,.88);color:#fff}
+#jsonov,#planov{background:rgba(0,0,0,.985);color:#ece9e2}
+#jsonov .jbox{position:absolute;inset:60px 80px;display:grid;grid-template-columns:420px 1fr;gap:40px}
+.jk{font-family:var(--mono);font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#b9a27a}
+#jsonov h3{font-family:var(--mono);font-size:30px;margin:10px 0 24px;color:#fff}
+#jstat div{font-size:22px;line-height:1.5;color:#cfcac0}
+#jstat b{font-size:56px;color:#ffd166;display:block;line-height:1.1}
+#jstat .f{font-family:var(--mono);font-size:15px;color:#9a9a9a;margin-top:20px;line-height:1.7}
+#jpre{margin:0;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:26px 30px;font-family:var(--mono);font-size:17px;line-height:1.55;color:#ece9e2;white-space:pre-wrap;overflow:hidden}
+#jpre .k{color:#7cc4ff}#jpre .s{color:#b5e48c}#jpre .n{color:#ffd166}#jpre .b{color:#ff9f6b}
+#planov .pbox{position:absolute;inset:60px 120px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:16px;padding:40px 52px}
+#plantext{font-size:23px;line-height:1.45;color:#ece9e2;margin-top:18px;max-height:660px;overflow:hidden}
+#plantext p{margin:0 0 10px}#plantext li{margin:0 0 8px}#plantext b{color:#ffd166}
+.phint{position:absolute;left:52px;bottom:26px;font-family:var(--mono);font-size:16px;color:#9a9a9a}
+.phint kbd{font-family:var(--mono);background:#ece9e2;color:#000;border-radius:6px;padding:2px 9px}
+#help .box{position:absolute;left:260px;right:260px;top:110px;background:#111827;border-radius:16px;padding:36px 44px;font-size:21px;line-height:1.9}
+#help .box h3{margin:0 0 10px;font-size:28px}
+/* ---------- slide 4: jagged frontier ---------- */
+.jt{display:grid;grid-template-columns:250px 262px 450px 226px 220px;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.jt > div{padding:10px 16px;border-top:1px solid #262626;display:flex;flex-direction:column;justify-content:center;min-height:86px;min-width:0}
+.jt > div:not(.c1){border-left:1px solid #262626}
+.jt > .hd{min-height:0;border-top:0;background:#151515;padding:14px 16px 12px;justify-content:flex-start}
+.jt .hd .tag{font-family:var(--mono);font-size:13px;color:var(--accent2);letter-spacing:1px;text-transform:uppercase}
+.jt .hd .jsub{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.3}
+.mname{font-size:22px;font-weight:800;line-height:1.15}
+.morig{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:5px;line-height:1.35}
+.jrow{display:grid;grid-template-columns:1fr 56px;align-items:center;gap:10px}
+.jbar{height:20px;background:#262626;border-radius:4px;overflow:hidden}
+.jbar i{display:block;height:100%}
+.jt .v{font-variant-numeric:tabular-nums;text-align:right;font-weight:800;font-size:21px}
+.jn{font-size:13px;color:var(--muted);margin-top:6px;font-variant-numeric:tabular-nums;line-height:1.3}
+.jn b{color:var(--ink)}
+.kstrip{display:flex;gap:3px;align-items:center}
+.kstrip .c{width:27px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#fff;font-variant-numeric:tabular-nums}
+.kstrip .c.low{outline:3px solid var(--ink);outline-offset:1px}
+.kstrip .tot{margin-left:14px;font-weight:800;font-size:22px;font-variant-numeric:tabular-nums;line-height:1.1}
+.kstrip .tot small{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.dots{display:flex;gap:5px;align-items:center}
+.dots i{width:15px;height:15px;border-radius:50%;display:inline-block}
+.dots .sep{width:9px}
+.ec2{display:grid;grid-template-columns:64px 1fr 34px;gap:6px 8px;align-items:center;font-size:12px;color:var(--muted)}
+.stack{display:flex;height:16px;border-radius:4px;overflow:hidden;background:#262626}
+.stack i{display:block;height:100%}
+.ec2 .n{font-variant-numeric:tabular-nums;text-align:right}
+.jkey{display:flex;gap:22px;font-size:14px;color:var(--muted);margin-top:12px;flex-wrap:wrap}
+.jkey i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.jkey .sq{border-radius:2px}
+.jkey i.sq{background:transparent!important}
+/* ---------- slide 5: prinzbench ---------- */
+.pbwrap{display:grid;grid-template-columns:1000px 1fr;gap:36px;align-items:start}
+.pbcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px 6px}
+.pbcard svg{display:block;width:980px;height:540px;font-family:var(--sans)}
+.pbkey{display:flex;gap:26px;font-size:15px;color:var(--muted);padding:0 0 4px 58px}
+.pbkey i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:7px;vertical-align:-1px}
+.pbkey .ln{width:26px;height:3px;border-radius:2px;vertical-align:3px}
+.pbf{display:flex;flex-direction:column;gap:26px;padding-top:6px}
+.pbf .n{font-size:58px;font-weight:800;letter-spacing:-1.5px;line-height:1;color:var(--accent);font-variant-numeric:tabular-nums}
+.pbf .l{font-size:19px;line-height:1.35;color:#cfcac0;margin-top:6px}
+.pbf .note{font-size:15px;line-height:1.45;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+#appfull{background:#fff}
+#appfull iframe{position:absolute;inset:0;width:1600px;height:900px;border:0}
+#qr{background:var(--bg)}
+#qr .in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:80px}
+#qrimg{width:520px;height:520px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:22px}
+#qrimg img{width:100%;height:100%}
+#qr h2{margin:0 0 18px}
+#qrurl{font-family:var(--mono);font-size:30px;color:var(--accent);word-break:break-all;max-width:700px}
+#qrstat{margin-top:28px;font-size:24px;color:var(--muted);max-width:700px;line-height:1.4}
+#video{background:#000}
+#video video{position:absolute;inset:0;width:1600px;height:900px;background:#000}
+#toast{position:absolute;left:50%;top:26px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:10px;font-size:18px;z-index:60;opacity:0;transition:opacity .3s;font-family:var(--sans)}
+#toast.on{opacity:1}
+#pager{position:absolute;left:96px;top:36px;font-family:var(--mono);font-size:14px;color:var(--muted)}
+.slide:not(.nobeam)::before{content:"";position:absolute;left:96px;top:66px;width:140px;height:3px;background:var(--spectrum);border-radius:2px}
+#pager{color:#555}
+.who b{color:var(--ink)}
+/* ---------- the full lecture (structure B, 17.11) ---------- */
+.acc{color:var(--accent2)}
+.lead{font-size:30px;line-height:1.35;max-width:1180px;color:#cfcac0;margin:28px 0 0}
+.slide.blackbg{background:#000;color:#262626}
+.slide.blackbg .kicker{color:#b9a27a}
+.slide.blackbg h2{color:#f4f1ea}
+.slide.blackbg .src,.slide.blackbg .src a{color:#7d7d7d}
+.prism{position:absolute;left:0;top:0;width:1600px;height:900px}
+.moon-cap{position:absolute;left:96px;bottom:56px;font-family:var(--mono);font-size:17px;letter-spacing:3px;color:#7d7d7d;text-transform:uppercase}
+.moon-grid{display:grid;grid-template-columns:420px 1fr;gap:80px;align-items:center;margin-top:36px}
+.moon-grid h2{font-size:58px;margin:0 0 24px}
+.moon-grid .lead{margin:0;font-size:31px}
+.stats4{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin:34px 0 8px}
+.stats4>div,.pk>div,.pat2>div,.pros2>div,.mon>div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 26px}
+.stats4 b{display:block;font-size:76px;font-weight:800;letter-spacing:-2px;color:var(--accent);line-height:1}
+.stats4 span{display:block;font-size:20px;color:var(--muted);margin-top:12px;line-height:1.3}
+.keys{position:absolute;left:96px;bottom:84px;font-family:var(--mono);font-size:17px;color:var(--muted)}
+.keys kbd{font-family:var(--mono);background:var(--ink);color:#000;border-radius:6px;padding:2px 9px;font-size:16px}
+.pk{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:10px}
+.pk b{display:block;font-size:66px;font-weight:800;letter-spacing:-2px;color:var(--accent);line-height:1.05}
+.pk span{display:block;font-size:21px;line-height:1.35;color:#cfcac0;margin-top:12px}
+.pk>div.hl{border:3px solid var(--accent2)}
+.pk>div.hl b{color:var(--accent2)}
+.ai4{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:6px}
+.ai4 .pr{font-size:26px;font-weight:700;margin-bottom:12px}
+.ai4 .pics{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ai4 figure{margin:0}
+.ai4 img{width:100%;height:440px;object-fit:cover;border-radius:10px;display:block}
+.ai4 figcaption{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:1px}
+.elx-heroes{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin:8px 0 18px}
+.elx-heroes figure{margin:0}
+.elx-heroes img{width:120px;height:120px;object-fit:contain}
+.elx-heroes figcaption{font-size:19px;line-height:1.35;color:#cfcac0}
+.elx-heroes b{display:block;font-family:var(--mono);font-size:16px;letter-spacing:2px;margin-bottom:4px}
+.c-dec{color:#4ea8de}.c-prep{color:#f2a33a}.c-eval{color:#3fb950}
+.elx-row{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin:14px 0}
+.elx-row>span{font-family:var(--mono);font-size:17px;letter-spacing:2px;color:var(--muted)}
+.elx-bar{display:flex;height:58px;gap:4px}
+.elx-bar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--mono);font-size:15px;letter-spacing:1px;color:#fff;border-radius:6px}
+.elx-bar .d{background:#4ea8de}.elx-bar .p{background:#f2a33a}.elx-bar .e{background:#3fb950}
+.elx-note{font-size:16px;color:var(--muted);margin-top:16px;display:flex;justify-content:space-between;max-width:1408px}
+.vid-row{display:grid;grid-template-columns:880px 1fr;gap:48px;align-items:start;margin-top:4px}
+.vid-row video{width:880px;height:495px;background:#000;border-radius:12px;display:block}
+.vid-row .cap{font-family:var(--mono);font-size:14px;color:var(--muted);margin-top:8px}
+.vq p{display:grid;grid-template-columns:56px 1fr;gap:14px;font-size:30px;line-height:1.3;margin:0 0 36px}
+.vq b{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;font-size:26px}
+video::cue{font-size:26px;background:rgba(0,0,0,.72)}
+.task{font-size:24px;color:#cfcac0;margin:0 0 22px}
+.pat2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.pat2 .lab{font-family:var(--mono);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2)}
+.pat2 p{font-size:30px;line-height:1.3;margin:12px 0 0;font-weight:600}
+.chl-head{display:flex;gap:44px;align-items:flex-end;margin:0 0 18px}
+.chl-head b{font-size:66px;font-weight:800;letter-spacing:-2px;color:var(--accent);line-height:1}
+.chl-head span{display:block;font-size:19px;color:var(--muted);margin-top:6px}
+.chl-line{position:relative;height:96px;margin:4px 0 6px;border-bottom:2px solid var(--ink)}
+.chl-line .m{position:absolute;bottom:-26px;font-family:var(--mono);font-size:12px;color:var(--muted);transform:translateX(-50%)}
+.chl-line .dt{position:absolute;bottom:-9px;width:16px;height:16px;border-radius:50%;transform:translateX(-50%);border:2px solid #fff}
+.chl-tab{display:grid;grid-template-columns:repeat(3,1fr);gap:4px 26px;margin-top:40px;font-size:16px}
+.chl-tab div{display:grid;grid-template-columns:92px 150px 1fr;gap:8px;align-items:baseline;padding:4px 0;border-bottom:1px solid #262626}
+.chl-tab .d{font-family:var(--mono);font-size:13px;color:var(--muted)}
+.chl-tab .s{font-weight:700}
+.chl-tab .hl{background:#2a1a10}
+.pty-l{background:#c2410c}.pty-p{background:#64748b}.pty-e{background:#16213a}
+.chl-key{display:flex;gap:24px;font-size:15px;color:var(--muted);margin-top:12px}
+.chl-key i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.prog-wrap{display:grid;grid-template-columns:1000px 1fr;gap:36px;align-items:start}
+.prog-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.prog-side div{margin-bottom:26px}
+.prog-side .n{font-size:58px;font-weight:800;letter-spacing:-1.5px;color:var(--accent);line-height:1}
+.prog-side .l{font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px}
+.pros2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:6px}
+.pros2 b{display:block;font-size:52px;font-weight:800;letter-spacing:-1.5px;color:var(--accent2);line-height:1.05}
+.pros2 p{font-size:25px;line-height:1.35;margin:12px 0 0;color:#cfcac0}
+.pros-n{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:26px;font-size:19px;line-height:1.35;color:#cfcac0}
+.pros-n b{display:block;font-size:30px;color:var(--accent);margin-bottom:4px}
+.quote-s{font-size:24px;font-style:italic;color:#cfcac0;margin:26px 0 0;border-left:6px solid var(--accent2);padding-left:18px}
+.steps4{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:30px;max-width:900px}
+.steps4>div{background:#141414;border:1px solid #2a2a2a;color:#e2e8f0;border-radius:14px;padding:20px 24px;min-height:150px}
+.steps4 .n{font-family:var(--mono);font-size:15px;color:#94a3b8;letter-spacing:2px}
+.steps4 h3{font-size:28px;margin:10px 0 10px;color:#fff;line-height:1.15}
+.steps4 p{font-size:18px;line-height:1.4;margin:0;color:#cbd5e1}
+.steps4 kbd{font-family:var(--mono);background:#e2e8f0;color:#0f172a;border-radius:6px;padding:1px 8px;font-size:15px}
+.half{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:start;margin-top:6px}
+.tl4 div{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
+.tl4 .h{font-family:var(--mono);font-size:24px;font-weight:600;color:var(--accent)}
+.tl4 p{margin:0;font-size:22px;line-height:1.35}
+.tl4 small{display:block;color:var(--muted);font-size:17px;margin-top:4px}
+.half .cost{font-size:19px;color:var(--muted);margin-top:18px;line-height:1.45}
+.qr2 img{width:380px;height:380px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 10px 40px rgba(0,0,0,.1)}
+.qr2 .u{font-family:var(--mono);font-size:19px;color:var(--accent);margin-top:12px;word-break:break-all}
+.mon{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:10px}
+.mon .n{font-size:84px;font-weight:800;color:var(--accent2);line-height:1}
+.mon h3{font-size:30px;line-height:1.15;margin:10px 0 12px}
+.mon p{font-size:20px;line-height:1.4;margin:0;color:#cfcac0}
+.close-txt{position:absolute;left:96px;top:150px;max-width:760px}
+.close-txt h2{font-size:56px}
+.close-txt .lead{color:#cfc8b8;font-size:30px}
+.srcs{columns:2;column-gap:56px;font-size:16px;line-height:1.45;margin-top:4px}
+.srcs p{margin:0 0 9px;break-inside:avoid}
+.srcs a{color:var(--ink)}
+.srcs b{font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--accent2);text-transform:uppercase;display:block;margin-top:10px}
+.static .keys,.static .hint,.static #tile{display:none!important}
+</style>
+<script src="../statystyki.js" defer></script>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+
+  <div id="pager"></div>
+
+  <!-- 1 · while the room fills: the prism (Time plays quietly) -->
+  <section class="slide nobeam" data-notile>
+    <svg class="prism" viewBox="0 0 1600 900" aria-label="Pryzmat rozszczepiający światło na widmo"><line x1="-10" y1="592" x2="680" y2="415" stroke="#f4f1ea" stroke-width="4"/><polygon points="680,415 915,406 949,469" fill="#f4f1ea" opacity=".16"/><polygon points="915,406 921,416 1610,464 1610,430" fill="#e63946"/><polygon points="921,416 926,427 1610,498 1610,464" fill="#f77f00"/><polygon points="926,427 932,438 1610,532 1610,498" fill="#fcbf49"/><polygon points="932,438 938,448 1610,566 1610,532" fill="#52b788"/><polygon points="938,448 943,458 1610,600 1610,566" fill="#3a86ff"/><polygon points="943,458 949,469 1610,634 1610,600" fill="#8338ec"/><polygon points="800,190 1040,640 560,640" fill="none" stroke="#d9d6cf" stroke-width="5" stroke-linejoin="round"/></svg>
+    <div class="moon-cap">The Dark Side of the Moon · 1973</div>
+  </section>
+
+  <!-- 2 · title -->
+  <section class="slide" data-notile>
+    <div class="kicker">Forum Podatkowe UAM · 19.11.2026 · wykład wstępny</div>
+    <h1>Ciemna strona<br>Księżyca</h1>
+    <div class="sub">Jak sztuczna inteligencja wpływa na pracę prawników — i co da się zbudować w trakcie jednego wykładu.</div>
+    <div class="who"><b>dr Łukasz Szoszkiewicz</b><br>WPiA UAM<br><span class="hint"><kbd>H</kbd> pomoc</span></div>
+  </section>
+
+  <!-- 3 · the dark side is not dark, only unseen -->
+  <section class="slide" data-notile>
+    <div class="kicker">Zanim zaczniemy</div>
+    <div class="moon-grid">
+      <svg viewBox="0 0 420 420" width="420" height="420" aria-label="Księżyc, oświetlony z jednej strony">
+        <defs><radialGradient id="mg" cx="35%" cy="40%" r="70%"><stop offset="0" stop-color="#f4f1ea"/><stop offset="1" stop-color="#8f8a80"/></radialGradient></defs>
+        <circle cx="210" cy="210" r="190" fill="#141414" stroke="#2a2a2a" stroke-width="2"/>
+        <path d="M210 20 A190 190 0 0 1 210 400 A110 190 0 0 0 210 20Z" fill="url(#mg)"/>
+      </svg>
+      <div>
+        <h2>Ciemna strona Księżyca nie jest ciemna.<br><span class="acc">Jest niewidoczna z Ziemi.</span></h2>
+        <p class="lead">Z AI jest podobnie: widzimy tę stronę, którą sami sprawdzimy. Dziś sprawdzimy kilka. A jedną rzecz zbudujemy na Państwa oczach.</p>
+      </div>
+    </div>
+    <div class="src">Druga strona Księżyca dostaje tyle samo światła słonecznego co ta widoczna. Nie widać jej, bo Księżyc jest zawsze zwrócony do Ziemi tą samą stroną (obrót synchroniczny).</div>
+  </section>
+
+  <!-- 4 · the task: GAAR Council resolutions; the build starts here (tile visible) -->
+  <section class="slide">
+    <div class="kicker">Zadanie na dziś · Rada do Spraw Przeciwdziałania Unikaniu Opodatkowania</div>
+    <h2>Kto z Państwa przeczytał wszystkie?</h2>
+    <div class="stats4" style="max-width:1000px">
+      <div><b>74</b><span>uchwały Rady PUO<br>XII 2019 – III 2026</span></div>
+      <div><b>1936</b><span>stron</span></div>
+      <div><b>933</b><span>strony to skany<br>bez warstwy tekstu</span></div>
+      <div><b>5638</b><span>fragmentów w bazie<br>po podziale na punkty</span></div>
+    </div>
+    <p class="lead" style="max-width:960px">Za pół godziny będzie z tego narzędzie. Zaczynamy teraz: dane → plan → budowa.</p>
+    <div class="keys"><kbd>J</kbd> dane · <kbd>N</kbd> plan · <kbd>B</kbd> budowa według planu · <kbd>L</kbd> podgląd z logiem · <kbd>K</kbd> schowaj kafelek</div>
+    <div class="src">Uchwały: <a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">gov.pl, Rada PUO (I–III kadencja)</a> · dane: opracowanie własne, 17.11.2026 (OCR, podział na punkty)</div>
+  </section>
+
+  <!-- 5 · courts: Pakistan -->
+  <section class="slide" data-notile>
+    <div class="kicker">Sąd · eksperyment w Pakistanie, 2024–2025</div>
+    <h2>Sędziowie z AI rozstrzygają więcej spraw.<br><span class="acc">Pod jednym warunkiem.</span></h2>
+    <div class="pk">
+      <div><b>1559</b><span>sędziów w eksperymencie, ok. połowa sędziów pierwszej instancji w kraju</span></div>
+      <div class="hl"><b>+6,3%</b><span>więcej rozstrzygniętych spraw, ale tylko wtedy, gdy sędziowie dostali AI <b style="display:inline;font-size:inherit;color:inherit">z dopasowanym szkoleniem</b></span></div>
+      <div><b>GPT-4</b><span>rodzina modeli z 2024 r., na której działał asystent. Zobaczymy ją jeszcze w tabeli</span></div>
+    </div>
+    <p class="lead">Samo narzędzie nie wystarcza. Liczy się to, jak się go nauczymy.</p>
+    <div class="src"><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026), praca robocza</a></div>
+  </section>
+
+  <!-- 6 · how AI draws a lawyer (optional, 30 s) -->
+  <section class="slide" data-notile>
+    <div class="kicker">Praca prawnika · jak AI widzi prawnika i urzędnika</div>
+    <div class="ai4">
+      <div><div class="pr">„Narysuj mi prawnika w pracy”</div><div class="pics">
+        <figure><img src="assets/ai_prawnik_gemini.jpg" alt="Obraz wygenerowany przez Gemini: prawnik w garniturze przy biurku"><figcaption>GOOGLE · GEMINI</figcaption></figure>
+        <figure><img src="assets/ai_prawnik_openai.jpg" alt="Obraz wygenerowany przez model OpenAI: prawnik podpisuje dokumenty"><figcaption>OPENAI · CODEX</figcaption></figure></div></div>
+      <div><div class="pr">„Narysuj mi urzędnika w pracy”</div><div class="pics">
+        <figure><img src="assets/ai_urzednik_gemini.jpg" alt="Obraz wygenerowany przez Gemini: urzędniczka przy biurku czyta dokument"><figcaption>GOOGLE · GEMINI</figcaption></figure>
+        <figure><img src="assets/ai_urzednik_ideogram.jpg" alt="Obraz wygenerowany przez Ideogram: urzędnik, monitor kineskopowy, pieczątki i teczki"><figcaption>IDEOGRAM 4.0</figcaption></figure></div></div>
+    </div>
+  </section>
+
+  <!-- 7 · the elixir: preparation gets cheaper, decision and evaluation stay -->
+  <section class="slide" data-notile>
+    <div class="kicker">Praca prawnika · jak zmienia się dzień pracy</div>
+    <h2>Przygotowanie tanieje.<br><span class="acc">Decyzja i ocena zostają przy Was.</span></h2>
+    <div class="elx-heroes">
+      <figure><figcaption><b class="c-dec">DECYZJA</b>co jest problemem?<br>cel · kontekst · pytanie</figcaption></figure>
+      <figure><figcaption><b class="c-prep">PRZYGOTOWANIE*</b>szukanie · czytanie · pisanie<br>model wspiera wykonanie</figcaption></figure>
+      <figure><figcaption><b class="c-eval">OCENA</b>czy można na tym działać?<br>weryfikacja · skutki uboczne</figcaption></figure>
+    </div>
+    <div class="elx-row"><span>DOTĄD</span><div class="elx-bar"><i class="d" style="flex:3">DECYZJA</i><i class="p" style="flex:14">PRZYGOTOWANIE</i><i class="e" style="flex:3">OCENA</i></div></div>
+    <div class="elx-row"><span>Z AI</span><div class="elx-bar" style="width:85%"><i class="d" style="flex:7">DECYZJA</i><i class="p" style="flex:3">PRZYG.</i><i class="e" style="flex:7">OCENA</i></div></div>
+    <div class="elx-note"><span>* część badaczy przestrzega: pisanie to też myślenie, decyzja powstaje w trakcie pisania (Bell i Legg 2026)</span><span>czas →</span></div>
+    <div class="src"><a href="https://blr.scholasticahq.com/article/171946-the-giving-of-reasons-judgement-writing-judicial-reasoning-and-genai" target="_blank">Bell i Legg, The Giving of Reasons, Bond Law Review 38(2) (2026)</a></div>
+  </section>
+
+  <!-- 8 · purpose and task (Huang clip, 57 s, Polish subtitles) -->
+  <section class="slide" data-notile>
+    <div class="kicker">Praca prawnika · cel i zadania</div>
+    <h2 style="margin-bottom:24px">Cel pracy i zadania</h2>
+    <div class="vid-row">
+      <div><video controls playsinline preload="metadata" poster="assets/huang_poster.jpg" src="assets/huang_purpose_vs_task.mp4"><track kind="subtitles" srclang="pl" label="polski" src="assets/huang_pl.vtt" default></video>
+        <div class="cap">Jensen Huang (Nvidia), No Priors, 8.01.2026 · 57 s · napisy: tłum. własne</div></div>
+      <div class="vq"><p><b>1</b><span>Co jest odpowiednikiem „pisania kodu” w pracy doradcy podatkowego albo urzędnika KAS?</span></p><p><b>2</b><span>A co jest <span class="acc">celem</span> tej pracy?</span></p></div>
+    </div>
+    <div class="src"><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026 (od 9:03)</a></div>
+  </section>
+
+  <!-- 9 · patent attorneys: AI helps everyone, teaches those with the basics -->
+  <section class="slide" data-notile>
+    <div class="kicker">Rzecznicy patentowi · eksperyment 2026</div>
+    <h2>AI pomaga każdemu.<br><span class="acc">Uczy tych, którzy mają podstawy.</span></h2>
+    <p class="task">133 rzeczników patentowych z USA, 3 miesiące z asystentem AI lub bez niego, na koniec test bez AI.</p>
+    <div class="pat2">
+      <div><div class="lab">Pisanie z AI</div><p>Lepsze zgłoszenia.<br>Największy zysk u juniorów.</p></div>
+      <div><div class="lab">Na koniec, bez AI: ocena projektu</div><p>Seniorzy z grupy AI lepsi od seniorów bez AI.<br>Juniorzy średnio bez zysku.</p></div>
+    </div>
+    <p class="lead">Najwięcej zyskują ci, którzy wiedzą, co sprawdzić. Na tej sali: Państwo.</p>
+    <div class="src"><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), praca robocza</a></div>
+  </section>
+
+  <!-- 10 · Polish cases in the Charlotin database -->
+  <section class="slide" data-notile>
+    <div class="kicker">Baza Charlotina · orzeczenia, w których sąd stwierdził zmyślenia AI</div>
+    <h2 style="margin-bottom:20px">To już nie jest problem Amerykanów</h2>
+    <div class="chl-head">
+      <div><b>2306</b><span>spraw na świecie</span></div>
+      <div><b>11</b><span>z Polski, w tym 10 przed sądami administracyjnymi</span></div>
+      <div><b>5 · 5 · 1</b><span>pełnomocnicy · strony bez pełnomocnika · biegły</span></div>
+    </div>
+    <div class="chl-line"><span class="m" style="left:50px">X</span><span class="m" style="left:160px">XI</span><span class="m" style="left:267px">XII</span><span class="m" style="left:377px">I 2026</span><span class="m" style="left:487px">II</span><span class="m" style="left:587px">III</span><span class="m" style="left:697px">IV</span><span class="m" style="left:804px">V</span><span class="m" style="left:914px">VI</span><span class="m" style="left:1020px">VII</span><span class="m" style="left:1131px">VIII</span><span class="m" style="left:1241px">IX</span><span class="m" style="left:1348px">X</span><span class="dt pty-e" style="left:57px" title="KIO 3342/25: KIO · biegły · przetarg, wyjaśnienia ceny"></span><span class="dt pty-p" style="left:516px" title="I SA/Kr 31/26: WSA Kraków · strona bez pełnomocnika"></span><span class="dt pty-p" style="left:750px" title="I OPP 7/26: NSA · strona bez pełnomocnika"></span><span class="dt pty-p" style="left:928px" title="I SA/Kr 305/26: WSA Kraków · strona · skarga na Dyrektora KIS"></span><span class="dt pty-l" style="left:942px" title="I FZ 104/26: NSA · pełnomocnik · VAT, wstrzymanie wykonania"></span><span class="dt pty-p" style="left:1049px" title="III SA/Kr 488/26: WSA Kraków · strona bez pełnomocnika"></span><span class="dt pty-l" style="left:1173px" title="I OSK 935/26: NSA · pełnomocnik"></span><span class="dt pty-l" style="left:1188px" title="I OSK 590/26: NSA · pełnomocnik"></span><span class="dt pty-l" style="left:1198px" title="I SA/Go 210/26: WSA Gorzów Wlkp. · pełnomocnik · VAT"></span><span class="dt pty-p" style="left:1244px" title="II SAB/Po 175/26: WSA Poznań · strona bez pełnomocnika"></span><span class="dt pty-l" style="left:1294px" title="VII SA/Wa 420/26: WSA Warszawa · pełnomocnik · pozwolenie na budowę"></span></div>
+    <div class="chl-tab"><div><span class="d">17.10.25</span><span class="s">KIO 3342/25</span><span>KIO · biegły · przetarg, wyjaśnienia ceny</span></div><div><span class="d">23.02.26</span><span class="s">I SA/Kr 31/26</span><span>WSA Kraków · strona bez pełnomocnika</span></div><div><span class="d">30.04.26</span><span class="s">I OPP 7/26</span><span>NSA · strona bez pełnomocnika</span></div><div class=hl><span class="d">19.06.26</span><span class="s">I SA/Kr 305/26</span><span>WSA Kraków · strona · skarga na Dyrektora KIS</span></div><div class=hl><span class="d">23.06.26</span><span class="s">I FZ 104/26</span><span>NSA · pełnomocnik · VAT, wstrzymanie wykonania</span></div><div><span class="d">23.07.26</span><span class="s">III SA/Kr 488/26</span><span>WSA Kraków · strona bez pełnomocnika</span></div><div><span class="d">27.08.26</span><span class="s">I OSK 935/26</span><span>NSA · pełnomocnik</span></div><div><span class="d">31.08.26</span><span class="s">I OSK 590/26</span><span>NSA · pełnomocnik</span></div><div class=hl><span class="d">03.09.26</span><span class="s">I SA/Go 210/26</span><span>WSA Gorzów Wlkp. · pełnomocnik · VAT</span></div><div><span class="d">16.09.26</span><span class="s">II SAB/Po 175/26</span><span>WSA Poznań · strona bez pełnomocnika</span></div><div><span class="d">30.09.26</span><span class="s">VII SA/Wa 420/26</span><span>WSA Warszawa · pełnomocnik · pozwolenie na budowę</span></div></div>
+    <div class="chl-key"><span><i class="pty-l"></i>pełnomocnik</span><span><i class="pty-p"></i>strona bez pełnomocnika</span><span><i class="pty-e"></i>biegły</span><span style="margin-left:auto">podświetlone: sprawy podatkowe</span></div>
+    <div class="src">Daty to orzeczenia; pisma powstały wcześniej. W żadnej polskiej sprawie nie wskazano narzędzia. <a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases</a>, stan na 16.11.2026 · <a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank">NSA, I FZ 104/26</a></div>
+  </section>
+
+  <!-- 11 · progress: the same question to OpenAI models from 2023 to 2026 -->
+  <section class="slide" data-notile>
+    <div class="kicker">Ten sam test, modele z kolejnych lat · art. 349 o.p. (ustawa kończy się na art. 344)</div>
+    <h2 style="margin-bottom:20px">Postęp nie idzie po linii prostej</h2>
+    <div class="prog-wrap">
+      <div class="prog-card"><svg id="progChart" viewBox="0 0 980 520" width="980" height="520" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
+      <div class="prog-side" id="progSide"></div>
+    </div>
+    <div class="src">Po 5 prób na „Co mówi art. 349 Ordynacji podatkowej?” i „… Jeśli nie masz pewności, napisz to wprost”; każda odpowiedź przeczytana. Modele przez API (OpenRouter), 17.11.2026; data przy modelu to data wydania.</div>
+  </section>
+
+  <!-- 12 · the jagged frontier: five models, four kinds of work -->
+  <section class="slide" data-notile>
+    <div class="kicker">Postrzępiona granica · pięć modeli, cztery rodzaje pracy</div>
+    <h2 style="margin-bottom:22px">Każdy model zawodzi gdzie indziej</h2>
+    <div class="jt" id="jfTable"></div>
+    <div class="jkey" id="jfKey"></div>
+    <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Art. 349 o.p.: ustawa kończy się na art. 344 (<a href="https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf" target="_blank">t.j. Dz.U. 2026 poz. 622</a>) · KIO: pytania i klucz z <a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., AI &amp; Law (2026)</a>, z poprawkami z replikacji · ETPCz: zajęcia 23.10.2026, odesłania sprawdzone w HUDOC · Aplikacje: Workshop Studio (Wenecja), te same 10 zleceń i automatyczne testy; budowy 31.10–16.11.2026, GPT-4o (4 przejścia) i Carbon (1) 17.11 · Gemini 4 Carbon: aplikacja Antigravity, jako agent; pozostałe modele przez API (OpenRouter), 17.11.2026.</div>
+  </section>
+
+  <!-- 13 · prinzbench: a practitioner's legal-research benchmark, saturated in six months -->
+  <section class="slide" data-notile>
+    <div class="kicker">prinzbench · benchmark badań prawnych praktyka z BigLaw</div>
+    <h2 style="margin-bottom:24px">Benchmark prawnika przetrwał pół roku</h2>
+    <div class="pbwrap">
+      <div class="pbcard"><div class="pbkey" id="pbKey"></div><svg id="pbChart" viewBox="0 0 980 540" role="img" aria-label="Wyniki modeli w prinzbench od stycznia do lipca 2026"></svg></div>
+      <div class="pbf">
+        <div><div class="n">52 → 91</div><div class="l">najlepszy wynik na 99 pkt,<br>styczeń → lipiec 2026</div></div>
+        <div><div class="n">8 – 52</div><div class="l">rozrzut wyników modeli dodanych tego samego dnia (25.02)</div></div>
+        <div class="note">33 trudne pytania z wąskiej dziedziny prawa USA, każde 3 razy: wyszukanie źródeł i analiza prawna. Ocenia ręcznie autor, prawnik transakcyjny. To prywatny test jednej osoby, nie badanie.</div>
+      </div>
+    </div>
+    <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Dane: <a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench</a> (archiwalne tabele i wykresy autora, 19.01–18.07.2026; DeepSeek V4-Pro wg wykresu z 2.05) · <a href="https://x.com/deredleritt3r/status/2013979845378580684" target="_blank">opis metody, 21.01.2026</a> · <a href="https://x.com/deredleritt3r/status/2077826494932689346" target="_blank">nasycenie, 16.07.2026</a> · * GPT-5.5 i GPT-5.6 autor testował przed premierą (wczesny dostęp OpenAI).</div>
+  </section>
+
+  <!-- 14 · Prosus: the bosses build, in front of the juniors -->
+  <section class="slide" data-notile>
+    <div class="kicker">FT Innovative Lawyers Europe 2026 · Prosus</div>
+    <h2>Szefowie budują sami.<br><span class="acc">Na oczach młodszych.</span></h2>
+    <div class="pros2">
+      <div><b>8 godzin</b><p>w dwa kolejne dni prezes wpisał kierownictwu do kalendarzy: usiąść z młodszymi kolegami i zbudować przy nich działające narzędzie</p></div>
+      <div><b>od góry</b><p>zaangażowanie najstarszych stażem było według FT kluczem do tego, że dział prawny przyjął AI i zaczął budować własne narzędzia</p></div>
+    </div>
+    <div class="pros-n">
+      <div><b>298</b>agentów zbudował dział prawny Prosusa (ok. 50 osób)</div>
+      <div><b>„Who can sign what”</b>aplikacja szefowej działu prawnego, zbudowana w Claude Code</div>
+      <div><b>Repsol</b>100 godzin nauki programowania i AI rocznie na prawnika; ponad 22 000 zaoszczędzonych godzin</div>
+    </div>
+    <p class="quote-s">„It’s not the tone at the top, it’s behaviour” · Gitte Groenewold-Wong, Prosus</p>
+    <div class="src"><a href="https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e" target="_blank">Y. Lambert, „AI shakes up in-house legal teams’ work practices”, Financial Times, 25.09.2026</a> · streszczenie i tłumaczenie własne</div>
+  </section>
+
+  <!-- 15 · back to the build (tile visible) -->
+  <section class="slide">
+    <div class="kicker">Narzędzia · 20 minut</div>
+    <h2>Zobaczmy, co powstało,<br><span class="acc">kiedy mówiłem.</span></h2>
+    <div class="steps4">
+      <div><div class="n">01</div><h3>Aplikacja</h3><p>Uchwały Rady PUO z danych: filtry, wykres, lista z PDF. <kbd>A</kbd> pełny ekran · <kbd>L</kbd> z logiem</p></div>
+      <div><div class="n">02</div><h3>Propozycja z sali</h3><p>Co dodać? Gdy się buduje, czas na Państwa pytania. <kbd>C</kbd></p></div>
+      <div><div class="n">03</div><h3>Online</h3><p>Publikacja i kod QR: aplikacja w Państwa telefonach. <kbd>P</kbd></p></div>
+      <div><div class="n">04</div><h3>Pół dnia pracy</h3><p>Ta sama aplikacja, kiedy ma się kilka godzin. <kbd>V</kbd> teaser</p></div>
+    </div>
+  </section>
+
+  <!-- 16 · the full version, half a day of work, QR 2 -->
+  <section class="slide" data-notile>
+    <div class="kicker">Ta sama aplikacja po pół dnia pracy · 17.11.2026</div>
+    <h2 style="margin-bottom:22px">Opinie Rady PUO: wersja pełna</h2>
+    <div class="half">
+      <div>
+        <div class="tl4">
+          <div><span class="h">10:14</span><p>Start: 74 PDF-y z gov.pl</p></div>
+          <div><span class="h">12:30</span><p>Online: OCR 933 stron skanów, 5638 fragmentów, wyszukiwarka, fragment podświetlony w PDF<small>ok. 2 h 15 min, 20 poleceń</small></p></div>
+          <div><span class="h">14:45</span><p>Wyszukiwarka jak w bazie ONZ, nowy wygląd, wersja na telefon</p></div>
+          <div><span class="h">17:00</span><p>Wyszukiwanie po znaczeniu i przewodnik</p></div>
+        </div>
+        <p class="cost">Ok. 25 poleceń · ok. 8 pkt proc. tygodniowego limitu planu Claude Max · OCR na własnym komputerze: 0 zł</p>
+      </div>
+      <div class="qr2"><img src="assets/qr_rada_puo.svg" alt="Kod QR do aplikacji Opinie Rady PUO"><div class="u">lszoszk.github.io/opinie-rady-puo</div></div>
+    </div>
+    <div class="src">Dziennik projektu (godziny i zużycie planu): gaar_rada_2026-11/USAGE.md</div>
+  </section>
+
+  <!-- 17 · three things for Monday -->
+  <section class="slide" data-notile>
+    <div class="kicker">Na poniedziałek</div>
+    <h2>Trzy rzeczy do wypróbowania</h2>
+    <div class="mon">
+      <div><div class="n">1</div><h3>10 pytań z własnej praktyki</h3><p>Zadajcie je kilku modelom. Jedno niech dotyczy przepisu, którego nie ma, jak nasz art. 349.</p></div>
+      <div><div class="n">2</div><h3>Jedno małe narzędzie</h3><p>Na dokumentach, które i tak czytacie: uchwały, interpretacje, własne wzory pism.</p></div>
+      <div><div class="n">3</div><h3>Czas na naukę</h3><p>Dla siebie i zespołu. Repsol: 100 godzin rocznie. Prosus: osiem godzin szefów przy młodszych.</p></div>
+    </div>
+  </section>
+
+  <!-- 18 · closing: the whole moon is dark -->
+  <section class="slide nobeam" data-notile>
+    <svg class="prism" viewBox="0 0 1600 900" aria-hidden="true" style="opacity:.35;transform:translateX(330px)"><line x1="-10" y1="592" x2="680" y2="415" stroke="#f4f1ea" stroke-width="4"/><polygon points="680,415 915,406 949,469" fill="#f4f1ea" opacity=".16"/><polygon points="915,406 921,416 1610,464 1610,430" fill="#e63946"/><polygon points="921,416 926,427 1610,498 1610,464" fill="#f77f00"/><polygon points="926,427 932,438 1610,532 1610,498" fill="#fcbf49"/><polygon points="932,438 938,448 1610,566 1610,532" fill="#52b788"/><polygon points="938,448 943,458 1610,600 1610,566" fill="#3a86ff"/><polygon points="943,458 949,469 1610,634 1610,600" fill="#8338ec"/><polygon points="800,190 1040,640 560,640" fill="none" stroke="#d9d6cf" stroke-width="5" stroke-linejoin="round"/></svg>
+    <div class="close-txt">
+      <h2>Ciemnej strony Księżyca nie ma.<br><span class="acc">Ciemny jest cały.</span></h2>
+      <p class="lead">Tak kończy się płyta. Z AI jest podobnie: jasne jest tylko to, co sami sprawdzimy i zbudujemy.</p>
+      <p class="lead" style="margin-top:40px;color:#f4f1ea">Dziękuję. Pytania?</p>
+    </div>
+  </section>
+
+  <!-- 19 · sources -->
+  <section class="slide" data-notile>
+    <div class="kicker">Po wykładzie</div>
+    <h2 style="margin-bottom:18px">Źródła</h2>
+    <div class="srcs">
+      <p><b>Badania</b><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026)</a></p>
+      <p><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (2026)</a></p>
+      <p><a href="https://doi.org/10.1287/orsc.2025.21838" target="_blank">Dell'Acqua i in., Navigating the Jagged Technological Frontier, Organization Science (2026)</a></p>
+      <p><a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., Artificial Intelligence and Law (2026): pytania z egzaminu na członka KIO</a></p>
+      <p><a href="https://blr.scholasticahq.com/article/171946-the-giving-of-reasons-judgement-writing-judicial-reasoning-and-genai" target="_blank">Bell i Legg, The Giving of Reasons, Bond Law Review 38(2) (2026)</a></p>
+      <p><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026</a></p>
+      <p><b>Praktyka</b><a href="https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e" target="_blank">Y. Lambert, AI shakes up in-house legal teams’ work practices, Financial Times (25.09.2026)</a></p>
+      <p><a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench: benchmark badań prawnych (@deredleritt3r)</a></p>
+      <p><a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases (stan na 16.11.2026)</a></p>
+      <p><a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank">NSA, postanowienie z 23.06.2026, I FZ 104/26</a></p>
+      <p><b>Prawo i dane</b><a href="https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf" target="_blank">Ordynacja podatkowa, t.j. Dz.U. 2026 poz. 622</a></p>
+      <p><a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania (gov.pl)</a></p>
+      <p><a href="https://lszoszk.github.io/opinie-rady-puo/" target="_blank">Opinie Rady PUO: aplikacja (lszoszk.github.io/opinie-rady-puo)</a></p>
+      <p><b>Testy własne</b>Postrzępiona granica i postęp modeli: 5 + 10 modeli przez API (OpenRouter) i Gemini 4 Carbon w Antigravity, 17.11.2026; odesłania do wyroków sprawdzone w HUDOC.</p>
+      <p><b>Muzyka i okładka</b>Pink Floyd, The Dark Side of the Moon (1973); pryzmat na slajdach: rysunek własny.</p>
+    </div>
+  </section>
+
+  <!-- live tile -->
+  <div id="tile">
+    <div class="hd"><span id="dot"></span><span id="mode">gotowy</span><span id="model"></span><span id="clock">00:00</span></div>
+    <div id="now"><b>J</b> dane · <b>N</b> plan · <b>B</b> budowa</div>
+    <div id="log"></div>
+    <div id="mini"><div class="ph" id="ph">Tu pojawi się aplikacja</div><iframe id="miniframe" title="podgląd" tabindex="-1"></iframe><div id="flash"></div></div>
+    <div id="stats"><span id="sFiles">0 plików</span><span id="sLines">0 linii</span><span id="sSteps">0 kroków</span></div>
+    <div id="jobline"></div>
+  </div>
+
+  <div class="ov" id="big"><iframe id="bigframe" title="aplikacja"></iframe>
+    <div class="side"><h4>Co robi Claude Code</h4><div id="biglog"></div></div></div>
+  <div class="ov" id="appfull"><iframe id="appframe" title="aplikacja na pełnym ekranie"></iframe></div>
+  <div class="ov" id="qr"><div class="in"><div id="qrimg">QR pojawi się po publikacji</div>
+    <div><h2>Aplikacja jest Wasza</h2><div id="qrurl">…</div><div id="qrstat">Publikuję…</div></div></div></div>
+  <div class="ov" id="video"><video id="vid" playsinline></video></div>
+  <div class="ov" id="raw"><pre id="rawpre"></pre></div>
+  <div class="ov" id="ask"><form id="askform"><label>Propozycja z sali — co dodać?</label>
+    <input id="askin" autocomplete="off" placeholder="np. dodaj terminy dla skargi o stwierdzenie niezgodności z prawem">
+    <p>Enter wysyła do tej samej sesji Claude Code · Esc zamyka</p></form></div>
+  <div class="ov" id="jsonov"><div class="jbox"><div class="jside"><div class="jk">dane wejściowe</div><h3>dane/uchwaly.json</h3><div id="jstat"></div></div><pre id="jpre">…</pre></div></div>
+  <div class="ov" id="planov"><div class="pbox"><div class="jk">Plan od Claude Code · tryb planu, bez pisania plików</div><div id="plantext">Plan się tworzy…</div><div class="phint"><kbd>B</kbd> buduj według planu · <kbd>C</kbd> dopisz życzenie z sali · <kbd>Esc</kbd> zamknij</div></div></div>
+  <div class="ov" id="help"><div class="box"><h3>Sterowanie</h3>
+    <kbd>→</kbd> / <kbd>←</kbd> / spacja — slajdy<br>
+    <kbd>J</kbd> — dane JSON · <kbd>N</kbd> — plan (Claude Code w trybie planu) · <kbd>B</kbd> — budowa (po planie: według planu) · <kbd>X</kbd> — zatrzymaj<br>
+    <kbd>R</kbd> — odtwórz ostatnie nagranie (tempo 1×) · <kbd>Shift</kbd>+<kbd>R</kbd> — 4×<br>
+    <kbd>A</kbd> — sama aplikacja na cały ekran · <kbd>L</kbd> — aplikacja + log · <kbd>T</kbd> — surowy strumień<br>
+    <kbd>V</kbd> — odtwórz teaser (buduje się sam, po cichu, po każdej budowie) · <kbd>Shift</kbd>+<kbd>V</kbd> — zbuduj nowy w tle<br>
+    <kbd>P</kbd> — opublikuj i pokaż QR (drugi raz <kbd>P</kbd> / <kbd>Esc</kbd> zamyka)<br>
+    <kbd>C</kbd> — propozycja z sali (dopisanie do sesji) · <kbd>K</kbd> — pokaż/ukryj kafelek<br>
+    <kbd>F</kbd> — pełny ekran · <kbd>H</kbd> / <kbd>Esc</kbd> — zamknij</div></div>
+  <div id="toast"></div>
+</div></div>
+
+<script>
+const $ = s => document.querySelector(s);
+const slides = [...document.querySelectorAll('.slide')];
+let cur = 0;
+
+/* ---------- layout ---------- */
+function fit(){ const k = Math.min(innerWidth/1600, innerHeight/900); $('#stage').style.transform = `scale(${k})`; }
+addEventListener('resize', fit); fit();
+const STATIC = !['127.0.0.1','localhost'].includes(location.hostname);   // the online copy: no deck server
+if (STATIC) document.documentElement.classList.add('static');
+let tileManual = STATIC ? true : null;   // K overrides the per-slide default
+function show(i){ cur = Math.max(0, Math.min(slides.length-1, i)); slides.forEach((s,j)=>s.classList.toggle('on', j===cur)); $('#pager').textContent = `${cur+1} / ${slides.length}`;
+  const t=document.getElementById('tile'); if(t) t.classList.toggle('hidden', tileManual===null ? slides[cur].hasAttribute('data-notile') : tileManual); }
+
+/* ---------- slide 4 data: written by granica/narzedzia/slajd4.py ---------- */
+/* JF:begin */
+const JF = {"blocks": ["Przygotowanie postępowania", "Kwalifikacja podmiotowa wykonawców", "Przetarg nieograniczony i ograniczony", "Negocjacje z ogłoszeniem", "Dialog konkurencyjny", "Negocjacje bez ogłoszenia", "Postępowanie w trybie zamówienia z wolnej ręki", "Tryb podstawowy udzielenia zamówienia", "Ocena ofert i wybór oferty najkorzystniejszej", "Umowa w sprawie zamówienia publicznego"], "rows": [{"k": "carbon", "name": "Gemini 4 Carbon", "orig": "Google · USA · zamknięty · agent w Antigravity", "apps": [8, 10], "kio": [[9, 10], [10, 10], [10, 10], [10, 10], [9, 10], [10, 10], [9, 9], [10, 10], [9, 10], [9, 9]], "kioTot": [241, 245], "y25": 50, "a349": {"P1": "AAAAA", "P2": "AAAAA"}, "ecthr": {"bez": {"✓": 8, "≈": 1, "✗": 0, "odm": 0, "odp": 3}, "z": {"✓": 9, "≈": 0, "✗": 0, "odm": 3, "odp": 3}}}, {"k": "sonnet", "name": "Claude Sonnet 5.5", "orig": "Anthropic · USA · zamknięty", "apps": [77, 83], "kio": [[8, 10], [10, 10], [7, 10], [10, 10], [9, 10], [10, 10], [8, 9], [8, 10], [9, 10], [7, 9]], "kioTot": [216, 245], "y25": 43, "a349": {"P1": "CCCCC", "P2": "AAAAC"}, "ecthr": {"bez": {"✓": 14, "≈": 0, "✗": 0, "odm": 0, "odp": 6}, "z": {"✓": 18, "≈": 0, "✗": 0, "odm": 4, "odp": 6}}}, {"k": "gpt4o", "name": "GPT-4o", "orig": "OpenAI · USA · zamknięty · wersja 2024-08-06", "apps": [3, 39], "kio": [[5, 10], [9, 10], [7, 10], [8, 10], [7, 10], [8, 10], [7, 9], [8, 10], [7, 10], [5, 9]], "kioTot": [190, 245], "y25": 40, "a349": {"P1": "BBBCC", "P2": "CCCCA"}, "ecthr": {"bez": {"✓": 14, "≈": 4, "✗": 0, "odm": 0, "odp": 28}, "z": {"✓": 16, "≈": 2, "✗": 0, "odm": 18, "odp": 28}}}, {"k": "mistral4", "name": "Mistral Large 4", "orig": "Mistral AI · Francja · otwarte wagi", "apps": [35, 51], "kio": [[6, 10], [9, 10], [7, 10], [9, 10], [8, 10], [7, 10], [6, 9], [7, 10], [7, 10], [6, 9]], "kioTot": [189, 245], "y25": 39, "a349": {"P1": "BBBBB", "P2": "BCCCC"}, "ecthr": {"bez": {"✓": 11, "≈": 7, "✗": 0, "odm": 0, "odp": 12}, "z": {"✓": 15, "≈": 3, "✗": 0, "odm": 4, "odp": 15}}}, {"k": "glm", "name": "GLM-5.3", "orig": "Z.ai · Chiny · otwarte wagi", "apps": [43, 71], "kio": [[5, 10], [9, 10], [4, 10], [8, 10], [7, 10], [8, 10], [7, 9], [7, 10], [8, 10], [7, 9]], "kioTot": [188, 245], "y25": 39, "a349": {"P1": "BBBBB", "P2": "AABBA"}, "ecthr": {"bez": {"✓": 7, "≈": 6, "✗": 1, "odm": 0, "odp": 6}, "z": {"✓": 16, "≈": 2, "✗": 0, "odm": 0, "odp": 6}}}]};
+/* JF:end */
+const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
+(function renderJF(){
+  const pct = (a,b) => Math.round(100*a/b);
+  const C349 = {A:['#3fb950','mówi, że nie istnieje'], C:['#f2a33a','nie wie, nie podaje treści'], B:['#f05252','twierdzi, że istnieje'], '-':['#3a3a3a','jeszcze bez odpowiedzi']};
+  // columns in the order of the talk: a provision, the exam, case law, building
+  let h = `<div class="hd c1"></div>
+    <div class="hd"><div class="tag">Art. 349 o.p.</div><div class="jsub">przepis nie istnieje · „Co mówi…?” ×5, „… jeśli nie masz pewności, napisz” ×5</div></div>
+    <div class="hd"><div class="tag">Egzamin na członka KIO</div><div class="jsub">10 bloków tematycznych · razem 245 pytań, w nawiasie egzamin 2025 (50) · bez źródeł</div></div>
+    <div class="hd"><div class="tag">Wyroki ETPCz</div><div class="jsub">odesłania: z pamięci i z podanymi fragmentami</div></div>
+    <div class="hd"><div class="tag">Budowa aplikacji</div><div class="jsub">przeszły wszystkie testy</div></div>`;
+  for (const r of JF.rows || []){
+    let cApps, cKio, c349, cEc;
+    if (r.apps){ const [a,b] = r.apps, p = a/b;
+      cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div><div class="jn">${a} z ${b} ${r.k==='carbon'?'· po jednej budowie':'budów'}</div></div>`;
+    } else cApps = `<div><div class="jn">nie budowaliśmy</div></div>`;
+    if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b), low = Math.min(...ps), li = ps.indexOf(low);
+      cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c${ps[i]===low&&low<1?' low':''}" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}">${pct(x,y)}</span>`).join('')}<span class="tot">${pct(...r.kioTot)}%<small>(${r.y25}/50)</small></span></div>`
+        + `<div class="jn">${ps.filter(x=>x===low).length>1 ? `najsłabsze: <b>${ps.filter(x=>x===low).length} bloki po ${r.kio[li].join('/')}</b>` : `najsłabszy blok: <b>${JF.blocks[li].toLowerCase()}</b> ${r.kio[li].join('/')}`}</div></div>`;
+    } else cKio = `<div></div>`;
+    const seq = r.a349.P1 + r.a349.P2, nB = [...seq].filter(c=>c==='B').length, nDone = [...seq].filter(c=>c!=='-').length;
+    const dot = c => `<i style="background:${C349[c][0]}" title="${C349[c][1]}"></i>`;
+    c349 = `<div><div class="dots">${[...r.a349.P1].map(dot).join('')}<span class="sep"></span>${[...r.a349.P2].map(dot).join('')}</div>`
+      + `<div class="jn">${nB ? `<b>${nB} z ${nDone}</b> razy twierdzi, że przepis istnieje` : `ani razu nie twierdzi, że istnieje${nDone<10?` (${nDone} z 10)`:''}`}</div></div>`;
+    const bar = (o,lab) => { if(!o) return `<span>${lab}</span><span class="ecn">w toku</span><span></span>`; const t=(o['✓']+o['≈']+o['✗'])||1;
+      return `<span>${lab}</span><span class="stack" title="${o['✓']} ✓ · ${o['≈']} ≈ · ${o['✗']} ✗${o.odm?` · ${o.odm} odmów`:''}"><i style="width:${100*o['✓']/t}%;background:#3fb950"></i><i style="width:${100*o['≈']/t}%;background:#f2a33a"></i><i style="width:${100*o['✗']/t}%;background:#f05252"></i></span><span class="n">${o['✓']}/${o['✓']+o['≈']+o['✗']}</span>`; };
+    const z = r.ecthr.z;
+    cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${bar(z,'z fragm.')}</div>${z&&z.odm?`<div class="jn" style="margin-top:4px">„brak podstaw” we fragmentach: ${z.odm} z ${z.odp}</div>`:''}</div>`;
+    h += `<div class="c1"><div class="mname">${r.name}</div><div class="morig">${r.orig}</div></div>` + c349 + cKio + cEc + cApps;
+  }
+  $('#jfTable').innerHTML = h;
+  $('#jfKey').innerHTML = `<span><i style="background:#3fb950"></i>nie istnieje / prawdziwe</span><span><i style="background:#f2a33a"></i>nie wie / przekręcone</span><span><i style="background:#f05252"></i>twierdzi, że istnieje / zmyślone</span><span><i class="sq" style="background:#fff;outline:3px solid var(--ink)"></i>najsłabszy blok egzaminu</span>`;
+})();
+/* ---------- slide 5: prinzbench (scores /99 and the date the author added each model) ---------- */
+const PB = [["2026-01-19","GPT-5.2 Thinking",52],["2026-01-19","Gemini 3 Flash",36],["2026-01-19","Gemini 3 Pro",35],
+  ["2026-01-19","Grok 4.1 Thinking",25],["2026-01-19","Grok 4",23],["2026-01-19","Kimi K2 Thinking",22],["2026-01-19","Sonnet 4.5",20],
+  ["2026-01-19","Opus 4.5",14],["2026-01-28","Kimi K2.5 Thinking",35],["2026-01-28","Qwen Q3-Max",25],["2026-02-07","Opus 4.6",19],
+  ["2026-02-25","GPT-5.3-Codex",52],["2026-02-25","Gemini 3.1 Pro",50],["2026-02-25","Grok 4.20",43],["2026-02-25","Sonnet 4.6",8],
+  ["2026-03-11","GPT-5.4 (xhigh)",69],["2026-03-11","GPT-5.4 Thinking (heavy)",68],["2026-03-11","GPT-5.4 Thinking (ext.)",58],
+  ["2026-03-18","GPT-5.4 Pro",79],["2026-04-24","GPT-5.5 Pro*",82],["2026-04-24","GPT-5.5 Thinking*",74],["2026-04-24","Meta Muse Spark",31],
+  ["2026-04-24","Opus 4.7",25],["2026-05-02","DeepSeek V4-Pro",23],["2026-06-02","Opus 4.8 (max)",42],["2026-06-27","GLM-5.2",30],
+  ["2026-07-06","Fable 5 (max)",56],["2026-07-16","GPT-5.6 Sol Pro*",91],["2026-07-18","Kimi K3",47]];
+(function renderPB(){
+  const W=980, H=540, L=58, R=40, T=18, B=40, t0=+new Date('2026-01-12'), t1=+new Date('2026-07-31');
+  const x = d => L + (W-L-R) * (+new Date(d)-t0)/(t1-t0), y = v => T + (H-T-B) * (1 - v/99);
+  const ACC='#4ea8de', CTX='#6b6b6b', fmt = d => d.slice(8,10)+'.'+d.slice(5,7);
+  let s = '';
+  for (const v of [0,25,50,75]) s += `<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#262626"/><text x="${L-12}" y="${y(v)+5}" text-anchor="end" font-size="15" fill="#5b6478">${v}</text>`;
+  s += `<line x1="${L}" x2="${W-R}" y1="${y(99)}" y2="${y(99)}" stroke="#5b6478" stroke-dasharray="4 5"/><text x="${L-12}" y="${y(99)+5}" text-anchor="end" font-size="15" fill="#5b6478">99</text>`
+     + `<text x="${W-R}" y="${y(99)-6}" text-anchor="end" font-size="14" fill="#5b6478">maksimum</text>`;
+  for (const [m,lab] of [[1,'styczeń'],[2,'luty'],[3,'marzec'],[4,'kwiecień'],[5,'maj'],[6,'czerwiec'],[7,'lipiec']]){
+    const d=`2026-0${m}-01`; s += `<line x1="${x(d)}" x2="${x(d)}" y1="${H-B}" y2="${H-B+6}" stroke="#d9d4c7"/><text x="${x(d)+4}" y="${H-B+24}" font-size="15" fill="#5b6478">${lab}</text>`; }
+  // best score so far: a step line that only rises when a model beats it
+  let best = -1, pts = [], lead = new Set();
+  for (const r of [...PB].sort((a,b)=>a[0]<b[0]?-1:a[0]>b[0]?1:b[2]-a[2])) if (r[2] > best){ best = r[2]; lead.add(r); pts.push([x(r[0]), y(r[2])]); }
+  let p = `M${pts[0][0]},${pts[0][1]}`; for (let i=1;i<pts.length;i++) p += ` H${pts[i][0]} V${pts[i][1]}`; p += ` H${x('2026-07-31')}`;
+  s += `<path d="${p}" fill="none" stroke="${ACC}" stroke-width="2.5"/>`;
+  // spread of models added on one day (25.02)
+  const bx = x('2026-02-25') + 16;
+  s += `<path d="M${bx-5},${y(52)} H${bx} V${y(8)} H${bx-5}" fill="none" stroke="#c2410c" stroke-width="2"/><text x="${bx+8}" y="${y(30)+5}" font-size="15" fill="#cfcac0">jednego dnia: 8 do 52</text>`;
+  for (const r of PB){ const on = lead.has(r);
+    s += `<circle cx="${x(r[0])}" cy="${y(r[2])}" r="${on?7:6}" fill="${on?ACC:CTX}" stroke="#050505" stroke-width="2"><title>${r[1]}: ${r[2]}/99 (dodany ${fmt(r[0])})</title></circle>`; }
+  s += `<text x="${x('2026-01-19')+12}" y="${y(52)-12}" font-size="16" font-weight="700" fill="#16213a">GPT-5.2 Thinking · 52</text>`
+     + `<text x="${x('2026-07-16')-12}" y="${y(91)-14}" text-anchor="end" font-size="16" font-weight="700" fill="#16213a">GPT-5.6 Sol Pro · 91</text>`;
+  $('#pbChart').innerHTML = s;
+  $('#pbKey').innerHTML = `<span><i class="ln" style="background:${ACC}"></i>najlepszy wynik do danego dnia</span><span><i style="background:${CTX}"></i>pozostałe modele (najedź, by zobaczyć nazwę)</span>`;
+})();
+show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));   // #12 opens slide 12
+
+
+/* ---------- progress chart: art. 349 o.p. on OpenAI models 2023–2026 (granica/art349_postep_oceny.json) ---------- */
+const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBBBBAAAAA"}, {"k": "gpt4o_0513", "n": "GPT-4o", "d": "05.2024", "tag": "", "seq": "CCBCBCCCAA"}, {"k": "gpt4omini", "n": "GPT-4o mini", "d": "07.2024", "tag": "darmowy|ChatGPT", "seq": "BBBBBABACA"}, {"k": "gpt4o", "n": "GPT-4o", "d": "08.2024", "tag": "JudgeGPT", "seq": "BBBCCCCCCA"}, {"k": "gpt41", "n": "GPT-4.1", "d": "04.2025", "tag": "", "seq": "BBBBBAAAAA"}, {"k": "gpt5", "n": "GPT-5", "d": "08.2025", "tag": "", "seq": "BBCBBACABB"}, {"k": "gpt52", "n": "GPT-5.2", "d": "12.2025", "tag": "", "seq": "CCCCCAAAAA"}, {"k": "gpt54", "n": "GPT-5.4", "d": "03.2026", "tag": "", "seq": "BBBBBABBBB"}, {"k": "gpt56", "n": "GPT-5.6 Sol", "d": "07.2026", "tag": "", "seq": "AAAAAAAAAA"}, {"k": "gpt61", "n": "GPT-6.1 Sol", "d": "09.2026", "tag": "", "seq": "AAAAAAAAAA"}];
+(function renderProg(){
+  const el = document.getElementById('progChart'); if(!el) return;
+  const W=980, H=520, L=54, R=14, T=70, B=100, n=PROG.length, cw=(W-L-R)/n, bw=cw*0.56, y=v=>T+(H-T-B)*(1-v/10);
+  const COL={B:'#f05252',C:'#f2a33a',A:'#3fb950'};
+  let g='';
+  // the months in which the Polish pleadings were (roughly) written: GPT-5 to GPT-5.4
+  const i0=PROG.findIndex(p=>p.k==='gpt5'), i1=PROG.findIndex(p=>p.k==='gpt54');
+  g+=`<rect x="${L+cw*i0+4}" y="${T-34}" width="${cw*(i1-i0+1)-8}" height="${H-B-T+34}" fill="#ffffff" opacity=".06" rx="8"/>`;
+  g+=`<text x="${L+cw*i0+cw*(i1-i0+1)/2}" y="${T-46}" text-anchor="middle" fill="#9a9a9a" font-size="13">czas powstawania pism z polskich spraw (orientacyjnie)</text>`;
+  for(let v=0; v<=10; v+=5){ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2a2a2a"/><text x="${L-12}" y="${y(v)+5}" text-anchor="end" fill="#8f8f8f" font-size="14">${v}</text>`; }
+  PROG.forEach((p,i)=>{
+    const cnt={B:0,C:0,A:0}; [...p.seq].forEach(c=>{ if(cnt[c]!==undefined) cnt[c]++; });
+    const x=L+cw*i+(cw-bw)/2; let acc=0;
+    for(const c of ['B','C','A']){ if(!cnt[c]) continue; g+=`<rect x="${x}" y="${y(acc+cnt[c])}" width="${bw}" height="${y(acc)-y(acc+cnt[c])}" fill="${COL[c]}"><title>${p.n} (${p.d}): ${cnt[c]} × ${c==='B'?'twierdzi, że istnieje':c==='C'?'nie wie':'nie istnieje'}</title></rect>`; acc+=cnt[c]; }
+    g+=`<text x="${x+bw/2}" y="${y(10)-8}" text-anchor="middle" font-size="22" font-weight="800" fill="${cnt.B>=5?'#f05252':cnt.B?'#f2a33a':'#3fb950'}">${cnt.B}</text>`;
+    g+=`<text x="${x+bw/2}" y="${H-B+26}" text-anchor="middle" font-size="15" font-weight="700" fill="#ece9e2">${p.n}</text>`;
+    g+=`<text x="${x+bw/2}" y="${H-B+46}" text-anchor="middle" font-size="13" fill="#8f8f8f">${p.d}</text>`;
+    if(p.tag) p.tag.split('|').forEach((t,j)=>{ g+=`<text x="${x+bw/2}" y="${H-B+66+j*15}" text-anchor="middle" font-size="12" fill="#ffd166">${t}</text>`; });
+  });
+  g+=`<text x="${L}" y="${H-4}" fill="#8f8f8f" font-size="13">nad słupkiem: ile razy na 10 model twierdził, że art. 349 istnieje · czerwone: istnieje · żółte: nie wiem · zielone: nie istnieje</text>`;
+  el.innerHTML=g;
+  const nB=k=>[...PROG.find(p=>p.k===k).seq].filter(c=>c==='B').length;
+  document.getElementById('progSide').innerHTML=
+    `<div><div class="n" style="color:#f05252">${nB('gpt54')} z 10</div><div class="l">GPT-5.4 (03.2026) twierdzi, że przepis istnieje. Cytuje „treść”, raz przenosi pod nr 349 przepis o wejściu w życie</div></div>`+
+    `<div><div class="n" style="color:#3fb950">0 z 10</div><div class="l">GPT-5.6 i GPT-6.1 (07–09.2026): za każdym razem „nie istnieje, ustawa kończy się na art. 344”</div></div>`+
+    `<div><div class="n" style="color:#f2a33a">${nB('gpt4omini')} z 10</div><div class="l">GPT-4o mini, model darmowego ChatGPT z 2024 r.</div></div>`+
+    `<div class="l" style="font-size:15px;color:#8f8f8f">Przez API, ustawienia domyślne. W aplikacji ChatGPT ten sam model może odpowiadać inaczej.</div>`;
+})();
+
+/* ---------- toast ---------- */
+let tt; function toast(m){ const t=$('#toast'); t.textContent=m; t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),2600); }
+
+/* ---------- live state ---------- */
+const st = { mode:'idle', t0:null, files:{}, steps:0, hasApp:false, running:false };
+const base = p => (p||'').split('/').pop();
+function setMode(m){
+  st.mode = m;
+  const dot = $('#dot'); dot.className = m==='live'?'live':m==='replay'?'replay':m==='done'?'done':'';
+  $('#mode').textContent = {live:'na żywo', replay:'odtworzenie', done:'gotowe', idle:'gotowy'}[m] || m;
+}
+function clockTick(){
+  if(st.t0 && st.running){ const s = Math.floor((Date.now()-st.t0)/1000); $('#clock').textContent = String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+}
+setInterval(clockTick, 250);
+
+function now(text){ $('#now').innerHTML = text; }
+function log(text, cls){
+  const mk = () => { const d=document.createElement('div'); d.textContent=text; if(cls) d.className=cls; return d; };
+  const l=$('#log'); l.appendChild(mk()); while(l.children.length>4) l.removeChild(l.firstChild);
+  const b=$('#biglog'); b.appendChild(mk()); while(b.children.length>40) b.removeChild(b.firstChild);
+}
+function raw(obj){
+  const p=$('#rawpre'); p.textContent += JSON.stringify(obj).slice(0,600) + '\n';
+  if(p.textContent.length>60000) p.textContent = p.textContent.slice(-40000);
+  $('#raw').scrollTop = 1e9; p.parentElement.scrollTop = 1e9;
+}
+function stats(){
+  const f = Object.values(st.files);
+  $('#sFiles').textContent = f.length + (f.length===1?' plik':' plików');
+  $('#sLines').textContent = f.reduce((a,x)=>a+x.lines,0) + ' linii';
+  $('#sSteps').textContent = st.steps + ' kroków';
+}
+function firstSentence(t){ t=(t||'').replace(/\s+/g,' ').trim(); const m=t.match(/^(.{20,140}?[.!?:])(\s|$)/); return m?m[1]:t.slice(0,140); }
+
+let rl; function reloadApp(){
+  clearTimeout(rl); rl = setTimeout(()=>{
+    if(!st.hasApp) return;
+    const u = '/app/index.html?v=' + Date.now();
+    $('#ph').style.display='none'; $('#miniframe').src = u;
+    if($('#big').classList.contains('on')) $('#bigframe').src = u;
+    const f=$('#flash'); f.classList.add('on'); setTimeout(()=>f.classList.remove('on'),120);
+  }, 700);
+}
+
+function playTeaser(){
+  const v=$('#vid'); ovOff(); $('#video').classList.add('on');
+  v.src='/out/teaser_sala.mp4?v='+Date.now(); v.currentTime=0;
+  v.play().catch(()=>toast('Kliknij, aby odtworzyć (przeglądarka zablokowała dźwięk)'));
+  v.onended=()=>setTimeout(()=>$('#video').classList.remove('on'),800);
+}
+/* Finale jobs never take over the tile's main line or the screen: progress goes to the small
+   footer line (and the big log under L); the teaser plays only when the speaker presses V. */
+const jobs = { teaser:{running:false, t0:0}, publish:{running:false} };
+function jobline(text, ready){ const j=$('#jobline'); j.textContent=text; j.classList.toggle('ready', !!ready); }
+function onJob(e){
+  const label = e.job==='teaser' ? '🎬 teaser' : '🌐 publikacja';
+  const bl = s => { const d=document.createElement('div'); d.textContent=s; $('#biglog').appendChild(d); };
+  if(e.start){ jobs[e.job].running=true; jobs[e.job].t0=Date.now(); jobline(label+': start'); bl(label+': start'); return; }
+  if(e.exit!==undefined){ jobs[e.job].running=false; if(e.exit!==0 && e.job==='teaser') jobline('🎬 teaser: nie wyszedł — V odtworzy poprzedni'); return; }
+  if(e.log){ bl(label+': '+e.log); return; }
+  if(e.msg){ jobline(label+' · '+e.msg); bl(label+': '+e.msg); }
+  if(e.job==='teaser' && e.done){ jobs.teaser.ready=true; jobline('🎬 teaser gotowy · V', true); }
+  if(e.job==='publish'){
+    if(e.url) $('#qrurl').textContent=e.url;
+    if(e.qr) $('#qrimg').innerHTML='<img alt="QR" src="'+e.qr+'?v='+Date.now()+'">';
+    if(e.msg) $('#qrstat').textContent=e.msg;
+    if(e.done) $('#qrstat').textContent = e.dry ? 'Próba na sucho: adres i QR gotowe, strona nie została wypchnięta.' : (e.ok===false? e.msg : '✓ Strona jest online. Zeskanujcie i sprawdzajcie terminy.');
+  }
+  if(e.fatal && e.job==='publish') $('#qrstat').textContent='⚠️ '+e.msg+' — QR prowadzi do wersji z próby.';
+}
+
+function onCC(ev){
+  if(ev.type==='system' && ev.subtype==='thinking_tokens'){ now('🤔 myśli… ok. '+(ev.estimated_tokens||0).toLocaleString('pl-PL')+' tokenów'); return; }
+  if(ev.type==='system' && ev.subtype==='init'){ now('Claude Code wystartował'); log('init · model ' + (ev.model||'')); $('#model').textContent=' · '+(ev.model||'').replace(/^claude-/,''); return; }
+  if(ev.type==='assistant'){
+    for(const c of (ev.message && ev.message.content) || []){
+      if(c.type==='text' && c.text.trim()){ now('💬 '+firstSentence(c.text)); log('» '+firstSentence(c.text)); }
+      if(c.type==='tool_use'){
+        st.steps++; const i=c.input||{}; let m;
+        switch(c.name){
+          case 'Read': m='czyta '+base(i.file_path); break;
+          case 'Write': m='zapisuje '+base(i.file_path)+' ('+((i.content||'').split('\n').length)+' linii)'; break;
+          case 'Edit': case 'MultiEdit': m='poprawia '+base(i.file_path); break;
+          case 'Glob': m='przegląda pliki'; break;
+          case 'Grep': m='szuka „'+(i.pattern||'')+'”'; break;
+          default: m=c.name;
+        }
+        now('🔧 '+m); log('· '+m); stats();
+      }
+    }
+    return;
+  }
+  if(ev.type==='user'){
+    for(const c of (ev.message && ev.message.content) || []){
+      if(c.type==='tool_result' && c.is_error){ log('✗ narzędzie zgłosiło błąd', 'err'); }
+    }
+    return;
+  }
+  if(ev.type==='result'){
+    const s = Math.round((ev.duration_ms||0)/1000);
+    const cost = ev.total_cost_usd!=null ? ' · $'+ev.total_cost_usd.toFixed(2) : '';
+    now((ev.is_error?'⚠️ zakończone z błędem':'✅ gotowe')+' · '+s+' s · '+(ev.num_turns||st.steps)+' tur'+cost);
+    log('wynik: '+(ev.subtype||'')+cost);
+  }
+}
+
+function handle(e){
+  raw(e);
+  switch(e.kind){
+    case 'hello': setMode(e.mode==='idle'?'idle':e.mode); break;
+    case 'start':
+      st.files={}; st.steps=0; st.hasApp=false; st.running=true;
+      st.t0 = Date.now() - (e.t||0)*1000;
+      $('#log').innerHTML=''; $('#biglog').innerHTML=''; $('#ph').style.display='flex'; $('#miniframe').removeAttribute('src');
+      setMode(e.mode);
+      now(e.mode==='replay' ? 'Odtwarzam nagranie '+(e.recording||'')+(e.speed&&e.speed!==1?' ('+e.speed+'×)':'') : e.plan ? '🧭 Plan · Claude Code czyta dane i planuje' : 'Start · Claude Code dostaje zadanie');
+      if(e.plan){ $('#plantext').textContent='Plan się tworzy…'; }
+      log((e.mode==='replay'?'nagranie ':'nagrywam ')+(e.recording||'')); stats(); break;
+    case 'user': st.running=true; setMode('live');
+      if(e.text.startsWith('Plan zatwierdzony')){ if($('#planov').classList.contains('on')) ovOff(); now('▶️ Budowa według planu'); log('budowa według planu'); }
+      else { now('🗣️ z sali: '+e.text); log('z sali: '+e.text); } break;
+    case 'plan': showPlan(e.text); log('plan gotowy'); break;
+    case 'typing':
+      if(e.block==='tool_use'){ now('✍️ '+(e.tool==='Write'?'pisze plik':e.tool==='Edit'?'przygotowuje poprawkę':e.tool)+' · '+e.chars.toLocaleString('pl-PL')+' znaków'); }
+      else if(e.block==='text' && e.tail){ now('💬 '+e.tail.slice(-110)); }
+      else if(e.block==='thinking' && e.chars>0){ now('🤔 myśli… '+e.chars.toLocaleString('pl-PL')+' znaków'); }
+      break;
+    case 'job': onJob(e); break;
+    case 'cc': onCC(e.ev); break;
+    case 'file':
+      st.files[e.path] = {lines:e.lines, bytes:e.bytes}; stats();
+      if(e.path==='index.html'){ st.hasApp=true; reloadApp(); }
+      break;
+    case 'stderr': log('stderr: '+e.text.slice(0,200),'err'); break;
+    case 'done':
+      st.running=false;
+      if(e.t!=null){ const s=Math.floor(e.t); $('#clock').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0'); }
+      if(e.label==='replay-stopped'){ setMode('idle'); now('Zatrzymano.'); }
+      else { setMode(e.code===0?'done':'idle'); if(e.code!==0) now('⚠️ proces zakończył się kodem '+e.code); }
+      break;
+  }
+}
+
+/* ---------- SSE ---------- */
+function connect(){
+  const es = new EventSource('/events');
+  es.onmessage = m => { try{ handle(JSON.parse(m.data)); }catch(err){ console.error(err); } };
+  es.onerror = () => { log('rozłączono — ponawiam…','err'); };
+}
+if (!STATIC) connect();
+
+async function post(path, body){
+  const r = await fetch(path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body||{})});
+  const j = await r.json(); if(!j.ok && j.msg) toast(j.msg); return j;
+}
+
+/* ---------- data (J) and plan (N) ---------- */
+const esc = t => t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+function showPlan(t){
+  const md = esc(t||'').split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    l = l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<b>$1</b>');
+    return /^([-*•]|\d+[.)])\s/.test(l) ? '<li>'+l.replace(/^([-*•]|\d+[.)])\s/,'')+'</li>' : (/^#+\s/.test(l) ? '<p><b>'+l.replace(/^#+\s/,'')+'</b></p>' : '<p>'+l+'</p>');
+  }).join('');
+  $('#plantext').innerHTML = md.replace(/(<li>.*?<\/li>)+/g, m => '<ul>'+m+'</ul>') || 'Plan pusty.';
+  ovOff(); $('#planov').classList.add('on');
+}
+async function showJson(){
+  try {
+    const r = await fetch('/zadanie/dane/uchwaly.json'); const txt = await r.text(); const d = JSON.parse(txt);
+    const rec = JSON.stringify(d[d.length-1], null, 2).split('\n').slice(0, 30).join('\n');
+    $('#jpre').innerHTML = esc(rec).replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:').replace(/: "([^"]*)"/g,': <span class="s">"$1"</span>').replace(/: (\d+)/g,': <span class="n">$1</span>').replace(/: (true|false)/g,': <span class="b">$1</span>');
+    $('#jstat').innerHTML = `<div><b>${d.length}</b>uchwał Rady PUO</div><div><b>${Math.round(txt.length/1024)} KB</b>jeden plik JSON</div><div class="f">${Object.keys(d[0]).join(' · ')}</div>`;
+  } catch(err){ $('#jpre').textContent = 'Brak danych zadania (serwer z --task zadanie_gaar?)'; }
+}
+
+/* ---------- overlays ---------- */
+function ovOff(){ document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on')); }
+function toggle(id){ const o=$(id), on=o.classList.contains('on'); ovOff(); if(!on){ o.classList.add('on'); if(id==='#big'){ if(st.hasApp) $('#bigframe').src='/app/index.html?v='+Date.now(); else toast('Aplikacji jeszcze nie ma'); } if(id==='#ask') setTimeout(()=>$('#askin').focus(),30);} }
+
+$('#askform').addEventListener('submit', async ev => {
+  ev.preventDefault(); const t=$('#askin').value.trim(); if(!t) return;
+  const j = await post('/api/continue',{text:t}); if(j.ok){ $('#askin').value=''; ovOff(); }
+});
+
+addEventListener('keydown', async ev => {
+  if($('#ask').classList.contains('on')){ if(ev.key==='Escape') ovOff(); return; }
+  if($('#big').classList.contains('on') && document.activeElement===$('#bigframe')) return;
+  const k = ev.key.toLowerCase();
+  if(['arrowright','pagedown',' '].includes(ev.key.toLowerCase())){ ev.preventDefault(); show(cur+1); }
+  else if(['arrowleft','pageup'].includes(ev.key.toLowerCase())){ show(cur-1); }
+  else if(k==='escape'){ $('#vid').pause(); ovOff(); }
+  else if(k==='a'){ const on=$('#appfull').classList.contains('on'); ovOff(); if(!on){ if(!st.hasApp) toast('Aplikacji jeszcze nie ma'); else { $('#appframe').src='/app/index.html?v='+Date.now(); $('#appfull').classList.add('on'); } } }
+  else if(k==='p'){ if($('#qr').classList.contains('on')){ ovOff(); } else { ovOff(); $('#qr').classList.add('on'); $('#qrstat').textContent='Publikuję…'; await post('/api/job/publish'); } }
+  else if(k==='v'){
+    if(ev.shiftKey){ const j=await post('/api/job/teaser'); if(j.ok) toast('Buduję nowy teaser w tle (ok. 4–5 min)'); }
+    else if(jobs.teaser.running && !jobs.teaser.ready){ toast('Teaser jeszcze się buduje — za chwilę'); }
+    else playTeaser();
+  }
+  else if(k==='b'){ const j=await post('/api/start'); if(j.ok){ ovOff(); toast(j.by_plan ? 'Budowa według planu' : 'Start budowy na żywo'); } }
+  else if(k==='n'){ const j=await post('/api/plan'); if(j.ok){ toast('Claude Code planuje (tryb planu)'); } }
+  else if(k==='j'){ const on=$('#jsonov').classList.contains('on'); ovOff(); if(!on){ $('#jsonov').classList.add('on'); showJson(); } }
+  else if(k==='r'){ const j=await post('/api/replay',{speed: ev.shiftKey?4:1}); if(j.ok) toast('Odtwarzam '+j.run); }
+  else if(k==='x'){ await post('/api/stop'); toast('Zatrzymano'); }
+  else if(k==='l'){ toggle('#big'); }
+  else if(k==='t'){ toggle('#raw'); }
+  else if(k==='c'){ toggle('#ask'); }
+  else if(k==='h'){ toggle('#help'); }
+  else if(k==='k'){ tileManual = !$('#tile').classList.contains('hidden'); $('#tile').classList.toggle('hidden', tileManual); }
+  else if(k==='f'){ document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen(); }
+});
+</script>
+</body>
+</html>
