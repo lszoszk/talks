@@ -17,6 +17,8 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans);color:var(--ink)}
 #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.reveal{opacity:0;transition:opacity .45s}
+.reveal.in{opacity:1}
 #fsbtn{position:fixed;right:16px;top:16px;z-index:100;display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(20,20,20,.72);color:#ece9e2;font:600 14px var(--sans);cursor:pointer;opacity:0;transition:opacity .4s}
 #fsbtn.show{opacity:1}
 #fsbtn svg{width:16px;height:16px}
@@ -82,19 +84,24 @@ h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
 #ask input{width:100%;font-size:26px;padding:14px 16px;background:#000;color:var(--ink);border:2px solid var(--accent);border-radius:10px;font-family:var(--sans)}
 #ask p{color:var(--muted);font-size:17px;margin:12px 0 0}
 #help{background:rgba(15,23,42,.88);color:#fff}
-#jsonov,#planov{background:rgba(0,0,0,.985);color:#ece9e2}
-#jsonov .jbox{position:absolute;inset:60px 80px;display:grid;grid-template-columns:420px 1fr;gap:40px}
+#jsonov,#planov{background:#000;color:#ece9e2}
+#jsonov .jbox{position:absolute;inset:60px 80px;display:grid;grid-template-columns:420px 1fr;grid-template-rows:100%;gap:40px}
 .jk{font-family:var(--mono);font-size:15px;letter-spacing:2px;text-transform:uppercase;color:#b9a27a}
 #jsonov h3{font-family:var(--mono);font-size:30px;margin:10px 0 24px;color:#fff}
 #jstat div{font-size:22px;line-height:1.5;color:#cfcac0}
 #jstat b{font-size:56px;color:#ffd166;display:block;line-height:1.1}
 #jstat .f{font-family:var(--mono);font-size:15px;color:#9a9a9a;margin-top:20px;line-height:1.7}
-#jpre{margin:0;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:26px 30px;font-family:var(--mono);font-size:17px;line-height:1.55;color:#ece9e2;white-space:pre-wrap;overflow:hidden}
+#jpre{margin:0;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:14px;padding:26px 30px;font-family:var(--mono);font-size:17px;line-height:1.55;color:#ece9e2;white-space:pre-wrap;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#555 #0d0d0d}
+#jpre::-webkit-scrollbar{width:10px}#jpre::-webkit-scrollbar-thumb{background:#555;border-radius:5px}#jpre::-webkit-scrollbar-track{background:#0d0d0d}
+#jstat .hint2{font-size:16px;color:#9a9a9a;margin-top:18px}
 #jpre .k{color:#7cc4ff}#jpre .s{color:#b5e48c}#jpre .n{color:#ffd166}#jpre .b{color:#ff9f6b}
 #planov .pbox{position:absolute;inset:60px 120px;background:#0d0d0d;border:1px solid #2a2a2a;border-radius:16px;padding:40px 52px}
-#plantext{font-size:23px;line-height:1.45;color:#ece9e2;margin-top:18px;max-height:660px;overflow:hidden}
+#plantext{font-size:23px;line-height:1.45;color:#ece9e2;margin-top:18px;max-height:620px;overflow-y:auto;overscroll-behavior:contain;padding-right:14px;scrollbar-width:thin;scrollbar-color:#555 #0d0d0d}
+#plantext::-webkit-scrollbar{width:10px}#plantext::-webkit-scrollbar-thumb{background:#555;border-radius:5px}#plantext::-webkit-scrollbar-track{background:#0d0d0d}
 #plantext p{margin:0 0 10px}#plantext li{margin:0 0 8px}#plantext b{color:#ffd166}
-.phint{position:absolute;left:52px;bottom:26px;font-family:var(--mono);font-size:16px;color:#9a9a9a}
+#plantext .upd{color:#7cc4ff;font-size:21px}
+#plantext .newtag{display:inline-block;margin-left:10px;padding:1px 9px;border-radius:6px;background:#ffd166;color:#000;font-size:15px;font-weight:700;vertical-align:3px}
+.phint{position:absolute;left:52px;right:52px;bottom:26px;font-family:var(--mono);font-size:15px;color:#9a9a9a;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .phint kbd{font-family:var(--mono);background:#ece9e2;color:#000;border-radius:6px;padding:2px 9px}
 #help .box{position:absolute;left:260px;right:260px;top:110px;background:#111827;border-radius:16px;padding:36px 44px;font-size:21px;line-height:1.9}
 #help .box h3{margin:0 0 10px;font-size:28px}
@@ -104,6 +111,7 @@ h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
 .jt > div:not(.c1){border-left:1px solid #262626}
 .jt > .hd{min-height:0;border-top:0;background:#151515;padding:14px 16px 12px;justify-content:flex-start}
 .jt .hd .tag{font-family:var(--mono);font-size:13px;color:var(--accent2);letter-spacing:1px;text-transform:uppercase}
+.jt .jgt{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:5px;background:#ffd166;color:#000;font:700 12px var(--mono);vertical-align:3px}
 .jt .hd .jsub{font-size:14px;color:var(--muted);margin-top:4px;line-height:1.3}
 .mname{font-size:22px;font-weight:800;line-height:1.15}
 .morig{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:5px;line-height:1.35}
@@ -141,17 +149,32 @@ h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
 .pbf .l{font-size:19px;line-height:1.35;color:#cfcac0;margin-top:6px}
 .pbf .note{font-size:15px;line-height:1.45;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
 #appfull{background:#fff}
+.ovclose{position:absolute;right:18px;top:18px;z-index:5;padding:7px 13px;border-radius:9px;border:1px solid rgba(255,255,255,.3);background:rgba(15,15,15,.82);color:#fff;font:600 15px var(--sans);cursor:pointer}
+#big .ovclose{right:400px}
 #appfull iframe{position:absolute;inset:0;width:1600px;height:900px;border:0}
 #qr{background:var(--bg)}
 #qr .in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:80px}
 #qrimg{width:520px;height:520px;background:#fff;border-radius:18px;padding:18px;box-shadow:0 10px 40px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:22px}
-#qrimg img{width:100%;height:100%}
+#qrimg{position:relative}
+#qrimg img{width:100%;height:100%;transition:opacity .5s,filter .5s}
+#qrimg img:not([src]){visibility:hidden}
+#qrimg.wait img{opacity:.1;filter:blur(3px)}
+#qrwait{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#16213a;font:700 24px var(--sans);text-align:center;padding:30px}
+#qrimg.wait #qrwait{display:flex}
+#qrwait small{font:500 18px var(--sans);color:#5b6478}
+.spin{width:70px;height:70px;border-radius:50%;border:8px solid #262626;border-top-color:#c2410c;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#qrsteps{list-style:none;padding:0;margin:22px 0 0;font-size:22px;line-height:1.75;color:var(--muted)}
+#qrsteps li::before{display:inline-block;width:1.4em;content:"·"}
+#qrsteps li.now{color:var(--ink)}#qrsteps li.now::before{content:"⟳"}
+#qrsteps li.ok{color:var(--ink)}#qrsteps li.ok::before{content:"✓";color:#3fb950}
+#qrsteps li.bad::before{content:"!";color:#f05252}
 #qr h2{margin:0 0 18px}
 #qrurl{font-family:var(--mono);font-size:30px;color:var(--accent);word-break:break-all;max-width:700px}
 #qrstat{margin-top:28px;font-size:24px;color:var(--muted);max-width:700px;line-height:1.4}
 #video{background:#000}
 #video video{position:absolute;inset:0;width:1600px;height:900px;background:#000}
-#toast{position:absolute;left:50%;top:26px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 20px;border-radius:10px;font-size:18px;z-index:60;opacity:0;transition:opacity .3s;font-family:var(--sans)}
+#toast{position:absolute;left:50%;top:26px;transform:translateX(-50%);background:var(--ink);color:#000;padding:10px 20px;border-radius:10px;font-size:18px;z-index:60;opacity:0;transition:opacity .3s;font-family:var(--sans)}
 #toast.on{opacity:1}
 #pager{position:absolute;left:96px;top:36px;font-family:var(--mono);font-size:14px;color:var(--muted)}
 .slide:not(.nobeam)::before{content:"";position:absolute;left:96px;top:66px;width:140px;height:3px;background:var(--spectrum);border-radius:2px}
@@ -202,14 +225,14 @@ h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
 .vid-row video{width:880px;height:495px;background:#000;border-radius:12px;display:block}
 .vid-row .cap{font-family:var(--mono);font-size:14px;color:var(--muted);margin-top:8px}
 .vq p{display:grid;grid-template-columns:56px 1fr;gap:14px;font-size:30px;line-height:1.3;margin:0 0 36px}
-.vq b{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:#fff;font-size:26px}
+.vq b{display:flex;align-items:center;justify-content:center;width:52px;height:52px;border-radius:50%;background:var(--ink);color:#000;font-size:26px}
 video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .task{font-size:24px;color:#cfcac0;margin:0 0 22px}
 .pat2{display:grid;grid-template-columns:1fr 1fr;gap:28px}
 .pat2 .lab{font-family:var(--mono);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2)}
 .pat2 p{font-size:30px;line-height:1.3;margin:12px 0 0;font-weight:600}
 .chl-head{display:flex;gap:44px;align-items:flex-end;margin:0 0 18px}
-.chl-head b{font-size:66px;font-weight:800;letter-spacing:-2px;color:var(--accent);line-height:1}
+.chl-head b{font-size:54px;font-weight:800;letter-spacing:-2px;color:var(--accent);line-height:1}
 .chl-head span{display:block;font-size:19px;color:var(--muted);margin-top:6px}
 .chl-line{position:relative;height:96px;margin:4px 0 6px;border-bottom:2px solid var(--ink)}
 .chl-line .m{position:absolute;bottom:-26px;font-family:var(--mono);font-size:12px;color:var(--muted);transform:translateX(-50%)}
@@ -262,6 +285,113 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .title-dsotm .kicker{margin-bottom:22px}
 .title-dsotm h1{font-size:96px;line-height:1;letter-spacing:-2px;margin:0 0 24px;color:#f4f1ea}
 .title-dsotm .sub{font-size:28px;line-height:1.3;color:#cfcac0;white-space:nowrap;max-width:none}
+.jg{display:grid;grid-template-columns:620px 1fr;gap:32px;align-items:start}
+.jgf{margin:0;background:#fff;border-radius:12px;padding:12px}
+.jgf img{width:100%;display:block}
+.jgf figcaption{color:#3a3a3a;font-size:14px;line-height:1.35;margin-top:6px}
+.jgr{display:grid;gap:16px}
+.jgr .kb{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 22px}
+.jgr .lab{font-family:var(--mono);font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);margin-bottom:6px}
+.jgr p,.jgr li{font-size:21px;line-height:1.38;margin:0 0 6px;color:#cfcac0}
+.jgr ul{margin:4px 0 4px;padding-left:22px}
+.jgr .sm{font-size:17px;color:var(--muted);margin-top:6px}
+.ai22{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin-top:4px}
+.ai22>div{display:grid;gap:10px;align-content:start}
+.ai22 .pr{font-size:26px;font-weight:700;margin-bottom:2px}
+.ai22 figure{margin:0}
+.ai22 img{width:100%;height:290px;object-fit:cover;border-radius:10px;display:block}
+.ai22 figcaption{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:4px;letter-spacing:1px}
+.vals{display:grid;grid-template-columns:1000px 1fr;gap:34px;align-items:start}
+.vals figure{margin:0}
+.vals img{width:1000px;display:block;border-radius:10px}
+.vals figcaption{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.4}
+.vside>div{margin-bottom:22px}
+.vside .n{font-size:54px;font-weight:800;letter-spacing:-1.5px;color:var(--accent);line-height:1}
+.vside .l{font-size:18px;color:#cfcac0;line-height:1.35;margin-top:6px}
+.vside .note{font-size:15px;color:var(--muted);border-top:1px solid var(--line);padding-top:14px}
+.rada{font-size:22px;line-height:1.4;color:#cfcac0;max-width:1100px;margin:0 0 6px;border-left:4px solid var(--accent2);padding-left:16px}
+.ven{display:grid;grid-template-columns:1000px 1fr;gap:34px;align-items:start}
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.vgrid figure{margin:0}
+.vgrid img{width:100%;display:block;border-radius:8px;border:1px solid #2a2a2a}
+.vgrid figcaption{font-size:14px;color:var(--muted);margin-top:4px}
+.music{position:absolute;left:50%;bottom:52px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:10px 18px;border-radius:999px;border:1px solid #333;background:rgba(20,20,20,.7);color:#9a9a9a;font:600 16px var(--sans);cursor:pointer;transition:color .3s,border-color .3s}
+.music .eq{display:flex;align-items:flex-end;gap:3px;height:18px}
+.music .eq i{width:4px;height:4px;background:currentColor;border-radius:1px}
+.music.on{color:#ffd166;border-color:#ffd166}
+.music.on .eq i{animation:eq .9s ease-in-out infinite}
+.music.on .eq i:nth-child(2){animation-delay:.15s}.music.on .eq i:nth-child(3){animation-delay:.3s}.music.on .eq i:nth-child(4){animation-delay:.45s}
+@keyframes eq{0%,100%{height:4px}50%{height:18px}}
+.ai22 .imgs{display:grid;gap:10px}
+.nw{display:grid;grid-template-columns:620px 1fr;gap:56px;align-items:start}
+.nw-lab{font-family:var(--mono);font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.nw-lab.o{color:var(--accent2);margin-top:26px}
+.nw-pol{display:flex;flex-direction:column;gap:6px}
+.nw-pol span{font-size:34px;font-weight:700;color:#8f8f8f;font-style:italic}
+.nw-st{display:grid;grid-template-columns:150px 1fr;gap:18px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.nw-st b{font-size:52px;font-weight:800;letter-spacing:-1.5px;color:var(--accent2);line-height:1;white-space:nowrap}
+.nw-st p{margin:0;padding-top:4px;font-size:20px;line-height:1.35;color:#cfcac0}
+.nw-st small{display:block;font-size:15px;color:var(--muted);margin-top:4px}
+.nw-job{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 22px;margin-bottom:12px}
+.nw-h{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
+.nw-h b{font-size:28px}
+.nw-h span{font-size:18px;color:var(--muted)}
+.waf{display:grid;grid-template-columns:repeat(11,26px);gap:5px;margin-bottom:10px}
+.waf i{width:26px;height:26px;border-radius:4px;background:#161616;border:1px solid #2a2a2a;box-sizing:border-box}
+.waf i{position:relative;cursor:help;outline:none;font-style:normal}
+.waf i.a,.nw-key i.a{background:#9db58a;border-color:#9db58a}.waf i.g,.nw-key i.g{background:#b9b0f0;border-color:#b9b0f0}
+.waf i.t,.nw-key i.t{background:linear-gradient(135deg,#9db58a 50%,#b9b0f0 50%);border-color:#a9b2bd}
+.waf i:hover,.waf i:focus{box-shadow:0 0 0 2px #fff}
+.waf .tip{display:none;position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);width:430px;background:#1b1b1b;border:1px solid #3a3a3a;border-radius:10px;padding:14px 16px;z-index:30;color:#ece9e2;font-size:16px;line-height:1.35;box-shadow:0 12px 34px rgba(0,0,0,.7);pointer-events:none;text-align:left}
+.waf i:hover .tip,.waf i:focus .tip{display:block}
+.tip b{display:block;font-weight:600;font-size:18px;margin-bottom:8px}
+.tip .vd{display:block;font-family:var(--mono);font-size:13px;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}.tip .vd.a{color:#9db58a}.tip .vd.g{color:#b9b0f0}.tip .vd.t{color:#cfcac0}
+.tip .r{display:grid;grid-template-columns:180px 1fr 42px;gap:10px;align-items:center;font-size:15px;margin:4px 0;color:#cfcac0}
+.tip .r u{display:block;height:11px;border-radius:2px}.tip .r u.a{background:#9db58a}.tip .r u.g{background:#b9b0f0}
+.tip .no{color:#8f8f8f;font-size:15px}
+.nw-job p{margin:0;font-size:18px;line-height:1.4;color:#cfcac0}
+.nw-job em{font-style:normal;font-family:var(--mono);font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
+.nw-con{font-size:26px;margin-top:6px;max-width:1400px}
+.nw-how{margin:0 0 12px;white-space:nowrap;font-size:18px;line-height:1.4;color:#cfcac0}
+.nw-wr{display:flex;align-items:center;gap:24px;margin-bottom:10px}
+.nw-wr .waf{margin:0}
+.nw-key{display:grid;gap:3px;font-size:16px;color:#cfcac0}
+.nw-key i{display:inline-block;width:16px;height:16px;border-radius:3px;background:#161616;border:1px solid #2a2a2a;vertical-align:-2px;margin-right:8px;box-sizing:border-box}
+.nw-key b{color:#fff;margin-right:4px}
+.nw-sh{margin-top:8px!important;color:#ece9e2!important}
+.nw-sh b{color:var(--accent)}
+.nw-how a,.nw-h a{color:inherit;text-decoration:underline;text-decoration-color:#555;text-underline-offset:3px}
+.vwall{margin:0}.vwall img{width:1000px;display:block;border-radius:10px;border:1px solid #2a2a2a}.vwall figcaption{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.4}
+.pz-lab{font-family:var(--mono);font-size:15px;letter-spacing:2px;text-transform:uppercase;color:var(--accent2);margin:0 0 10px}
+.pz-lab.b{color:var(--accent);margin-top:22px}
+.pz-row{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.pz-row>div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;border-top:3px solid var(--accent2)}
+.pz-row.build>div{border-top-color:var(--accent)}
+.pz-row b{display:block;font-family:var(--mono);font-size:16px;letter-spacing:1px;color:var(--accent2);margin-bottom:6px}
+.pz-row.build b{color:var(--accent)}
+.pz-row p{margin:0;font-size:19px;line-height:1.38;color:#cfcac0}
+.pz-now{font-size:26px;line-height:1.35;margin:26px 0 0;max-width:1400px;color:#ece9e2}
+.pz-now small{font-family:var(--mono);font-size:15px;color:var(--muted);margin-left:8px}
+.time-q{position:absolute;left:96px;top:190px;max-width:800px;margin:0}
+.time-q blockquote{margin:0;font-size:60px;line-height:1.15;font-weight:700;letter-spacing:-.5px;color:#f4f1ea}
+.time-q figcaption{margin-top:30px;font-family:var(--mono);font-size:18px;letter-spacing:1px;color:var(--muted)}
+.pat-how{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 26px}
+.pat-how .lab{font-family:var(--mono);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
+.ph2{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.ph2 b{display:block;font-size:22px;margin-bottom:6px;color:#f4f1ea}
+.ph2 p{margin:0;font-size:19px;line-height:1.4;color:#cfcac0}
+.chl2{display:block;margin-top:6px;font-family:var(--sans)}
+.chl-key i.dia{width:11px;height:11px;border-radius:1px;background:#ece9e2;transform:rotate(45deg)}
+.quote-s .qa{display:block;font-style:normal;font-family:var(--mono);font-size:15px;color:var(--muted);margin-top:8px}
+.tw{display:block;background:#0f0f0f;border:1px solid #333;border-radius:14px;padding:14px 18px;margin-bottom:22px;color:#ece9e2;text-decoration:none}
+.tw-h{display:flex;align-items:center;gap:10px}
+.tw-h .av{width:38px;height:38px;border-radius:50%;background:#2a2a2a;display:grid;place-items:center;font:700 14px var(--sans);color:#ece9e2}
+.tw-h b{display:block;font-size:16px}.tw-h span{font-size:14px;color:var(--muted)}
+.tw-h .x{margin-left:auto;font-size:20px;color:#ece9e2}
+.tw p{font-size:24px;line-height:1.25;margin:12px 0 8px;font-weight:600}
+.tw-d{font-size:13px;color:var(--muted);font-family:var(--mono)}
+.vside .tw + div .n,.vside > div .n{font-size:44px}
+.vside > div:not(.tw){margin-bottom:16px}
 .static .keys,.static .hint,.static #tile{display:none!important}
 </style>
 <script src="../statystyki.js" defer></script>
@@ -282,133 +412,151 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     </div>
     <div class="who"><b>dr Łukasz Szoszkiewicz</b><br>Wydział Prawa i Administracji UAM</div>
     <div class="moon-cap" style="left:auto;right:96px">The Dark Side of the Moon · 1973</div>
+    <button id="musicbtn" class="music" type="button" aria-live="polite"><span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span class="mtxt">Kliknij, aby włączyć muzykę</span></button>
   </section>
 
-  <!-- 2 · the dark side is not dark, only unseen -->
+  <!-- 2 · how AI draws a lawyer: today (left) and in ancient Greece (right), 2 x 2 as in nowy-swiat -->
   <section class="slide" data-notile>
-    <div class="kicker">Zanim zaczniemy</div>
-    <div class="moon-grid">
-      <svg viewBox="0 0 420 420" width="420" height="420" aria-label="Księżyc, oświetlony z jednej strony">
-        <defs><radialGradient id="mg" cx="35%" cy="40%" r="70%"><stop offset="0" stop-color="#f4f1ea"/><stop offset="1" stop-color="#8f8a80"/></radialGradient></defs>
-        <circle cx="210" cy="210" r="190" fill="#141414" stroke="#2a2a2a" stroke-width="2"/>
-        <path d="M210 20 A190 190 0 0 1 210 400 A110 190 0 0 0 210 20Z" fill="url(#mg)"/>
-      </svg>
-      <div>
-        <h2>Ciemna strona Księżyca nie jest ciemna.<br><span class="acc">Jest niewidoczna z Ziemi.</span></h2>
-        <p class="lead">Z AI jest podobnie: widzimy tę stronę, którą sami sprawdzimy. Dziś sprawdzimy kilka. A jedną rzecz zbudujemy na Państwa oczach.</p>
-      </div>
-    </div>
-    <div class="src">Druga strona Księżyca dostaje tyle samo światła słonecznego co ta widoczna. Nie widać jej, bo Księżyc jest zawsze zwrócony do Ziemi tą samą stroną (obrót synchroniczny).</div>
-  </section>
-
-  <!-- 3 · the task: GAAR Council resolutions; the build starts here (tile visible) -->
-  <section class="slide">
-    <div class="kicker">Zadanie na dziś · Rada do Spraw Przeciwdziałania Unikaniu Opodatkowania</div>
-    <h2>Kto z Państwa przeczytał wszystkie?</h2>
-    <div class="stats4" style="max-width:1000px">
-      <div><b>74</b><span>uchwały Rady PUO<br>XII 2019 – III 2026</span></div>
-      <div><b>1936</b><span>stron</span></div>
-      <div><b>933</b><span>strony to skany<br>bez warstwy tekstu</span></div>
-      <div><b>5638</b><span>fragmentów w bazie<br>po podziale na punkty</span></div>
-    </div>
-    <p class="lead" style="max-width:960px">Za pół godziny będzie z tego narzędzie. Zaczynamy teraz: dane → plan → budowa.</p>
-    <div class="keys"><kbd>J</kbd> dane · <kbd>N</kbd> plan · <kbd>B</kbd> budowa według planu · <kbd>L</kbd> podgląd z logiem · <kbd>K</kbd> schowaj kafelek</div>
-    <div class="src">Uchwały: <a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">gov.pl, Rada PUO (I–III kadencja)</a> · dane: opracowanie własne, 17.11.2026 (OCR, podział na punkty)</div>
-  </section>
-
-  <!-- 4 · courts: Pakistan -->
-  <section class="slide" data-notile>
-    <div class="kicker">Sąd · eksperyment w Pakistanie, 2024–2025</div>
-    <h2>Sędziowie z AI rozstrzygają więcej spraw.<br><span class="acc">Pod jednym warunkiem.</span></h2>
-    <div class="pk">
-      <div><b>1559</b><span>sędziów w eksperymencie, ok. połowa sędziów pierwszej instancji w kraju</span></div>
-      <div class="hl"><b>+6,3%</b><span>więcej rozstrzygniętych spraw, ale tylko wtedy, gdy sędziowie dostali AI <b style="display:inline;font-size:inherit;color:inherit">z dopasowanym szkoleniem</b></span></div>
-      <div><b>GPT-4</b><span>rodzina modeli z 2024 r., na której działał asystent. Zobaczymy ją jeszcze w tabeli</span></div>
-    </div>
-    <p class="lead">Samo narzędzie nie wystarcza. Liczy się to, jak się go nauczymy.</p>
-    <div class="src"><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026), praca robocza</a></div>
-  </section>
-
-  <!-- 5 · how AI draws a lawyer (optional, 30 s) -->
-  <section class="slide" data-notile>
-    <div class="kicker">Praca prawnika · jak AI widzi prawnika i urzędnika</div>
-    <div class="ai4">
-      <div><div class="pr">„Narysuj mi prawnika w pracy”</div><div class="pics">
+    <div class="kicker">Praca prawnika · jak AI widzi prawnika</div>
+    <div class="ai22">
+      <div><div class="pr">„Narysuj mi prawnika w pracy”</div>
+        <div class="imgs reveal">
         <figure><img src="assets/ai_prawnik_gemini.jpg" alt="Obraz wygenerowany przez Gemini: prawnik w garniturze przy biurku"><figcaption>GOOGLE · GEMINI</figcaption></figure>
         <figure><img src="assets/ai_prawnik_openai.jpg" alt="Obraz wygenerowany przez model OpenAI: prawnik podpisuje dokumenty"><figcaption>OPENAI · CODEX</figcaption></figure></div></div>
-      <div><div class="pr">„Narysuj mi urzędnika w pracy”</div><div class="pics">
-        <figure><img src="assets/ai_urzednik_gemini.jpg" alt="Obraz wygenerowany przez Gemini: urzędniczka przy biurku czyta dokument"><figcaption>GOOGLE · GEMINI</figcaption></figure>
-        <figure><img src="assets/ai_urzednik_ideogram.jpg" alt="Obraz wygenerowany przez Ideogram: urzędnik, monitor kineskopowy, pieczątki i teczki"><figcaption>IDEOGRAM 4.0</figcaption></figure></div></div>
+      <div><div class="pr reveal">„Narysuj mi prawnika w starożytnej Grecji”</div>
+        <div class="imgs reveal">
+        <figure><img src="assets/ai_grecja_chatgpt.webp" alt="Obraz wygenerowany przez ChatGPT: mężczyzna w todze przemawia do tłumu, w tle Akropol"><figcaption>OPENAI · CHATGPT</figcaption></figure>
+        <figure><img src="assets/ai_grecja_gemini.webp" alt="Obraz wygenerowany przez Gemini: mówca ze zwojem przemawia na agorze"><figcaption>GOOGLE · GEMINI</figcaption></figure></div></div>
     </div>
   </section>
 
-  <!-- 6 · the elixir: preparation gets cheaper, decision and evaluation stay -->
+  <!-- 3 · what is not seen: policies say one thing, real use another (Economic Index, TR, Supesu) -->
+  <section class="slide" data-notile>
+    <div class="kicker">Tego, czego nie widać</div>
+    <h2 style="margin-bottom:26px">Regulamin mówi jedno, <span class="acc">praktyka drugie</span></h2>
+    <div class="nw">
+      <div class="nw-l">
+        <div class="nw-lab">Oficjalnie</div>
+        <div class="nw-pol"><span>„Nie wolno”.</span><span>„Wolno, ale tylko Copilot”.</span></div>
+        <div class="reveal">
+          <div class="nw-lab o">Naprawdę</div>
+          <div class="nw-st"><b>35%</b><p>pracowników firm podatkowych i audytowych używa narzędzi AI, których firma nie zatwierdziła<small>81% używa AI co najmniej kilka razy w tygodniu<br>badanie 2026 · n = 538, 40 krajów</small></p></div>
+          <div class="nw-st"><b>63%</b><p>polskich prawników, którzy używają AI, korzysta z ChatGPT. Z Copilota: 56%<small>AI używa 88% badanych · n = 507, I–III 2026</small></p></div>
+        </div>
+      </div>
+      <div class="nw-r reveal">
+        <div class="nw-lab">Co widać w rozmowach z Claude · Anthropic Economic Index</div>
+        <p class="nw-how">Każdą rozmowę przypisano do zadania z amerykańskiego opisu zawodów (<a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">O*NET</a>).</p>
+        <div class="nw-job">
+          <div class="nw-h"><b>Prawnik</b><span><a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">22 zadania w opisie zawodu</a></span></div>
+          <div class="nw-wr"><div class="waf" aria-label="7 z 22 zadań prawnika pojawia się w rozmowach z AI; najedź na kwadrat, by zobaczyć zadanie"><i class="a" tabindex="0"><span class="tip"><b>Analiza danych prawnych: czy wnosić sprawę albo się bronić</b><span class="vd a">Głównie AI robi samo (52%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:38%"></u><span>38%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:14%"></u><span>14%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:36%"></u><span>36%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:3%"></u><span>3%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:9%"></u><span>9%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Doradztwo dla klientów: transakcje, odpowiedzialność, prawa i obowiązki</b><span class="vd g">Głównie AI pomaga człowiekowi (66%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:21%"></u><span>21%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:13%"></u><span>13%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:40%"></u><span>40%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:6%"></u><span>6%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:19%"></u><span>19%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Wykładnia przepisów i orzeczeń dla osób i firm</b><span class="vd g">Głównie AI pomaga człowiekowi (76%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:17%"></u><span>17%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:7%"></u><span>7%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:26%"></u><span>26%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:4%"></u><span>4%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:45%"></u><span>45%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Ocena ustaleń, strategia i argumenty przed sprawą</b><span class="vd g">Głównie AI pomaga człowiekowi (61%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:32%"></u><span>32%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:7%"></u><span>7%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:48%"></u><span>48%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:3%"></u><span>3%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:9%"></u><span>9%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Ocena szans sprawy na podstawie orzecznictwa</b><span class="vd g">Głównie AI pomaga człowiekowi (66%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:27%"></u><span>27%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:7%"></u><span>7%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:36%"></u><span>36%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:6%"></u><span>6%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:23%"></u><span>23%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Pisma i umowy: przygotowanie, redakcja, przegląd</b><span class="vd g">Głównie AI pomaga człowiekowi (62%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:35%"></u><span>35%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:3%"></u><span>3%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:58%"></u><span>58%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:1%"></u><span>1%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:3%"></u><span>3%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Analiza konstytucji, ustaw i orzeczeń pod kątem sprawy</b><span class="vd g">Głównie AI pomaga człowiekowi (67%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:30%"></u><span>30%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:3%"></u><span>3%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:42%"></u><span>42%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:4%"></u><span>4%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:21%"></u><span>21%</span></span></span></i><i tabindex="0"><span class="tip"><b>Zbieranie dowodów: rozmowy z klientami i świadkami</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Reprezentacja przed sądem i urzędami</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Negocjowanie ugód</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Nadzór nad asystentami</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Negocjowanie umów</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Konsultacje z kolegami specjalistami</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przegląd rejestrów publicznych (opinie, własność)</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Administracja i zarządzanie kancelarią</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przedstawianie sprawy sędziom i przysięgłym</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Rozprawa: wnioski, przysięgli, przesłuchanie świadków</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przedstawianie dowodów w procesie</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Sprawy spadkowe i wykonawcy testamentów</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Pisma procesowe i apelacje</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Pełnomocnik, powiernik, opiekun, wykonawca</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Udział w tworzeniu programów i ustaw</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i></div>
+            <div class="nw-key"><div><i class="a"></i><b>1</b> AI robi samo</div><div><i class="g"></i><b>6</b> AI pomaga człowiekowi</div><div><i></i><b>15</b> nie ma w rozmowach</div></div></div>
+          <p><em>z AI:</em> pisma i umowy · wykładnia przepisów · ocena szans sprawy · porady<br><em>bez AI:</em> sala sądowa · negocjacje · dowody · nadzór nad zespołem</p>
+          <p class="nw-sh">Prawnik: <b>38. z 923 zawodów</b> pod względem liczby rozmów, top 5%.</p>
+        </div>
+        <div class="nw-job">
+          <div class="nw-h"><b>Tax preparer</b><span>przygotowuje zeznania podatkowe (USA) · <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">12 zadań</a></span></div>
+          <div class="nw-wr"><div class="waf" style="grid-template-columns:repeat(6,26px)" aria-label="5 z 12 zadań pojawia się w rozmowach z AI; najedź na kwadrat, by zobaczyć zadanie"><i class="t" tabindex="0"><span class="tip"><b>Sprawdzanie danych i sum w formularzach przygotowanych przez innych</b><span class="vd t">Pół na pół: AI robi samo i pomaga</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:42%"></u><span>42%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:8%"></u><span>8%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:24%"></u><span>24%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:25%"></u><span>25%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:1%"></u><span>1%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Wyjaśnianie przepisów podatkowych osobom i firmom</b><span class="vd g">Głównie AI pomaga człowiekowi (71%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:19%"></u><span>19%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:10%"></u><span>10%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:9%"></u><span>9%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:3%"></u><span>3%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:59%"></u><span>59%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Informacje i porady, jak poprawnie wypełnić zeznanie</b><span class="vd g">Głównie AI pomaga człowiekowi (52%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:17%"></u><span>17%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:31%"></u><span>31%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:15%"></u><span>15%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:5%"></u><span>5%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:32%"></u><span>32%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Odpowiedzi na pytania i planowanie podatkowe</b><span class="vd g">Głównie AI pomaga człowiekowi (73%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:15%"></u><span>15%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:12%"></u><span>12%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:57%"></u><span>57%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:2%"></u><span>2%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:12%"></u><span>12%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Umawianie spotkań z klientami</b><span class="vd g">Głównie AI pomaga człowiekowi (57%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:10%"></u><span>10%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:33%"></u><span>33%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:57%"></u><span>57%</span></span></span></i><i tabindex="0"><span class="tip"><b>Obliczanie podatku do zapłaty lub zwrotu</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Ulgi i odliczenia, by podatek był jak najniższy</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Wywiad z klientem o dochodach i kosztach</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przygotowanie zeznań podatkowych</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przegląd dokumentów finansowych i dobór formularzy</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Poradniki i biuletyny przy nietypowych zeznaniach</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Wycena usługi według złożoności zeznania</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i></div>
+            <div class="nw-key"><div><i class="t"></i><b>1</b> pół na pół</div><div><i class="g"></i><b>4</b> AI pomaga człowiekowi</div><div><i></i><b>7</b> nie ma w rozmowach</div></div></div>
+          <p><em>z AI:</em> wyjaśnianie przepisów · planowanie podatkowe · porady do zeznań<br><em>bez AI:</em> obliczanie podatku · ulgi i odliczenia · wywiad z klientem</p>
+          <p class="nw-sh">Tax preparer: <b>ok. 220. z 923 zawodów</b>, top 25%.</p>
+        </div>
+      </div>
+    </div>
+    <div class="src" style="max-width:1400px"><a href="https://www.anthropic.com/economic-index#job-explorer" target="_blank">Anthropic Economic Index, job explorer</a> (stan na 26.06.2026; rozmowy przypisane do zadań z klasyfikacji O*NET, nie do zawodu piszącego) · O*NET: <a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">Lawyers 23-1011.00</a>, <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">Tax Preparers 13-2082.00</a> · <a href="https://www.thomsonreuters.com/en/institute/future-of-professionals-2026/report-tax-and-accounting" target="_blank">Thomson Reuters, Future of Professionals 2026: Tax &amp; Audit</a> (dostawca narzędzi AI) · <a href="https://www.rp.pl/zawody-prawnicze/art44314141-raport-prawnicy-miedzy-algorytmami-a-wypaleniem" target="_blank">Supesu Recruitment, Raport Rynku Prawniczego 2025/26, za: N. Nowotnik, rp.pl, 5.05.2026</a></div>
+  </section>
+
+  <!-- 4 · the elixir: preparation gets cheaper, decision and evaluation stay -->
   <section class="slide" data-notile>
     <div class="kicker">Praca prawnika · jak zmienia się dzień pracy</div>
-    <h2>Przygotowanie tanieje.<br><span class="acc">Decyzja i ocena zostają przy Was.</span></h2>
+    <h2>Przygotowanie tanieje.<br><span class="acc">Decyzja i ocena zostają przy człowieku.</span></h2>
     <div class="elx-heroes">
       <figure><figcaption><b class="c-dec">DECYZJA</b>co jest problemem?<br>cel · kontekst · pytanie</figcaption></figure>
-      <figure><figcaption><b class="c-prep">PRZYGOTOWANIE*</b>szukanie · czytanie · pisanie<br>model wspiera wykonanie</figcaption></figure>
+      <figure><figcaption><b class="c-prep">PRZYGOTOWANIE</b>szukanie · czytanie · pisanie<br>model wspiera wykonanie</figcaption></figure>
       <figure><figcaption><b class="c-eval">OCENA</b>czy można na tym działać?<br>weryfikacja · skutki uboczne</figcaption></figure>
     </div>
     <div class="elx-row"><span>DOTĄD</span><div class="elx-bar"><i class="d" style="flex:3">DECYZJA</i><i class="p" style="flex:14">PRZYGOTOWANIE</i><i class="e" style="flex:3">OCENA</i></div></div>
-    <div class="elx-row"><span>Z AI</span><div class="elx-bar" style="width:85%"><i class="d" style="flex:7">DECYZJA</i><i class="p" style="flex:3">PRZYG.</i><i class="e" style="flex:7">OCENA</i></div></div>
-    <div class="elx-note"><span>* część badaczy przestrzega: pisanie to też myślenie, decyzja powstaje w trakcie pisania (Bell i Legg 2026)</span><span>czas →</span></div>
-    <div class="src"><a href="https://blr.scholasticahq.com/article/171946-the-giving-of-reasons-judgement-writing-judicial-reasoning-and-genai" target="_blank">Bell i Legg, The Giving of Reasons, Bond Law Review 38(2) (2026)</a></div>
+    <div class="elx-row reveal"><span>Z AI</span><div class="elx-bar" style="width:85%"><i class="d" style="flex:7">DECYZJA</i><i class="p" style="flex:3">PRZYG.</i><i class="e" style="flex:7">OCENA</i></div></div>
+    <div class="elx-note"><span></span><span>czas →</span></div>
   </section>
 
-  <!-- 7 · purpose and task (Huang clip, 57 s, Polish subtitles) -->
+  <!-- 5 · courts: JudgeGPT in Pakistan (from the class slides of 26.10, fig. 5B of the study) -->
   <section class="slide" data-notile>
-    <div class="kicker">Praca prawnika · cel i zadania</div>
-    <h2 style="margin-bottom:24px">Cel pracy i zadania</h2>
-    <div class="vid-row">
-      <div><video controls playsinline preload="metadata" poster="assets/huang_poster.jpg" src="assets/huang_purpose_vs_task.mp4"><track kind="subtitles" srclang="pl" label="polski" src="assets/huang_pl.vtt" default></video>
-        <div class="cap">Jensen Huang (Nvidia), No Priors, 8.01.2026 · 57 s · napisy: tłum. własne</div></div>
-      <div class="vq"><p><b>1</b><span>Co jest odpowiednikiem „pisania kodu” w pracy doradcy podatkowego albo urzędnika KAS?</span></p><p><b>2</b><span>A co jest <span class="acc">celem</span> tej pracy?</span></p></div>
+    <div class="kicker">Sąd · JudgeGPT · Pakistan 2024–2025</div>
+    <h2 style="margin-bottom:22px">Dostęp to za mało: <span class="acc">liczy się nauka</span></h2>
+    <div class="jg">
+      <figure class="jgf"><img src="assets/judgegpt_ryc5b.webp" alt="Wykres: skumulowana liczba poleceń na sędziego w ciągu 40 tygodni. Grupa ze szkoleniem z narzędzia dochodzi do ponad 200, grupa z ogólnym kursem do ok. 50."><figcaption>Polecenia na sędziego w ciągu 40 tygodni od dostępu: grupa A ze szkoleniem z narzędzia (▲) i grupa B z ogólnym kursem (+). Badanie, ryc. 5B.</figcaption></figure>
+      <div class="jgr">
+        <div class="kb"><div class="lab">Eksperyment</div><p><b>1559 sędziów</b> pierwszej instancji, ok. połowa w kraju, losowo w trzy grupy:</p>
+          <ul><li><b>A (1197):</b> JudgeGPT i sześć wykładów, jak z niego korzystać</li><li><b>B (180):</b> JudgeGPT i ogólny kurs „technologia i prawo”</li><li><b>kontrolna (182):</b> ten sam kurs, bez JudgeGPT</li></ul>
+          <p class="sm">JudgeGPT: GPT-4 z wyszukiwarką w 128 292 orzeczeniach i 943 ustawach (RAG).</p></div>
+        <div class="kb"><div class="lab">Wyniki</div><ul><li>Po 40 tygodniach grupa A: <b>ponad 200 poleceń</b> na sędziego, grupa B: <b>poniżej 50</b>.</li><li>W typowym okręgu <b>+6,3%</b> rozpatrzonych spraw; jakość pism bez pogorszenia.</li></ul></div>
+      </div>
     </div>
-    <div class="src"><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026 (od 9:03)</a></div>
+    <p class="lead reveal" style="margin-top:18px;font-size:26px">Sędzia pracuje szybciej, ale sprawdza i decyduje sam. Badacze nie podają, jak często JudgeGPT zmyślał.</p>
+    <div class="src"><a href="https://elliottash.com/papers/Mehmood-Goessmann-Ash-Courts-of-Tomorrow-Evidence-Nationwide-Rollout-Generative-AI.pdf" target="_blank">S. Mehmood, C. Goessmann, E. Ash, Courts of Tomorrow, 9.08.2026, s. 10–13, 21, ryc. 5B</a> · <a href="https://spectrum.ieee.org/judgegpt-experiment" target="_blank">E. Gent, IEEE Spectrum, 12.08.2026</a></div>
   </section>
 
-  <!-- 8 · patent attorneys: AI helps everyone, teaches those with the basics -->
+  <!-- 6 · patent attorneys: AI helps everyone, teaches those with the basics -->
   <section class="slide" data-notile>
     <div class="kicker">Rzecznicy patentowi · eksperyment 2026</div>
     <h2>AI pomaga każdemu.<br><span class="acc">Uczy tych, którzy mają podstawy.</span></h2>
     <p class="task">133 rzeczników patentowych z USA, 3 miesiące z asystentem AI lub bez niego, na koniec test bez AI.</p>
     <div class="pat2">
-      <div><div class="lab">Pisanie z AI</div><p>Lepsze zgłoszenia.<br>Największy zysk u juniorów.</p></div>
-      <div><div class="lab">Na koniec, bez AI: ocena projektu</div><p>Seniorzy z grupy AI lepsi od seniorów bez AI.<br>Juniorzy średnio bez zysku.</p></div>
+      <div class="reveal"><div class="lab">Pisanie z AI</div><p>Lepsze zgłoszenia.<br>Największy zysk u juniorów.</p></div>
+      <div class="reveal"><div class="lab">Na koniec, bez AI: ocena projektu</div><p>Seniorzy z grupy AI lepsi od seniorów bez AI.<br>Juniorzy średnio bez zysku.</p></div>
     </div>
-    <p class="lead">Najwięcej zyskują ci, którzy wiedzą, co sprawdzić. Na tej sali: Państwo.</p>
-    <div class="src"><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), praca robocza</a></div>
+    <div class="pat-how reveal">
+      <div class="lab">Jak poprawiali cudzy projekt, bez AI, po 3 miesiącach</div>
+      <div class="ph2">
+        <div><b>Seniorzy z grupy AI</b><p>Przebudowywali całe sekcje zamiast poprawiać zdania. Walczyli o szerszy zakres ochrony. Przy każdej zmianie podawali zasadę prawną.</p></div>
+        <div><b>Juniorzy</b><p>Poprawki stylistyczne i porządkowe; czas schodził na mniej ważne części. Wskazywali problem („zastrzeżenia są nieostre”), ale go nie poprawiali. Juniorzy bez AI robili to samo: trzy miesiące z AI tego nie zmieniły.</p></div>
+      </div>
+    </div>
+    <p class="lead reveal" style="margin-top:20px">Najwięcej zyskują ludzie, którzy wiedzą, co sprawdzić: doświadczeni praktycy.</p>
+    <div class="src" style="max-width:1400px"><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), praca robocza</a>; sposób poprawiania: s. 25, obserwacje jakościowe autorów (analiza w NotebookLM, bez hipotez zarejestrowanych z góry)</div>
   </section>
 
-  <!-- 9 · Polish cases in the Charlotin database -->
+  <!-- 7 · Polish cases in the Charlotin database -->
   <section class="slide" data-notile>
-    <div class="kicker">Baza Charlotina · orzeczenia, w których sąd stwierdził zmyślenia AI</div>
-    <h2 style="margin-bottom:20px">To już nie jest problem Amerykanów</h2>
+    <div class="kicker">Baza Charlotina · orzeczenia, w których sąd stwierdził halucynacje AI</div>
+    <h2 style="margin-bottom:18px">Gdy nikt nie sprawdził</h2>
     <div class="chl-head">
-      <div><b>2306</b><span>spraw na świecie</span></div>
-      <div><b>11</b><span>z Polski, w tym 10 przed sądami administracyjnymi</span></div>
-      <div><b>5 · 5 · 1</b><span>pełnomocnicy · strony bez pełnomocnika · biegły</span></div>
+      <div><b>11</b><span>polskich orzeczeń, w tym 4 w sprawach podatkowych</span></div>
+      <div><b>ok. 4 mies.</b><span>od pisma do orzeczenia, które wykryło halucynacje (mediana)</span></div>
     </div>
-    <div class="chl-line"><span class="m" style="left:50px">X</span><span class="m" style="left:160px">XI</span><span class="m" style="left:267px">XII</span><span class="m" style="left:377px">I 2026</span><span class="m" style="left:487px">II</span><span class="m" style="left:587px">III</span><span class="m" style="left:697px">IV</span><span class="m" style="left:804px">V</span><span class="m" style="left:914px">VI</span><span class="m" style="left:1020px">VII</span><span class="m" style="left:1131px">VIII</span><span class="m" style="left:1241px">IX</span><span class="m" style="left:1348px">X</span><span class="dt pty-e" style="left:57px" title="KIO 3342/25: KIO · biegły · przetarg, wyjaśnienia ceny"></span><span class="dt pty-p" style="left:516px" title="I SA/Kr 31/26: WSA Kraków · strona bez pełnomocnika"></span><span class="dt pty-p" style="left:750px" title="I OPP 7/26: NSA · strona bez pełnomocnika"></span><span class="dt pty-p" style="left:928px" title="I SA/Kr 305/26: WSA Kraków · strona · skarga na Dyrektora KIS"></span><span class="dt pty-l" style="left:942px" title="I FZ 104/26: NSA · pełnomocnik · VAT, wstrzymanie wykonania"></span><span class="dt pty-p" style="left:1049px" title="III SA/Kr 488/26: WSA Kraków · strona bez pełnomocnika"></span><span class="dt pty-l" style="left:1173px" title="I OSK 935/26: NSA · pełnomocnik"></span><span class="dt pty-l" style="left:1188px" title="I OSK 590/26: NSA · pełnomocnik"></span><span class="dt pty-l" style="left:1198px" title="I SA/Go 210/26: WSA Gorzów Wlkp. · pełnomocnik · VAT"></span><span class="dt pty-p" style="left:1244px" title="II SAB/Po 175/26: WSA Poznań · strona bez pełnomocnika"></span><span class="dt pty-l" style="left:1294px" title="VII SA/Wa 420/26: WSA Warszawa · pełnomocnik · pozwolenie na budowę"></span></div>
-    <div class="chl-tab"><div><span class="d">17.10.25</span><span class="s">KIO 3342/25</span><span>KIO · biegły · przetarg, wyjaśnienia ceny</span></div><div><span class="d">23.02.26</span><span class="s">I SA/Kr 31/26</span><span>WSA Kraków · strona bez pełnomocnika</span></div><div><span class="d">30.04.26</span><span class="s">I OPP 7/26</span><span>NSA · strona bez pełnomocnika</span></div><div class=hl><span class="d">19.06.26</span><span class="s">I SA/Kr 305/26</span><span>WSA Kraków · strona · skarga na Dyrektora KIS</span></div><div class=hl><span class="d">23.06.26</span><span class="s">I FZ 104/26</span><span>NSA · pełnomocnik · VAT, wstrzymanie wykonania</span></div><div><span class="d">23.07.26</span><span class="s">III SA/Kr 488/26</span><span>WSA Kraków · strona bez pełnomocnika</span></div><div><span class="d">27.08.26</span><span class="s">I OSK 935/26</span><span>NSA · pełnomocnik</span></div><div><span class="d">31.08.26</span><span class="s">I OSK 590/26</span><span>NSA · pełnomocnik</span></div><div class=hl><span class="d">03.09.26</span><span class="s">I SA/Go 210/26</span><span>WSA Gorzów Wlkp. · pełnomocnik · VAT</span></div><div><span class="d">16.09.26</span><span class="s">II SAB/Po 175/26</span><span>WSA Poznań · strona bez pełnomocnika</span></div><div><span class="d">30.09.26</span><span class="s">VII SA/Wa 420/26</span><span>WSA Warszawa · pełnomocnik · pozwolenie na budowę</span></div></div>
-    <div class="chl-key"><span><i class="pty-l"></i>pełnomocnik</span><span><i class="pty-p"></i>strona bez pełnomocnika</span><span><i class="pty-e"></i>biegły</span><span style="margin-left:auto">podświetlone: sprawy podatkowe</span></div>
-    <div class="src">Daty to orzeczenia; pisma powstały wcześniej. W żadnej polskiej sprawie nie wskazano narzędzia. <a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases</a>, stan na 16.11.2026 · <a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank">NSA, I FZ 104/26</a></div>
+    <div class="reveal"><div class="chl-key" style="margin:0 0 4px"><span><i style="background:#ece9e2"></i>pismo z halucynacjami → <i class="dia" style="margin-left:6px"></i>orzeczenie, które je wykryło</span><span style="margin-left:auto"><i style="background:#ff7a45"></i>pełnomocnik zawodowy albo organ <i style="background:#9a9a9a;margin-left:14px"></i>strona albo wykonawca bez pełnomocnika</span></div>
+    <svg class="chl2" viewBox="0 0 1408 480" width="1408" height="480" role="img" aria-label="Polskie sprawy z bazy Charlotina: od pisma z halucynacjami do orzeczenia"><rect x="857" y="44" width="198" height="406" fill="#ffd166" fill-opacity=".09" stroke="#ffd166" stroke-opacity=".45" stroke-dasharray="6 5" rx="8"/><text x="956" y="472" text-anchor="middle" font-size="15" font-weight="700" fill="#ffd166">tu powstało 7 z 11 pism</text><line x1="553" x2="553" y1="42" y2="450" stroke="#222"/><text x="557" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">VII 2025</text><line x1="705" x2="705" y1="42" y2="450" stroke="#222"/><text x="709" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">X</text><line x1="857" x2="857" y1="42" y2="450" stroke="#222"/><text x="861" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">I 2026</text><line x1="1006" x2="1006" y1="42" y2="450" stroke="#222"/><text x="1010" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">IV</text><line x1="1157" x2="1157" y1="42" y2="450" stroke="#222"/><text x="1161" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">VII 2026</text><line x1="1309" x2="1309" y1="42" y2="450" stroke="#222"/><text x="1313" y="36" font-size="14" fill="#9a9a9a" font-family="var(--mono)">X</text><text x="0" y="63" font-size="16" font-weight="700" fill="#ece9e2">KIO 3342/25<tspan dx="10" font-size="11" fill="#ffd166" font-family="var(--mono)" letter-spacing="1">PODATKI</tspan></text><text x="0" y="79" font-size="12.5" fill="#8f8f8f">KIO · wykonawca w przetargu · zmyślone interpretacje podatkowe</text><line x1="500" x2="732" y1="66" y2="66" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="500" cy="66" r="7" fill="#9a9a9a"><title>KIO 3342/25: pismo 30.05.2025</title></circle><polygon points="732,58 740,66 732,74 724,66" fill="#ece9e2"><title>KIO 3342/25: orzeczenie 17.10.2025</title></polygon><text x="0" y="99" font-size="16" font-weight="700" fill="#ece9e2">I OSK 935/26</text><text x="0" y="115" font-size="12.5" fill="#8f8f8f">NSA · pełnomocnik · skarga kasacyjna</text><line x1="702" x2="1251" y1="102" y2="102" stroke="#ff7a45" stroke-width="3" opacity=".6"/><circle cx="702" cy="102" r="7" fill="#ff7a45"><title>I OSK 935/26: pismo 29.09.2025</title></circle><polygon points="1251,94 1259,102 1251,110 1243,102" fill="#ece9e2"><title>I OSK 935/26: orzeczenie 27.08.2026</title></polygon><text x="0" y="135" font-size="16" font-weight="700" fill="#ece9e2">I SA/Kr 31/26</text><text x="0" y="151" font-size="12.5" fill="#8f8f8f">WSA Kraków · strona bez pełnomocnika</text><line x1="837" x2="945" y1="138" y2="138" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="837" cy="138" r="7" fill="#9a9a9a"><title>I SA/Kr 31/26: pismo ok. 20.12.2025</title></circle><polygon points="945,130 953,138 945,146 937,138" fill="#ece9e2"><title>I SA/Kr 31/26: orzeczenie 23.02.2026</title></polygon><text x="0" y="171" font-size="16" font-weight="700" fill="#ece9e2">VII SA/Wa 420/26</text><text x="0" y="187" font-size="12.5" fill="#8f8f8f">WSA Warszawa · pełnomocnik · pozwolenie na budowę</text><line x1="905" x2="1307" y1="174" y2="174" stroke="#ff7a45" stroke-width="3" opacity=".6"/><circle cx="905" cy="174" r="7" fill="#ff7a45"><title>VII SA/Wa 420/26: pismo ok. 30.01.2026</title></circle><polygon points="1307,166 1315,174 1307,182 1299,174" fill="#ece9e2"><title>VII SA/Wa 420/26: orzeczenie 30.09.2026</title></polygon><text x="0" y="207" font-size="16" font-weight="700" fill="#ece9e2">I FZ 104/26<tspan dx="10" font-size="11" fill="#ffd166" font-family="var(--mono)" letter-spacing="1">PODATKI</tspan></text><text x="0" y="223" font-size="12.5" fill="#8f8f8f">NSA · pełnomocnik · VAT, wstrzymanie wykonania</text><line x1="963" x2="1143" y1="210" y2="210" stroke="#ff7a45" stroke-width="3" opacity=".6"/><circle cx="963" cy="210" r="7" fill="#ff7a45"><title>I FZ 104/26: pismo ok. 06.03.2026</title></circle><polygon points="1143,202 1151,210 1143,218 1135,210" fill="#ece9e2"><title>I FZ 104/26: orzeczenie 23.06.2026</title></polygon><text x="0" y="243" font-size="16" font-weight="700" fill="#ece9e2">III SA/Kr 488/26</text><text x="0" y="259" font-size="12.5" fill="#8f8f8f">WSA Kraków · strona bez pełnomocnika</text><line x1="978" x2="1193" y1="246" y2="246" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="978" cy="246" r="7" fill="#9a9a9a"><title>III SA/Kr 488/26: pismo ok. 15.03.2026</title></circle><polygon points="1193,238 1201,246 1193,254 1185,246" fill="#ece9e2"><title>III SA/Kr 488/26: orzeczenie 23.07.2026</title></polygon><text x="0" y="279" font-size="16" font-weight="700" fill="#ece9e2">I OSK 590/26</text><text x="0" y="295" font-size="12.5" fill="#8f8f8f">NSA · organ: SKO w Rzeszowie · skarga kasacyjna</text><line x1="986" x2="1257" y1="282" y2="282" stroke="#ff7a45" stroke-width="3" opacity=".6"/><circle cx="986" cy="282" r="7" fill="#ff7a45"><title>I OSK 590/26: pismo ok. 20.03.2026</title></circle><polygon points="1257,274 1265,282 1257,290 1249,282" fill="#ece9e2"><title>I OSK 590/26: orzeczenie 31.08.2026</title></polygon><text x="0" y="315" font-size="16" font-weight="700" fill="#ece9e2">I OPP 7/26</text><text x="0" y="331" font-size="12.5" fill="#8f8f8f">NSA · strona bez pełnomocnika</text><line x1="991" x2="1054" y1="318" y2="318" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="991" cy="318" r="7" fill="#9a9a9a"><title>I OPP 7/26: pismo 23.03.2026</title></circle><polygon points="1054,310 1062,318 1054,326 1046,318" fill="#ece9e2"><title>I OPP 7/26: orzeczenie 30.04.2026</title></polygon><text x="0" y="351" font-size="16" font-weight="700" fill="#ece9e2">I SA/Kr 305/26<tspan dx="10" font-size="11" fill="#ffd166" font-family="var(--mono)" letter-spacing="1">PODATKI</tspan></text><text x="0" y="367" font-size="12.5" fill="#8f8f8f">WSA Kraków · strona bez pełnomocnika · PIT, interpretacja</text><line x1="1001" x2="1137" y1="354" y2="354" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="1001" cy="354" r="7" fill="#9a9a9a"><title>I SA/Kr 305/26: pismo 29.03.2026</title></circle><polygon points="1137,346 1145,354 1137,362 1129,354" fill="#ece9e2"><title>I SA/Kr 305/26: orzeczenie 19.06.2026</title></polygon><text x="0" y="387" font-size="16" font-weight="700" fill="#ece9e2">I SA/Go 210/26<tspan dx="10" font-size="11" fill="#ffd166" font-family="var(--mono)" letter-spacing="1">PODATKI</tspan></text><text x="0" y="403" font-size="12.5" fill="#8f8f8f">WSA Gorzów Wlkp. · pełnomocnik · VAT</text><line x1="1037" x2="1262" y1="390" y2="390" stroke="#ff7a45" stroke-width="3" opacity=".6"/><circle cx="1037" cy="390" r="7" fill="#ff7a45"><title>I SA/Go 210/26: pismo ok. 20.04.2026</title></circle><polygon points="1262,382 1270,390 1262,398 1254,390" fill="#ece9e2"><title>I SA/Go 210/26: orzeczenie 03.09.2026</title></polygon><text x="0" y="423" font-size="16" font-weight="700" fill="#ece9e2">II SAB/Po 175/26</text><text x="0" y="439" font-size="12.5" fill="#8f8f8f">WSA Poznań · strona bez pełnomocnika</text><line x1="1261" x2="1284" y1="426" y2="426" stroke="#9a9a9a" stroke-width="3" opacity=".6"/><circle cx="1261" cy="426" r="7" fill="#9a9a9a"><title>II SAB/Po 175/26: pismo 02.09.2026</title></circle><polygon points="1284,418 1292,426 1284,434 1276,426" fill="#ece9e2"><title>II SAB/Po 175/26: orzeczenie 16.09.2026</title></polygon></svg></div>
+    <div class="src" style="max-width:1400px">Daty pism z uzasadnień orzeczeń; szacunkowe (z daty skarżonego aktu albo sygnatury): I SA/Kr 31/26, VII SA/Wa 420/26, I FZ 104/26, III SA/Kr 488/26, I OSK 590/26, I SA/Go 210/26. W żadnej polskiej sprawie nie wskazano narzędzia. <a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases</a>: 2306 spraw na świecie, stan na 16.11.2026 · <a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank">NSA, I FZ 104/26</a></div>
   </section>
 
-  <!-- 10 · progress: the same question to OpenAI models from 2023 to 2026 -->
+  <!-- 8 · progress: the same question to OpenAI models from 2023 to 2026 -->
   <section class="slide" data-notile>
     <div class="kicker">Ten sam test, modele z kolejnych lat · art. 349 o.p. (ustawa kończy się na art. 344)</div>
     <h2 style="margin-bottom:20px">Postęp nie idzie po linii prostej</h2>
     <div class="prog-wrap">
-      <div class="prog-card"><svg id="progChart" viewBox="0 0 980 520" width="980" height="520" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
+      <div class="prog-card"><svg id="progChart" viewBox="0 0 980 545" width="980" height="545" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
       <div class="prog-side" id="progSide"></div>
     </div>
     <div class="src">Po 5 prób na „Co mówi art. 349 Ordynacji podatkowej?” i „… Jeśli nie masz pewności, napisz to wprost”; każda odpowiedź przeczytana. Modele przez API (OpenRouter), 17.11.2026; data przy modelu to data wydania.</div>
   </section>
+  <!-- 9 · Vals Tax Agent Bench: agents on US corporate tax (screenshot of the Vals chart, 25 models) -->
+  <section class="slide" data-notile>
+    <div class="kicker">Vals AI · Tax Agent Bench · amerykański podatek dochodowy od osób prawnych</div>
+    <h2 style="margin-bottom:18px">Najlepszy agent rozwiązuje <span class="acc">co drugie zadanie</span></h2>
+    <div class="vals">
+      <figure><img src="assets/vals_tax_agent_bench.png" alt="Wykres Vals AI: dokładność modeli w Tax Agent Bench wobec kosztu jednego zadania, skala logarytmiczna; najwyżej Gemini 4 Hydrogen i Gemini 4 Argon"><figcaption>Dokładność (oś pionowa) wobec kosztu jednego zadania (oś pozioma, skala logarytmiczna). Zielona linia łączy modele, których żaden inny nie przebija jednocześnie wynikiem i ceną.</figcaption></figure>
+      <div class="vside">
+        <div><div class="n">52,3%</div><div class="l">najlepszy wynik: Gemini 4 Hydrogen; Gemini 4 Carbon 51,8%</div></div>
+        <div><div class="n">193</div><div class="l">pytania ekspertów z zakresu prawa podatkowego, ok. 60% z CIT; zadanie zaliczone tylko wtedy, gdy spełnione są wszystkie punkty rubryki</div></div>
+        <div><div class="n">79%</div><div class="l">przy punktach cząstkowych: odpowiedź zwykle trafia w większość wymagań, ale pomija choć jedno</div></div>
+        <div class="note">Agent ma do 3 godzin i narzędzia: wyszukiwarkę, teksty przepisów, pobieranie dokumentów, kalkulator.</div>
+      </div>
+    </div>
+    <div class="src"><a href="https://www.vals.ai/benchmarks/tax_agent_bench" target="_blank">Vals AI, Tax Agent Bench</a>, stan na 16.11.2026 · wykres: zrzut ze strony Vals AI (25 modeli: najnowsze, najlepsze i graniczne) · streszczenie własne</div>
+  </section>
 
-  <!-- 11 · the jagged frontier: five models, four kinds of work -->
+  <!-- 10 · the jagged frontier: five models, four kinds of work -->
   <section class="slide" data-notile>
     <div class="kicker">Postrzępiona granica · pięć modeli, cztery rodzaje pracy</div>
     <h2 style="margin-bottom:22px">Każdy model zawodzi gdzie indziej</h2>
@@ -417,47 +565,66 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Art. 349 o.p.: ustawa kończy się na art. 344 (<a href="https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf" target="_blank">t.j. Dz.U. 2026 poz. 622</a>) · KIO: pytania i klucz z <a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., AI &amp; Law (2026)</a>, z poprawkami z replikacji · ETPCz: zajęcia 23.10.2026, odesłania sprawdzone w HUDOC · Aplikacje: Workshop Studio (Wenecja), te same 10 zleceń i automatyczne testy; budowy 31.10–16.11.2026, GPT-4o (4 przejścia) i Carbon (1) 17.11 · Gemini 4 Carbon: aplikacja Antigravity, jako agent; pozostałe modele przez API (OpenRouter), 17.11.2026.</div>
   </section>
 
-  <!-- 12 · prinzbench: a practitioner's legal-research benchmark, saturated in six months -->
+  <!-- 11 · Prosus: the bosses build, in front of the juniors -->
   <section class="slide" data-notile>
-    <div class="kicker">prinzbench · benchmark badań prawnych praktyka z BigLaw</div>
-    <h2 style="margin-bottom:24px">Benchmark prawnika przetrwał pół roku</h2>
-    <div class="pbwrap">
-      <div class="pbcard"><div class="pbkey" id="pbKey"></div><svg id="pbChart" viewBox="0 0 980 540" role="img" aria-label="Wyniki modeli w prinzbench od stycznia do lipca 2026"></svg></div>
-      <div class="pbf">
-        <div><div class="n">52 → 91</div><div class="l">najlepszy wynik na 99 pkt,<br>styczeń → lipiec 2026</div></div>
-        <div><div class="n">8 – 52</div><div class="l">rozrzut wyników modeli dodanych tego samego dnia (25.02)</div></div>
-        <div class="note">33 trudne pytania z wąskiej dziedziny prawa USA, każde 3 razy: wyszukanie źródeł i analiza prawna. Ocenia ręcznie autor, prawnik transakcyjny. To prywatny test jednej osoby, nie badanie.</div>
-      </div>
-    </div>
-    <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Dane: <a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench</a> (archiwalne tabele i wykresy autora, 19.01–18.07.2026; DeepSeek V4-Pro wg wykresu z 2.05) · <a href="https://x.com/deredleritt3r/status/2013979845378580684" target="_blank">opis metody, 21.01.2026</a> · <a href="https://x.com/deredleritt3r/status/2077826494932689346" target="_blank">nasycenie, 16.07.2026</a> · * GPT-5.5 i GPT-5.6 autor testował przed premierą (wczesny dostęp OpenAI).</div>
-  </section>
-
-  <!-- 13 · Prosus: the bosses build, in front of the juniors -->
-  <section class="slide" data-notile>
-    <div class="kicker">FT Innovative Lawyers Europe 2026 · Prosus</div>
-    <h2>Szefowie budują sami.<br><span class="acc">Na oczach młodszych.</span></h2>
-    <div class="pros2">
-      <div><b>8 godzin</b><p>w dwa kolejne dni prezes wpisał kierownictwu do kalendarzy: usiąść z młodszymi kolegami i zbudować przy nich działające narzędzie</p></div>
+    <div class="kicker">FT Innovative Lawyers Europe 2026 · nagrodzone działy prawne</div>
+    <h2>Nagrodzonych łączy jedno: <span class="acc">vibe coding</span></h2>
+    <p class="task" style="margin-top:-18px">Prawnicy sami budują narzędzia, opisując je zwykłym językiem. Szefowie robią to na oczach młodszych.</p>
+    <div class="pros2 reveal">
+      <div><b>8 godzin</b><p>w dwa kolejne dni CEO wpisał kierownictwu do kalendarzy: usiąść z młodszymi kolegami i zbudować przy nich działające narzędzie</p></div>
       <div><b>od góry</b><p>zaangażowanie najstarszych stażem było według FT kluczem do tego, że dział prawny przyjął AI i zaczął budować własne narzędzia</p></div>
     </div>
-    <div class="pros-n">
+    <div class="pros-n reveal">
       <div><b>298</b>agentów zbudował dział prawny Prosusa (ok. 50 osób)</div>
       <div><b>„Who can sign what”</b>aplikacja szefowej działu prawnego, zbudowana w Claude Code</div>
       <div><b>Repsol</b>100 godzin nauki programowania i AI rocznie na prawnika; ponad 22 000 zaoszczędzonych godzin</div>
     </div>
-    <p class="quote-s">„It’s not the tone at the top, it’s behaviour” · Gitte Groenewold-Wong, Prosus</p>
+    <p class="quote-s reveal">“I don’t have coding as a background, but it absolutely transformed my view, because even I could build something and publish it.” <span class="qa">David Tudor, group general counsel, Prosus</span></p>
     <div class="src"><a href="https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e" target="_blank">Y. Lambert, „AI shakes up in-house legal teams’ work practices”, Financial Times, 25.09.2026</a> · streszczenie i tłumaczenie własne</div>
   </section>
 
-  <!-- 14 · back to the build (tile visible) -->
+  <!-- 12 · Venice: human rights lawyers, two days, no programming, apps on the wall -->
+  <section class="slide" data-notile>
+    <div class="kicker">Wenecja · warsztat dla prawników praw człowieka · 12–13.11.2026</div>
+    <h2 style="margin-bottom:20px">Dwa dni, bez programowania: <span class="acc">31 aplikacji na ścianie</span></h2>
+    <div class="ven">
+      <figure class="vwall"><img src="assets/wenecja_hrc_wall.webp" alt="Dziewięć różnych aplikacji o głosowaniach w Radzie Praw Człowieka ONZ: tabele, wykresy, porównania dwóch państw, po angielsku i po francusku"><figcaption>Jedno zlecenie, te same dane o głosowaniach w Radzie Praw Człowieka ONZ: 9 z 15 aplikacji, które uczestnicy wysłali na ścianę 13.11.</figcaption></figure>
+      <div class="vside">
+        <a class="tw" href="https://x.com/karpathy/status/1617979122625712128" target="_blank">
+          <div class="tw-h"><span class="av">AK</span><div><b>Andrej Karpathy</b><span>@karpathy</span></div><span class="x">𝕏</span></div>
+          <p>The hottest new programming language is English</p>
+          <div class="tw-d">24.01.2023</div>
+        </a>
+        <div><div class="n">13</div><div class="l">studentów</div></div>
+        <div><div class="n">31</div><div class="l">aplikacji uczestnicy pokazali na ścianie</div></div>
+      </div>
+    </div>
+    <div class="src">Workshop Studio, Wenecja: dane z warsztatów (tests/room, dziennik zdarzeń 12–13.11.2026) · zrzut: ściana warsztatu z 13.11.2026, aplikacje uczestników bez tytułów i nazwisk (Claude Sonnet 5.5)</div>
+  </section>
+
+  <!-- 13 · the task: GAAR Council resolutions; the build starts here (tile visible) -->
   <section class="slide">
-    <div class="kicker">Narzędzia · 20 minut</div>
-    <h2>Zobaczmy, co powstało,<br><span class="acc">kiedy mówiłem.</span></h2>
-    <div class="steps4">
-      <div><div class="n">01</div><h3>Aplikacja</h3><p>Uchwały Rady PUO z danych: filtry, wykres, lista z PDF. <kbd>A</kbd> pełny ekran · <kbd>L</kbd> z logiem</p></div>
-      <div><div class="n">02</div><h3>Propozycja z sali</h3><p>Co dodać? Gdy się buduje, czas na Państwa pytania. <kbd>C</kbd></p></div>
-      <div><div class="n">03</div><h3>Online</h3><p>Publikacja i kod QR: aplikacja w Państwa telefonach. <kbd>P</kbd></p></div>
-      <div><div class="n">04</div><h3>Pół dnia pracy</h3><p>Ta sama aplikacja, kiedy ma się kilka godzin. <kbd>V</kbd> teaser</p></div>
+    <div class="kicker">Zadanie na dziś · Rada do Spraw Przeciwdziałania Unikaniu Opodatkowania</div>
+    <h2 style="margin-bottom:16px">Kto z Państwa przeczytał wszystkie?</h2>
+    <div class="stats4" style="max-width:950px">
+      <div><b>74</b><span>uchwały Rady PUO<br>XII 2019 – III 2026</span></div>
+      <div><b>1936</b><span>stron</span></div>
+      <div><b>933</b><span>strony to skany<br>bez warstwy tekstu</span></div>
+      <div><b>5638</b><span>fragmentów w bazie<br>po podziale na punkty</span></div>
+    </div>
+    <p class="lead" style="max-width:940px">Za kilka minut będzie z tego narzędzie:<br>dane → plan → Państwa życzenie → budowa → telefon.</p>
+    <div class="keys"><kbd>J</kbd> dane · <kbd>N</kbd> plan · <kbd>C</kbd> życzenie · <kbd>B</kbd> budowa · <kbd>L</kbd> podgląd · <kbd>K</kbd> kafelek</div>
+    <div class="src">Uchwały: <a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">gov.pl, Rada PUO (I–III kadencja)</a> · dane: opracowanie własne, 17.11.2026 (OCR, podział na punkty)</div>
+  </section>
+
+  <!-- 14 · while it builds (tile visible): about 4 minutes, questions from the room -->
+  <section class="slide">
+    <div class="kicker">Narzędzia · budowa na żywo</div>
+    <h2>Model buduje.<br><span class="acc">Czas na Państwa pytania.</span></h2>
+    <div class="steps4" style="grid-template-columns:repeat(3,1fr);max-width:960px">
+      <div><div class="n">01</div><h3>Budowa</h3><p>Ok. 4 minuty według planu. Kafelek w rogu pokazuje, co model robi. <kbd>L</kbd> podgląd z logiem</p></div>
+      <div><div class="n">02</div><h3>Pytania</h3><p>W tym czasie: Państwa pytania i uwagi.</p></div>
+      <div><div class="n">03</div><h3>Online</h3><p>Sprawdzamy aplikację <kbd>A</kbd>, publikujemy <kbd>P</kbd>: kod QR i aplikacja w Państwa telefonach.</p></div>
     </div>
   </section>
 
@@ -477,28 +644,29 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
       </div>
       <div class="qr2"><img src="assets/qr_rada_puo.svg" alt="Kod QR do aplikacji Opinie Rady PUO"><div class="u">lszoszk.github.io/opinie-rady-puo</div></div>
     </div>
+    <div class="keys"><kbd>V</kbd> teaser pełnej wersji (1 min)</div>
     <div class="src">Dziennik projektu (godziny i zużycie planu): gaar_rada_2026-11/USAGE.md</div>
   </section>
 
   <!-- 16 · three things for Monday -->
   <section class="slide" data-notile>
-    <div class="kicker">Na poniedziałek</div>
+    <div class="kicker">Od czego zacząć</div>
     <h2>Trzy rzeczy do wypróbowania</h2>
     <div class="mon">
-      <div><div class="n">1</div><h3>10 pytań z własnej praktyki</h3><p>Zadajcie je kilku modelom. Jedno niech dotyczy przepisu, którego nie ma, jak nasz art. 349.</p></div>
-      <div><div class="n">2</div><h3>Jedno małe narzędzie</h3><p>Na dokumentach, które i tak czytacie: uchwały, interpretacje, własne wzory pism.</p></div>
-      <div><div class="n">3</div><h3>Czas na naukę</h3><p>Dla siebie i zespołu. Repsol: 100 godzin rocznie. Prosus: osiem godzin szefów przy młodszych.</p></div>
+      <div><div class="n">1</div><h3>10 pytań z własnej praktyki</h3><p>Zadane kilku modelom. Jedno o przepis, którego nie ma, jak nasz art. 349.</p></div>
+      <div><div class="n">2</div><h3>Jedno małe narzędzie</h3><p>Na dokumentach czytanych na co dzień: uchwały, interpretacje, własne wzory pism.</p></div>
+      <div><div class="n">3</div><h3>Czas na naukę</h3><p>Dla siebie i zespołu. Repsol: 100 godzin rocznie.</p></div>
     </div>
   </section>
 
-  <!-- 17 · closing: the whole moon is dark -->
+<!-- 17 · closing: a line from Time, signed, nothing else (the speaker adds the rest) -->
   <section class="slide nobeam" data-notile>
     <svg class="prism" viewBox="0 0 1600 900" aria-hidden="true" style="opacity:.35;transform:translateX(330px)"><line x1="-10" y1="592" x2="680" y2="415" stroke="#f4f1ea" stroke-width="4"/><polygon points="680,415 915,406 949,469" fill="#f4f1ea" opacity=".16"/><polygon points="915,406 921,416 1610,464 1610,430" fill="#e63946"/><polygon points="921,416 926,427 1610,498 1610,464" fill="#f77f00"/><polygon points="926,427 932,438 1610,532 1610,498" fill="#fcbf49"/><polygon points="932,438 938,448 1610,566 1610,532" fill="#52b788"/><polygon points="938,448 943,458 1610,600 1610,566" fill="#3a86ff"/><polygon points="943,458 949,469 1610,634 1610,600" fill="#8338ec"/><polygon points="800,190 1040,640 560,640" fill="none" stroke="#d9d6cf" stroke-width="5" stroke-linejoin="round"/></svg>
-    <div class="close-txt">
-      <h2>Ciemnej strony Księżyca nie ma.<br><span class="acc">Ciemny jest cały.</span></h2>
-      <p class="lead">Tak kończy się płyta. Z AI jest podobnie: jasne jest tylko to, co sami sprawdzimy i zbudujemy.</p>
-      <p class="lead" style="margin-top:40px;color:#f4f1ea">Dziękuję. Pytania?</p>
-    </div>
+    <figure class="time-q">
+      <!-- WERS Z „TIME”: wklej go w miejsce nawiasu poniżej -->
+      <blockquote>And you run, and you run to catch up with the sun, but it's sinking</blockquote>
+      <figcaption>Pink Floyd, „Time”, <i>The Dark Side of the Moon</i> (1973)</figcaption>
+    </figure>
   </section>
 
   <!-- 18 · sources -->
@@ -506,24 +674,77 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="kicker">Po wykładzie</div>
     <h2 style="margin-bottom:18px">Źródła</h2>
     <div class="srcs">
-      <p><b>Badania</b><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026)</a></p>
+      <p><b>Użycie AI w pracy</b><a href="https://www.anthropic.com/economic-index#job-explorer" target="_blank">Anthropic Economic Index, job explorer (stan na 26.06.2026)</a></p>
+      <p>O*NET: <a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">Lawyers 23-1011.00</a> · <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">Tax Preparers 13-2082.00</a></p>
+      <p><a href="https://www.thomsonreuters.com/en/institute/future-of-professionals-2026/report-tax-and-accounting" target="_blank">Thomson Reuters, Future of Professionals 2026: Tax &amp; Audit</a></p>
+      <p><a href="https://www.rp.pl/zawody-prawnicze/art44314141-raport-prawnicy-miedzy-algorytmami-a-wypaleniem" target="_blank">Supesu Recruitment, Raport Rynku Prawniczego 2025/26 (N. Nowotnik, rp.pl, 5.05.2026)</a></p>
+      <p><b>Badania</b><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026)</a> · <a href="https://spectrum.ieee.org/judgegpt-experiment" target="_blank">E. Gent, IEEE Spectrum (12.08.2026)</a></p>
       <p><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (2026)</a></p>
       <p><a href="https://doi.org/10.1287/orsc.2025.21838" target="_blank">Dell'Acqua i in., Navigating the Jagged Technological Frontier, Organization Science (2026)</a></p>
       <p><a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., Artificial Intelligence and Law (2026): pytania z egzaminu na członka KIO</a></p>
-      <p><a href="https://blr.scholasticahq.com/article/171946-the-giving-of-reasons-judgement-writing-judicial-reasoning-and-genai" target="_blank">Bell i Legg, The Giving of Reasons, Bond Law Review 38(2) (2026)</a></p>
-      <p><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026</a></p>
-      <p><b>Praktyka</b><a href="https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e" target="_blank">Y. Lambert, AI shakes up in-house legal teams’ work practices, Financial Times (25.09.2026)</a></p>
-      <p><a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench: benchmark badań prawnych (@deredleritt3r)</a></p>
-      <p><a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases (stan na 16.11.2026)</a></p>
+      <p><b>Halucynacje i testy modeli</b><a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases (2306 spraw, stan na 16.11.2026)</a>; daty pism w polskich sprawach: z uzasadnień orzeczeń, opracowanie własne</p>
       <p><a href="https://orzeczenia.nsa.gov.pl/doc/7696DAE25D" target="_blank">NSA, postanowienie z 23.06.2026, I FZ 104/26</a></p>
+      <p><a href="https://www.vals.ai/benchmarks/tax_agent_bench" target="_blank">Vals AI, Tax Agent Bench (stan na 16.11.2026)</a></p>
+      <p><a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench</a> i <a href="https://x.com/deredleritt3r" target="_blank">wpisy @deredleritt3r na X (07.2025–10.2026)</a></p>
+      <p><b>Kto buduje</b><a href="https://www.ft.com/content/7bf86647-32f0-4f0c-b46b-2f4d690fa51e" target="_blank">Y. Lambert, AI shakes up in-house legal teams’ work practices, Financial Times (25.09.2026)</a></p>
+      <p><a href="https://x.com/karpathy/status/1617979122625712128" target="_blank">A. Karpathy, wpis na X, 24.01.2023</a> · Workshop Studio, Wenecja, 12–13.11.2026 (dane własne)</p>
+      <p><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026</a> (aneks)</p>
       <p><b>Prawo i dane</b><a href="https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf" target="_blank">Ordynacja podatkowa, t.j. Dz.U. 2026 poz. 622</a></p>
-      <p><a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania (gov.pl)</a></p>
-      <p><a href="https://lszoszk.github.io/opinie-rady-puo/" target="_blank">Opinie Rady PUO: aplikacja (lszoszk.github.io/opinie-rady-puo)</a></p>
+      <p><a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">Uchwały Rady do Spraw Przeciwdziałania Unikaniu Opodatkowania (gov.pl)</a> · <a href="https://lszoszk.github.io/opinie-rady-puo/" target="_blank">Opinie Rady PUO: aplikacja</a></p>
       <p><b>Testy własne</b>Postrzępiona granica i postęp modeli: 5 + 10 modeli przez API (OpenRouter) i Gemini 4 Carbon w Antigravity, 17.11.2026; odesłania do wyroków sprawdzone w HUDOC.</p>
-      <p><b>Muzyka i okładka</b>Pink Floyd, The Dark Side of the Moon (1973); pryzmat na slajdach: rysunek własny.</p>
+      <p><b>Obrazy, muzyka i okładka</b>„Narysuj mi prawnika”: obrazy z Google Gemini, OpenAI Codex i ChatGPT. Pink Floyd, The Dark Side of the Moon (1973), w tym wers z „Time”; pryzmat na slajdach: rysunek własny.</p>
     </div>
   </section>
 
+
+  <!-- 19 · prinz: sixteen months of one BigLaw lawyer, from "it barely speeds me up" to his own apps -->
+  <section class="slide" data-notile>
+    <div class="kicker">Aneks · prinz (@deredleritt3r) · prawnik M&amp;A z amerykańskiego BigLaw</div>
+    <h2 style="margin-bottom:22px">16 miesięcy jednego prawnika: <span class="acc">od „nie przyspiesza mnie” do własnych aplikacji</span></h2>
+    <div class="pz-lab">Co mówi o AI w swojej pracy</div>
+    <div class="pz-row say">
+      <div><b>07.2025</b><p>„Doświadczonego prawnika AI przyspiesza niewiele. Nie daję jej pisać”.</p></div>
+      <div><b>09.2025</b><p>„Nie zlecam już researchu associate’om”: model kosztuje 200 USD miesięcznie, junior ponad 200 USD za godzinę.</p></div>
+      <div><b>05.2026</b><p>„Moje poglądy sprzed roku są dziś beznadziejnie nieaktualne”.</p></div>
+      <div><b>10.2026</b><p>„W 12 miesięcy BigLaw przeszło od «halucynujących chatbotów» do partnerów, którzy oczekują szybszego researchu z AI”.</p></div>
+    </div>
+    <div class="pz-lab b">Co buduje</div>
+    <div class="pz-row build">
+      <div><b>12.2025</b><p>Pierwsza aplikacja, o której pisze: gra dla dzieci w Claude Code. „Nie dotknąłem ani jednej linijki kodu”.</p></div>
+      <div><b>01.2026</b><p>Własny test modeli: 33 pytania z jego praktyki, ocenia je sam (prinzbench).</p></div>
+      <div><b>02.2026</b><p>Zadania cykliczne w Codex: chce codziennie szukać nowych ustaw i wytycznych. „Tak proste, że nawet prawnik da radę”.</p></div>
+      <div><b>06.2026</b><p>„Mam w telefonie kilka aplikacji, których używam codziennie. W całości zbudował je Codex”.</p></div>
+    </div>
+    <p class="pz-now">„Jeśli jesteś nietechniczny (jak ja) i czekasz, żeby zrobić własną aplikację, <span class="acc">czas na to jest TERAZ</span>”. <small>09.07.2026</small></p>
+    <div class="src" style="max-width:1400px">Wpisy na X (tłum. własne): <a href="https://x.com/deredleritt3r/status/1943462826254754133" target="_blank">11.07.2025</a> · <a href="https://x.com/deredleritt3r/status/1971202649560318314" target="_blank">25.09.2025</a> · <a href="https://x.com/deredleritt3r/status/2005734749881655803" target="_blank">29.12.2025</a> · <a href="https://x.com/deredleritt3r/status/2013979845378580684" target="_blank">21.01.2026</a> · <a href="https://x.com/deredleritt3r/status/2018408770808807785" target="_blank">02.02.2026</a> · <a href="https://x.com/deredleritt3r/status/2056016405959430346" target="_blank">17.05.2026</a> · <a href="https://x.com/deredleritt3r/status/2066880490674499708" target="_blank">16.06.2026</a> · <a href="https://x.com/deredleritt3r/status/2075288959064637687" target="_blank">09.07.2026</a> · <a href="https://x.com/deredleritt3r/status/2112214185383764452" target="_blank">19.10.2026</a>. Jedna osoba, rynek USA, M&amp;A, pseudonim; sam przyznaje, że wierzy w szybki postęp AI.</div>
+  </section>
+
+  <!-- 20 · prinzbench: a practitioner's legal-research benchmark, saturated in six months -->
+  <section class="slide" data-notile>
+    <div class="kicker">Aneks · prinzbench · benchmark badań prawnych praktyka z BigLaw</div>
+    <h2 style="margin-bottom:24px">Benchmark prawnika przetrwał pół roku</h2>
+    <div class="pbwrap">
+      <div class="pbcard"><div class="pbkey" id="pbKey"></div><svg id="pbChart" viewBox="0 0 980 540" role="img" aria-label="Wyniki modeli w prinzbench od stycznia do lipca 2026"></svg></div>
+      <div class="pbf">
+        <div><div class="n">52 → 91</div><div class="l">najlepszy wynik na 99 pkt,<br>styczeń → lipiec 2026</div></div>
+        <div><div class="n">8 – 52</div><div class="l">rozrzut wyników modeli dodanych tego samego dnia (25.02)</div></div>
+        <div class="note">33 trudne pytania z wąskiej dziedziny prawa USA, każde 3 razy: wyszukanie źródeł i analiza prawna. Ocenia ręcznie autor, prawnik transakcyjny. To prywatny test jednej osoby, nie badanie.</div>
+      </div>
+    </div>
+    <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Dane: <a href="https://github.com/prinz-ai/prinzbench" target="_blank">prinzbench</a> (archiwalne tabele i wykresy autora, 19.01–18.07.2026; DeepSeek V4-Pro wg wykresu z 2.05) · <a href="https://x.com/deredleritt3r/status/2013979845378580684" target="_blank">opis metody, 21.01.2026</a> · <a href="https://x.com/deredleritt3r/status/2077826494932689346" target="_blank">nasycenie, 16.07.2026</a> · * GPT-5.5 i GPT-5.6 autor testował przed premierą (wczesny dostęp OpenAI).</div>
+  </section>
+
+  <!-- 21 · purpose and task (Huang clip, 57 s, Polish subtitles) -->
+  <section class="slide" data-notile>
+    <div class="kicker">Aneks · Praca prawnika · cel i zadania</div>
+    <h2 style="margin-bottom:24px">Cel pracy i zadania</h2>
+    <div class="vid-row">
+      <div><video controls playsinline preload="metadata" poster="assets/huang_poster.jpg" src="assets/huang_purpose_vs_task.mp4"><track kind="subtitles" srclang="pl" label="polski" src="assets/huang_pl.vtt" default></video>
+        <div class="cap">Jensen Huang (Nvidia), No Priors, 8.01.2026 · 57 s · napisy: tłum. własne</div></div>
+      <div class="vq"><p><b>1</b><span>Co jest odpowiednikiem „pisania kodu” w pracy doradcy podatkowego albo prawnika?</span></p><p><b>2</b><span>A co jest <span class="acc">celem</span> tej pracy?</span></p></div>
+    </div>
+    <div class="src"><a href="https://www.youtube.com/watch?v=k-xtmISBCNE&amp;t=543s" target="_blank">Jensen Huang, No Priors, 8.01.2026 (od 9:03)</a></div>
+  </section>
   <!-- live tile -->
   <div id="tile">
     <div class="hd"><span id="dot"></span><span id="mode">gotowy</span><span id="model"></span><span id="clock">00:00</span></div>
@@ -534,21 +755,21 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div id="jobline"></div>
   </div>
 
-  <div class="ov" id="big"><iframe id="bigframe" title="aplikacja"></iframe>
+  <div class="ov" id="big"><button class="ovclose" type="button" onclick="ovOff()">✕ Zamknij · Esc</button><iframe id="bigframe" title="aplikacja"></iframe>
     <div class="side"><h4>Co robi Claude Code</h4><div id="biglog"></div></div></div>
-  <div class="ov" id="appfull"><iframe id="appframe" title="aplikacja na pełnym ekranie"></iframe></div>
-  <div class="ov" id="qr"><div class="in"><div id="qrimg">QR pojawi się po publikacji</div>
-    <div><h2>Aplikacja jest Wasza</h2><div id="qrurl">…</div><div id="qrstat">Publikuję…</div></div></div></div>
+  <div class="ov" id="appfull"><button class="ovclose" type="button" onclick="ovOff()">✕ Zamknij · Esc</button><iframe id="appframe" title="aplikacja na pełnym ekranie"></iframe></div>
+  <div class="ov" id="qr"><div class="in"><div id="qrimg" class="wait"><img id="qrpic" alt="Kod QR do opublikowanej aplikacji"><div id="qrwait"><div class="spin"></div><div id="qrwaittxt">Publikuję…</div><small id="qrwaitsub">kod zadziała, gdy strona będzie online</small></div></div>
+    <div><h2>Aplikacja jest Wasza</h2><div id="qrurl">…</div><ul id="qrsteps"><li data-s="strona">Strona przygotowana</li><li data-s="push">Wypycham na GitHub</li><li data-s="pages">GitHub Pages publikuje</li><li data-s="online">Online</li></ul><div id="qrstat"></div></div></div></div>
   <div class="ov" id="video"><video id="vid" playsinline></video></div>
   <div class="ov" id="raw"><pre id="rawpre"></pre></div>
   <div class="ov" id="ask"><form id="askform"><label>Propozycja z sali — co dodać?</label>
-    <input id="askin" autocomplete="off" placeholder="np. dodaj terminy dla skargi o stwierdzenie niezgodności z prawem">
+    <input id="askin" autocomplete="off" placeholder="np. dodaj filtr: tylko uchwały ze zdaniem odrębnym">
     <p>Enter wysyła do tej samej sesji Claude Code · Esc zamyka</p></form></div>
   <div class="ov" id="jsonov"><div class="jbox"><div class="jside"><div class="jk">dane wejściowe</div><h3>dane/uchwaly.json</h3><div id="jstat"></div></div><pre id="jpre">…</pre></div></div>
-  <div class="ov" id="planov"><div class="pbox"><div class="jk">Plan od Claude Code · tryb planu, bez pisania plików</div><div id="plantext">Plan się tworzy…</div><div class="phint"><kbd>B</kbd> buduj według planu · <kbd>C</kbd> dopisz życzenie z sali · <kbd>Esc</kbd> zamknij</div></div></div>
+  <div class="ov" id="planov"><div class="pbox"><div class="jk">Plan od Claude Code · tryb planu, bez pisania plików</div><div id="plantext">Plan się tworzy…</div><div class="phint"><kbd>B</kbd> buduj według planu · <kbd>C</kbd> dopisz życzenie z sali · <kbd>N</kbd> pokaż / schowaj plan · <kbd>Shift</kbd>+<kbd>N</kbd> nowy plan od zera · <kbd>Esc</kbd> zamknij</div></div></div>
   <div class="ov" id="help"><div class="box"><h3>Sterowanie</h3>
     <kbd>→</kbd> / <kbd>←</kbd> / spacja — slajdy<br>
-    <kbd>J</kbd> — dane JSON · <kbd>N</kbd> — plan (Claude Code w trybie planu) · <kbd>B</kbd> — budowa (po planie: według planu) · <kbd>X</kbd> — zatrzymaj<br>
+    <kbd>J</kbd> — dane JSON · <kbd>N</kbd> — plan (Claude Code w trybie planu; drugi raz: pokaż/schowaj, <kbd>Shift</kbd>+<kbd>N</kbd>: od zera; <kbd>C</kbd> przed budową dopisuje do planu) · <kbd>B</kbd> — budowa (po planie: według planu) · <kbd>X</kbd> — zatrzymaj<br>
     <kbd>R</kbd> — odtwórz ostatnie nagranie (tempo 1×) · <kbd>Shift</kbd>+<kbd>R</kbd> — 4×<br>
     <kbd>A</kbd> — sama aplikacja na cały ekran · <kbd>L</kbd> — aplikacja + log · <kbd>T</kbd> — surowy strumień<br>
     <kbd>V</kbd> — odtwórz teaser (buduje się sam, po cichu, po każdej budowie) · <kbd>Shift</kbd>+<kbd>V</kbd> — zbuduj nowy w tle<br>
@@ -569,7 +790,11 @@ addEventListener('resize', fit); fit();
 const STATIC = !['127.0.0.1','localhost'].includes(location.hostname);   // the online copy: no deck server
 if (STATIC) document.documentElement.classList.add('static');
 let tileManual = STATIC ? true : null;   // K overrides the per-slide default
-function show(i){ cur = Math.max(0, Math.min(slides.length-1, i)); slides.forEach((s,j)=>s.classList.toggle('on', j===cur)); $('#pager').textContent = `${cur+1} / ${slides.length}`;
+// a slide's .reveal elements appear one per press of → / space before the deck moves on; going back shows them all
+function next(){ const rs = [...slides[cur].querySelectorAll('.reveal:not(.in)')], ord = rs.filter(e => e.dataset.o);
+  const r = ord.length ? ord.reduce((a, b) => +b.dataset.o < +a.dataset.o ? b : a) : rs[0]; if (r) { (r.dataset.g ? slides[cur].querySelectorAll(`.reveal[data-g="${r.dataset.g}"]`) : [r]).forEach(e => e.classList.add('in')); return; } show(cur+1); }
+function show(i){ const back = i < cur; cur = Math.max(0, Math.min(slides.length-1, i));
+  slides[cur].querySelectorAll('.reveal').forEach(r => r.classList.toggle('in', back)); slides.forEach((s,j)=>s.classList.toggle('on', j===cur)); $('#pager').textContent = `${cur+1} / ${slides.length}`;
   const t=document.getElementById('tile'); if(t) t.classList.toggle('hidden', tileManual===null ? slides[cur].hasAttribute('data-notile') : tileManual); }
 
 /* ---------- slide 4 data: written by granica/narzedzia/slajd4.py ---------- */
@@ -582,17 +807,17 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
   const C349 = {A:['#3fb950','mówi, że nie istnieje'], C:['#f2a33a','nie wie, nie podaje treści'], B:['#f05252','twierdzi, że istnieje'], '-':['#3a3a3a','jeszcze bez odpowiedzi']};
   // columns in the order of the talk: a provision, the exam, case law, building
   let h = `<div class="hd c1"></div>
-    <div class="hd"><div class="tag">Art. 349 o.p.</div><div class="jsub">przepis nie istnieje · „Co mówi…?” ×5, „… jeśli nie masz pewności, napisz” ×5</div></div>
-    <div class="hd"><div class="tag">Egzamin na członka KIO</div><div class="jsub">10 bloków tematycznych · razem 245 pytań, w nawiasie egzamin 2025 (50) · bez źródeł</div></div>
-    <div class="hd"><div class="tag">Wyroki ETPCz</div><div class="jsub">odesłania: z pamięci i z podanymi fragmentami</div></div>
-    <div class="hd"><div class="tag">Budowa aplikacji</div><div class="jsub">przeszły wszystkie testy</div></div>`;
+    <div class="hd reveal" data-g="jf1" data-o="1"><div class="tag">Art. 349 o.p.</div><div class="jsub">przepis nie istnieje · „Co mówi…?” ×5, „… jeśli nie masz pewności, napisz” ×5</div></div>
+    <div class="hd reveal" data-g="jf2" data-o="2"><div class="tag">Egzamin na członka KIO</div><div class="jsub">10 bloków tematycznych · razem 245 pytań · bez źródeł</div></div>
+    <div class="hd reveal" data-g="jf3" data-o="3"><div class="tag">Wyroki ETPCz</div><div class="jsub">odesłania: z pamięci i z podanymi fragmentami</div></div>
+    <div class="hd reveal" data-g="jf4" data-o="5"><div class="tag">Budowa aplikacji</div><div class="jsub">przeszły wszystkie testy</div></div>`;
   for (const r of JF.rows || []){
     let cApps, cKio, c349, cEc;
     if (r.apps){ const [a,b] = r.apps, p = a/b;
       cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div><div class="jn">${a} z ${b} ${r.k==='carbon'?'· po jednej budowie':'budów'}</div></div>`;
     } else cApps = `<div><div class="jn">nie budowaliśmy</div></div>`;
     if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b), low = Math.min(...ps), li = ps.indexOf(low);
-      cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c${ps[i]===low&&low<1?' low':''}" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}">${pct(x,y)}</span>`).join('')}<span class="tot">${pct(...r.kioTot)}%<small>(${r.y25}/50)</small></span></div>`
+      cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c${ps[i]===low&&low<1?' low':''}" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}">${pct(x,y)}</span>`).join('')}<span class="tot">${pct(...r.kioTot)}%</span></div>`
         + `<div class="jn">${ps.filter(x=>x===low).length>1 ? `najsłabsze: <b>${ps.filter(x=>x===low).length} bloki po ${r.kio[li].join('/')}</b>` : `najsłabszy blok: <b>${JF.blocks[li].toLowerCase()}</b> ${r.kio[li].join('/')}`}</div></div>`;
     } else cKio = `<div></div>`;
     const seq = r.a349.P1 + r.a349.P2, nB = [...seq].filter(c=>c==='B').length, nDone = [...seq].filter(c=>c!=='-').length;
@@ -602,8 +827,11 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
     const bar = (o,lab) => { if(!o) return `<span>${lab}</span><span class="ecn">w toku</span><span></span>`; const t=(o['✓']+o['≈']+o['✗'])||1;
       return `<span>${lab}</span><span class="stack" title="${o['✓']} ✓ · ${o['≈']} ≈ · ${o['✗']} ✗${o.odm?` · ${o.odm} odmów`:''}"><i style="width:${100*o['✓']/t}%;background:#3fb950"></i><i style="width:${100*o['≈']/t}%;background:#f2a33a"></i><i style="width:${100*o['✗']/t}%;background:#f05252"></i></span><span class="n">${o['✓']}/${o['✓']+o['≈']+o['✗']}</span>`; };
     const z = r.ecthr.z;
-    cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${bar(z,'z fragm.')}</div>${z&&z.odm?`<div class="jn" style="margin-top:4px">„brak podstaw” we fragmentach: ${z.odm} z ${z.odp}</div>`:''}</div>`;
-    h += `<div class="c1"><div class="mname">${r.name}</div><div class="morig">${r.orig}</div></div>` + c349 + cKio + cEc + cApps;
+    const later = s => s.replace(/<span( class="([^"]*)")?/g, (m, a, c) => `<span class="${c ? c + ' ' : ''}reveal" data-g="jf3b" data-o="4"`);   // with fragments: its own click
+    cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${later(bar(z,'z fragm.'))}</div>${z&&z.odm?`<div class="jn reveal" data-g="jf3b" data-o="4" style="margin-top:4px">„brak podstaw” we fragmentach: ${z.odm} z ${z.odp}</div>`:''}</div>`;
+    const O = {jf1: 1, jf2: 2, jf3: 3, jf4: 5};   // jf3b (ECtHR with fragments) is step 4
+    const col = (html, g) => html.replace('<div', `<div class="reveal" data-g="${g}" data-o="${O[g]}"`);
+    h += `<div class="c1"><div class="mname">${r.name}${r.k==='gpt4o' ? '<span class="jgt">JudgeGPT</span>' : ''}</div><div class="morig">${r.orig}</div></div>` + col(c349,'jf1') + col(cKio,'jf2') + col(cEc,'jf3') + col(cApps,'jf4');
   }
   $('#jfTable').innerHTML = h;
   $('#jfKey').innerHTML = `<span><i style="background:#3fb950"></i>nie istnieje / prawdziwe</span><span><i style="background:#f2a33a"></i>nie wie / przekręcone</span><span><i style="background:#f05252"></i>twierdzi, że istnieje / zmyślone</span><span><i class="sq" style="background:#fff;outline:3px solid var(--ink)"></i>najsłabszy blok egzaminu</span>`;
@@ -642,7 +870,7 @@ const PB = [["2026-01-19","GPT-5.2 Thinking",52],["2026-01-19","Gemini 3 Flash",
   $('#pbChart').innerHTML = s;
   $('#pbKey').innerHTML = `<span><i class="ln" style="background:${ACC}"></i>najlepszy wynik do danego dnia</span><span><i style="background:${CTX}"></i>pozostałe modele (najedź, by zobaczyć nazwę)</span>`;
 })();
-show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));   // #11 opens slide 11
+show(Math.max(0, (parseInt(location.hash.slice(1), 10) || 1) - 1));   // #3 opens slide 3
 
 /* ---------- fullscreen: F, the button in the corner or a double click on the slide ---------- */
 const isFS = () => document.fullscreenElement || document.webkitFullscreenElement;
@@ -660,17 +888,19 @@ addEventListener('mousemove', fsShow); fsShow();
 ['fullscreenchange', 'webkitfullscreenchange'].forEach(ev => document.addEventListener(ev, () => { document.documentElement.classList.toggle('fs', !!isFS()); fit(); }));
 
 
+const FIL = {"gpt41": 1, "gpt5": 1, "gpt52": 3, "gpt54": 5, "gpt56": 1};
 /* ---------- progress chart: art. 349 o.p. on OpenAI models 2023–2026 (granica/art349_postep_oceny.json) ---------- */
 const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBBBBAAAAA"}, {"k": "gpt4o_0513", "n": "GPT-4o", "d": "05.2024", "tag": "", "seq": "CCBCBCCCAA"}, {"k": "gpt4omini", "n": "GPT-4o mini", "d": "07.2024", "tag": "darmowy|ChatGPT", "seq": "BBBBBABACA"}, {"k": "gpt4o", "n": "GPT-4o", "d": "08.2024", "tag": "JudgeGPT", "seq": "BBBCCCCCCA"}, {"k": "gpt41", "n": "GPT-4.1", "d": "04.2025", "tag": "", "seq": "BBBBBAAAAA"}, {"k": "gpt5", "n": "GPT-5", "d": "08.2025", "tag": "", "seq": "BBCBBACABB"}, {"k": "gpt52", "n": "GPT-5.2", "d": "12.2025", "tag": "", "seq": "CCCCCAAAAA"}, {"k": "gpt54", "n": "GPT-5.4", "d": "03.2026", "tag": "", "seq": "BBBBBABBBB"}, {"k": "gpt56", "n": "GPT-5.6 Sol", "d": "07.2026", "tag": "", "seq": "AAAAAAAAAA"}, {"k": "gpt61", "n": "GPT-6.1 Sol", "d": "09.2026", "tag": "", "seq": "AAAAAAAAAA"}];
 (function renderProg(){
   const el = document.getElementById('progChart'); if(!el) return;
-  const W=980, H=520, L=54, R=14, T=70, B=100, n=PROG.length, cw=(W-L-R)/n, bw=cw*0.56, y=v=>T+(H-T-B)*(1-v/10);
+  const W=980, H=545, L=54, R=14, T=70, B=104, n=PROG.length, cw=(W-L-R)/n, bw=cw*0.56, y=v=>T+(H-T-B)*(1-v/10);
   const COL={B:'#f05252',C:'#f2a33a',A:'#3fb950'};
   let g='';
-  // the months in which the Polish pleadings were (roughly) written: GPT-5 to GPT-5.4
-  const i0=PROG.findIndex(p=>p.k==='gpt5'), i1=PROG.findIndex(p=>p.k==='gpt54');
-  g+=`<rect x="${L+cw*i0+4}" y="${T-34}" width="${cw*(i1-i0+1)-8}" height="${H-B-T+34}" fill="#ffffff" opacity=".06" rx="8"/>`;
-  g+=`<text x="${L+cw*i0+cw*(i1-i0+1)/2}" y="${T-46}" text-anchor="middle" fill="#9a9a9a" font-size="13">czas powstawania pism z polskich spraw (orientacyjnie)</text>`;
+  // when the Polish pleadings with hallucinations were written: one dot per pleading, under the newest OpenAI model at that time
+  const fk=PROG.map((p,i)=>FIL[p.k]?i:-1).filter(i=>i>=0), i0=Math.min(...fk), i1=Math.max(...fk);
+  g+=`<rect x="${L+cw*i0+3}" y="${T-38}" width="${cw*(i1-i0+1)-6}" height="${H-B-T+38+86}" fill="#ffd166" fill-opacity=".07" stroke="#ffd166" stroke-opacity=".55" stroke-dasharray="6 5" rx="10"/>`;
+  g+=`<text x="${L+cw*i0+cw*(i1-i0+1)/2}" y="${T-46}" text-anchor="middle" fill="#ffd166" font-size="15" font-weight="700">kiedy pisano pisma z polskich spraw (● = jedno pismo, orientacyjnie)</text>`;
+  PROG.forEach((p,i)=>{ const n=FIL[p.k]||0; for(let j=0;j<n;j++){ const cx=L+cw*i+cw/2+(j-(n-1)/2)*13; g+=`<circle cx="${cx}" cy="${H-B+72}" r="5" fill="#ffd166"/>`; } });
   for(let v=0; v<=10; v+=5){ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2a2a2a"/><text x="${L-12}" y="${y(v)+5}" text-anchor="end" fill="#8f8f8f" font-size="14">${v}</text>`; }
   PROG.forEach((p,i)=>{
     const cnt={B:0,C:0,A:0}; [...p.seq].forEach(c=>{ if(cnt[c]!==undefined) cnt[c]++; });
@@ -681,7 +911,7 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
     g+=`<text x="${x+bw/2}" y="${H-B+46}" text-anchor="middle" font-size="13" fill="#8f8f8f">${p.d}</text>`;
     if(p.tag) p.tag.split('|').forEach((t,j)=>{ g+=`<text x="${x+bw/2}" y="${H-B+66+j*15}" text-anchor="middle" font-size="12" fill="#ffd166">${t}</text>`; });
   });
-  g+=`<text x="${L}" y="${H-4}" fill="#8f8f8f" font-size="13">nad słupkiem: ile razy na 10 model twierdził, że art. 349 istnieje · czerwone: istnieje · żółte: nie wiem · zielone: nie istnieje</text>`;
+  g+=`<text x="${L}" y="${H-2}" fill="#8f8f8f" font-size="13">nad słupkiem: ile razy na 10 model twierdził, że art. 349 istnieje · czerwone: istnieje · żółte: nie wiem · zielone: nie istnieje</text>`;
   el.innerHTML=g;
   const nB=k=>[...PROG.find(p=>p.k===k).seq].filter(c=>c==='B').length;
   document.getElementById('progSide').innerHTML=
@@ -692,21 +922,35 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
 })();
 
 
-/* ---------- slide 1: Time (Pink Floyd) while the room fills; only in the hall copy ---------- */
+/* ---------- slide 1: Time (Pink Floyd) while the room fills; only in the hall copy ----------
+   A click on the first slide (or M) starts it; the next click fades it out in about a second.
+   The pill at the bottom says what the next click will do. Leaving the first slide fades it out too. */
 (function(){
-  const a = document.getElementById('timeAudio'); if(!a) return;
-  const VOL = 0.7; let fade = null;
-  const fadeTo = (v, ms, then) => { clearInterval(fade); const step = (v - a.volume) / Math.max(1, ms/50);
+  const a = document.getElementById('timeAudio'), btn = document.getElementById('musicbtn');
+  if (!a) { if (btn) btn.remove(); return; }
+  const VOL = 0.7; let fade = null, on = false;
+  const label = (cls, txt) => { btn.className = 'music ' + cls; btn.querySelector('.mtxt').textContent = txt; };
+  const fadeTo = (v, ms, then) => { clearInterval(fade); const step = (v - a.volume) / Math.max(1, ms/40);
     fade = setInterval(() => { let nv = a.volume + step;
       if ((step >= 0 && nv >= v) || (step < 0 && nv <= v)) { nv = v; clearInterval(fade); a.volume = Math.max(0, Math.min(1, nv)); if (then) then(); return; }
-      a.volume = Math.max(0, Math.min(1, nv)); }, 50); };
-  const play = () => { a.volume = 0; a.play().then(() => { fadeTo(VOL, 2500); toast('♪ Time · Pink Floyd'); }).catch(() => toast('Przeglądarka blokuje dźwięk: kliknij slajd')); };
-  const stop = () => fadeTo(0, 3000, () => a.pause());
-  addEventListener('keydown', e => { if (e.key.toLowerCase() === 'm' && !$('#ask').classList.contains('on')) { a.paused ? play() : stop(); } });
-  let clickT; slides[0].addEventListener('click', e => { clearTimeout(clickT); if (e.detail > 1) return;   // a double click is for fullscreen, not the music
-    clickT = setTimeout(() => { a.paused ? play() : stop(); }, 280); });
+      a.volume = Math.max(0, Math.min(1, nv)); }, 40); };
+  const play = () => { on = true; a.volume = 0; label('on', 'Time · Pink Floyd · kliknij, aby wyciszyć');
+    a.play().then(() => fadeTo(VOL, 1500)).catch(() => { on = false; label('', 'Przeglądarka blokuje dźwięk: kliknij jeszcze raz'); }); };
+  const stop = (ms) => { on = false; label('', 'Wyciszam…'); fadeTo(0, ms, () => { a.pause(); label('', 'Kliknij, aby włączyć muzykę'); }); };
+  const toggle = () => on ? stop(900) : play();
+  addEventListener('keydown', e => { if (e.key.toLowerCase() === 'm' && !$('#ask').classList.contains('on')) toggle(); });
+  btn.addEventListener('click', e => { e.stopPropagation(); toggle(); });
+  let clickT; slides[0].addEventListener('click', e => { clearTimeout(clickT); if (e.detail > 1) return;   // a double click is for fullscreen
+    clickT = setTimeout(toggle, 250); });
+  // closing slide (the line from Time): the track comes back and fades in so that the sung line arrives at full volume
+  const START = 281.5, FADE = 1.5;   // seconds into time.mp3: start on the last phrase of the solo, ~9 s before the line; short fade-in
+  const END = slides.findIndex(sl => sl.querySelector('.time-q'));
+  const atLine = () => { on = true; a.pause(); a.currentTime = START; a.volume = 0;
+    a.play().then(() => fadeTo(VOL, FADE * 1000)).catch(() => { on = false; }); };
   const _show = show;
-  show = function(i){ _show(i); if (cur !== 0 && !a.paused) stop(); };   // leaving the first slide: the music fades out
+  show = function(i){ const was = cur; _show(i);
+    if (cur === END && was !== END) atLine();                       // entering the closing slide
+    else if (cur !== 0 && cur !== END && on) stop(1800); };         // leaving the first or the closing slide: fade out
 })();
 
 /* ---------- toast ---------- */
@@ -756,7 +1000,7 @@ let rl; function reloadApp(){
 
 function playTeaser(){
   const v=$('#vid'); ovOff(); $('#video').classList.add('on');
-  v.src='/out/teaser_sala.mp4?v='+Date.now(); v.currentTime=0;
+  v.src='/out/teaser_rada_puo.mp4?v='+Date.now(); v.currentTime=0;
   v.play().catch(()=>toast('Kliknij, aby odtworzyć (przeglądarka zablokowała dźwięk)'));
   v.onended=()=>setTimeout(()=>$('#video').classList.remove('on'),800);
 }
@@ -764,21 +1008,45 @@ function playTeaser(){
    footer line (and the big log under L); the teaser plays only when the speaker presses V. */
 const jobs = { teaser:{running:false, t0:0}, publish:{running:false} };
 function jobline(text, ready){ const j=$('#jobline'); j.textContent=text; j.classList.toggle('ready', !!ready); }
+/* ---------- publishing: the QR stays dimmed, with a spinner and a clock, until GitHub Pages serves the page ---------- */
+let pubTimer = null, pubT0 = 0;
+const mmss = ms => { const t = Math.floor(ms/1000); return Math.floor(t/60) + ':' + String(t%60).padStart(2,'0'); };
+function pubStep(step, cls){ let seen = false;
+  document.querySelectorAll('#qrsteps li').forEach(li => { if (li.dataset.s === step) { seen = true; li.className = cls; } else if (!seen) li.className = 'ok'; else if (cls !== 'bad') li.className = ''; }); }
+function pubReset(){
+  pubT0 = Date.now(); $('#qrimg').classList.add('wait'); $('#qrpic').removeAttribute('src');
+  $('#qrwaittxt').textContent = 'Publikuję… 0:00'; $('#qrwaitsub').textContent = 'kod zadziała, gdy strona będzie online'; $('#qrstat').textContent = '';
+  document.querySelectorAll('#qrsteps li').forEach(li => li.className = '');
+  clearInterval(pubTimer); pubTimer = setInterval(() => {
+    const cur = document.querySelector('#qrsteps li.now'); const what = cur && cur.dataset.s === 'pages' ? 'GitHub Pages publikuje' : 'Publikuję';
+    $('#qrwaittxt').textContent = what + '… ' + mmss(Date.now() - pubT0); }, 500);
+}
+function pubShow(e){
+  if (!pubTimer && !e.done) pubReset();
+  if (e.url) $('#qrurl').textContent = e.url;
+  if (e.qr) $('#qrpic').src = e.qr + '?v=' + Date.now();
+  if (e.step === 'strona') pubStep('strona', 'ok');
+  if (e.step === 'push') pubStep('push', e.done ? 'ok' : 'now');
+  if (e.step === 'pages' && !e.done) pubStep('pages', 'now');
+  if (e.fatal) { clearInterval(pubTimer); pubTimer = null; pubStep('push', 'bad'); $('#qrwaittxt').textContent = 'Publikacja nie wyszła'; $('#qrwaitsub').textContent = e.msg || ''; return; }
+  if (!e.done) return;
+  clearInterval(pubTimer); pubTimer = null;
+  const took = mmss(Date.now() - pubT0);
+  if (e.dry) { pubStep('pages', 'bad'); $('#qrwaittxt').textContent = 'Próba na sucho'; $('#qrwaitsub').textContent = 'serwer bez --push: nic nie wypchnięto, ten kod jeszcze nie działa'; return; }
+  if (e.ok === false) { pubStep('pages', 'now'); $('#qrwaittxt').textContent = 'Pages jeszcze nie potwierdziły'; $('#qrwaitsub').textContent = 'adres jest dobry, strona pojawi się za chwilę'; return; }
+  pubStep('online', 'ok'); $('#qrimg').classList.remove('wait');
+  $('#qrstat').textContent = '✓ Online po ' + took + '. Zeskanujcie: aplikacja jest w Waszych telefonach.';
+}
+
 function onJob(e){
   const label = e.job==='teaser' ? '🎬 teaser' : '🌐 publikacja';
   const bl = s => { const d=document.createElement('div'); d.textContent=s; $('#biglog').appendChild(d); };
-  if(e.start){ jobs[e.job].running=true; jobs[e.job].t0=Date.now(); jobline(label+': start'); bl(label+': start'); return; }
+  if(e.start){ jobs[e.job].running=true; jobs[e.job].t0=Date.now(); jobline(label+': start'); bl(label+': start'); if(e.job==='publish') pubReset(); return; }
   if(e.exit!==undefined){ jobs[e.job].running=false; if(e.exit!==0 && e.job==='teaser') jobline('🎬 teaser: nie wyszedł — V odtworzy poprzedni'); return; }
   if(e.log){ bl(label+': '+e.log); return; }
   if(e.msg){ jobline(label+' · '+e.msg); bl(label+': '+e.msg); }
   if(e.job==='teaser' && e.done){ jobs.teaser.ready=true; jobline('🎬 teaser gotowy · V', true); }
-  if(e.job==='publish'){
-    if(e.url) $('#qrurl').textContent=e.url;
-    if(e.qr) $('#qrimg').innerHTML='<img alt="QR" src="'+e.qr+'?v='+Date.now()+'">';
-    if(e.msg) $('#qrstat').textContent=e.msg;
-    if(e.done) $('#qrstat').textContent = e.dry ? 'Próba na sucho: adres i QR gotowe, strona nie została wypchnięta.' : (e.ok===false? e.msg : '✓ Strona jest online. Zeskanujcie i sprawdzajcie terminy.');
-  }
-  if(e.fatal && e.job==='publish') $('#qrstat').textContent='⚠️ '+e.msg+' — QR prowadzi do wersji z próby.';
+  if(e.job==='publish') pubShow(e);
 }
 
 function onCC(ev){
@@ -810,7 +1078,7 @@ function onCC(ev){
   }
   if(ev.type==='result'){
     const s = Math.round((ev.duration_ms||0)/1000);
-    const cost = ev.total_cost_usd!=null ? ' · $'+ev.total_cost_usd.toFixed(2) : '';
+    const cost = ev.total_cost_usd!=null ? ' · ≈'+ev.total_cost_usd.toFixed(2).replace('.',',')+' USD wg cennika API (płaci plan)' : '';
     now((ev.is_error?'⚠️ zakończone z błędem':'✅ gotowe')+' · '+s+' s · '+(ev.num_turns||st.steps)+' tur'+cost);
     log('wynik: '+(ev.subtype||'')+cost);
   }
@@ -829,7 +1097,9 @@ function handle(e){
       if(e.plan){ $('#plantext').textContent='Plan się tworzy…'; }
       log((e.mode==='replay'?'nagranie ':'nagrywam ')+(e.recording||'')); stats(); break;
     case 'user': st.running=true; setMode('live');
-      if(e.text.startsWith('Plan zatwierdzony')){ if($('#planov').classList.contains('on')) ovOff(); now('▶️ Budowa według planu'); log('budowa według planu'); }
+      if(e.plan){ now('🧭 Dopisuję do planu: '+e.text); log('do planu: '+e.text);
+        $('#plantext').insertAdjacentHTML('afterbegin','<p class="upd">⟳ Dopisuję do planu: „'+esc(e.text)+'”…</p>'); ovOff(); $('#planov').classList.add('on'); }
+      else if(e.text.startsWith('Plan zatwierdzony')){ if($('#planov').classList.contains('on')) ovOff(); now('▶️ Budowa według planu'); log('budowa według planu'); }
       else { now('🗣️ z sali: '+e.text); log('z sali: '+e.text); } break;
     case 'plan': showPlan(e.text); log('plan gotowy'); break;
     case 'typing':
@@ -870,22 +1140,37 @@ async function post(path, body){
 const esc = t => t.replace(/[&<>]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 function showPlan(t){
   const md = esc(t||'').split('\n').map(l => l.trim()).filter(Boolean).map(l => {
-    l = l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<b>$1</b>');
+    l = l.replace(/\*\*(.+?)\*\*/g,'<b>$1</b>').replace(/`(.+?)`/g,'<b>$1</b>').replace(/\(nowe\)/g,'<span class="newtag">nowe</span>');
     return /^([-*•]|\d+[.)])\s/.test(l) ? '<li>'+l.replace(/^([-*•]|\d+[.)])\s/,'')+'</li>' : (/^#+\s/.test(l) ? '<p><b>'+l.replace(/^#+\s/,'')+'</b></p>' : '<p>'+l+'</p>');
   }).join('');
   $('#plantext').innerHTML = md.replace(/(<li>.*?<\/li>)+/g, m => '<ul>'+m+'</ul>') || 'Plan pusty.';
   ovOff(); $('#planov').classList.add('on');
+  // a long plan scrolls (trackpad); after a change from the room, start at the first "nowe" item
+  const pt = $('#plantext'), nt = pt.querySelector('.newtag');
+  pt.scrollTop = nt ? Math.max(0, nt.closest('p,li').offsetTop - pt.offsetTop - 12) : 0;
 }
 async function showJson(){
   try {
     const r = await fetch('/zadanie/dane/uchwaly.json'); const txt = await r.text(); const d = JSON.parse(txt);
-    const rec = JSON.stringify(d[d.length-1], null, 2).split('\n').slice(0, 30).join('\n');
-    $('#jpre').innerHTML = esc(rec).replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:').replace(/: "([^"]*)"/g,': <span class="s">"$1"</span>').replace(/: (\d+)/g,': <span class="n">$1</span>').replace(/: (true|false)/g,': <span class="b">$1</span>');
-    $('#jstat').innerHTML = `<div><b>${d.length}</b>uchwał Rady PUO</div><div><b>${Math.round(txt.length/1024)} KB</b>jeden plik JSON</div><div class="f">${Object.keys(d[0]).join(' · ')}</div>`;
+    const all = JSON.stringify(d, null, 2);   // the whole file: scroll it with the trackpad
+    $('#jpre').innerHTML = esc(all).replace(/"([^"]+)":/g,'<span class="k">"$1"</span>:').replace(/: "([^"]*)"/g,': <span class="s">"$1"</span>')
+      .replace(/^(\s+)"([^"]*)"(,?)$/gm,'$1<span class="s">"$2"</span>$3').replace(/: (\d+)/g,': <span class="n">$1</span>').replace(/: (true|false|null)/g,': <span class="b">$1</span>');
+    $('#jpre').scrollTop = 0;
+    $('#jstat').innerHTML = `<div><b>${d.length}</b>uchwał Rady PUO</div><div><b>${Math.round(txt.length/1024)} KB</b>jeden plik JSON</div><div class="f">${Object.keys(d[0]).join(' · ')}</div><div class="hint2">Cały plik: przewiń gładzikiem →</div><div id="jpkt" style="margin-top:30px"></div>`;
+    fetch('/zadanie/dane/punkty.json').then(r => r.text()).then(t => { const n = JSON.parse(t).length; $('#jpkt').innerHTML = `<div><b>+ ${n.toLocaleString('pl-PL')}</b>punktów uchwał (pełny tekst)</div><div class="f" style="margin-top:8px">dane/punkty.json · ${(t.length/1048576).toFixed(1).replace('.', ',')} MB</div>`; }).catch(() => {});
   } catch(err){ $('#jpre').textContent = 'Brak danych zadania (serwer z --task zadanie_gaar?)'; }
 }
 
 /* ---------- overlays ---------- */
+// Keys typed while the app in a preview has focus go to its frame: Esc (or L / A outside a text field) closes the preview.
+function hookFrame(fr){ fr.addEventListener('load', () => { try {
+  fr.contentWindow.addEventListener('keydown', e => {
+    const t = e.target, typing = t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA' || t.tagName === 'SELECT' || t.isContentEditable);
+    const k = e.key.toLowerCase();
+    if (k === 'escape' || (!typing && (k === 'l' || k === 'a'))) { e.preventDefault(); ovOff(); window.focus(); }
+  });
+} catch (err) {} }); }
+hookFrame(document.getElementById('bigframe')); hookFrame(document.getElementById('appframe'));
 function ovOff(){ document.querySelectorAll('.ov').forEach(o=>o.classList.remove('on')); }
 function toggle(id){ const o=$(id), on=o.classList.contains('on'); ovOff(); if(!on){ o.classList.add('on'); if(id==='#big'){ if(st.hasApp) $('#bigframe').src='/app/index.html?v='+Date.now(); else toast('Aplikacji jeszcze nie ma'); } if(id==='#ask') setTimeout(()=>$('#askin').focus(),30);} }
 
@@ -898,18 +1183,20 @@ addEventListener('keydown', async ev => {
   if($('#ask').classList.contains('on')){ if(ev.key==='Escape') ovOff(); return; }
   if($('#big').classList.contains('on') && document.activeElement===$('#bigframe')) return;
   const k = ev.key.toLowerCase();
-  if(['arrowright','pagedown',' '].includes(ev.key.toLowerCase())){ ev.preventDefault(); show(cur+1); }
+  if(['arrowright','pagedown',' '].includes(ev.key.toLowerCase())){ ev.preventDefault(); next(); }
   else if(['arrowleft','pageup'].includes(ev.key.toLowerCase())){ show(cur-1); }
   else if(k==='escape'){ $('#vid').pause(); ovOff(); }
   else if(k==='a'){ const on=$('#appfull').classList.contains('on'); ovOff(); if(!on){ if(!st.hasApp) toast('Aplikacji jeszcze nie ma'); else { $('#appframe').src='/app/index.html?v='+Date.now(); $('#appfull').classList.add('on'); } } }
-  else if(k==='p'){ if($('#qr').classList.contains('on')){ ovOff(); } else { ovOff(); $('#qr').classList.add('on'); $('#qrstat').textContent='Publikuję…'; await post('/api/job/publish'); } }
+  else if(k==='p'){ if($('#qr').classList.contains('on')){ ovOff(); } else { ovOff(); $('#qr').classList.add('on'); pubReset(); const j = await post('/api/job/publish'); if(!j.ok){ clearInterval(pubTimer); pubTimer=null; $('#qrwaittxt').textContent = j.msg || 'Nie udało się zacząć'; } } }
   else if(k==='v'){
     if(ev.shiftKey){ const j=await post('/api/job/teaser'); if(j.ok) toast('Buduję nowy teaser w tle (ok. 4–5 min)'); }
     else if(jobs.teaser.running && !jobs.teaser.ready){ toast('Teaser jeszcze się buduje — za chwilę'); }
     else playTeaser();
   }
   else if(k==='b'){ const j=await post('/api/start'); if(j.ok){ ovOff(); toast(j.by_plan ? 'Budowa według planu' : 'Start budowy na żywo'); } }
-  else if(k==='n'){ const j=await post('/api/plan'); if(j.ok){ toast('Claude Code planuje (tryb planu)'); } }
+  else if(k==='n'){
+    if(!ev.shiftKey && $('#planov').classList.contains('on')){ ovOff(); }
+    else { const j=await post('/api/plan',{force:ev.shiftKey}); if(j.ok){ if(j.show) showPlan(j.text); else toast('Claude Code planuje (tryb planu)'); } } }
   else if(k==='j'){ const on=$('#jsonov').classList.contains('on'); ovOff(); if(!on){ $('#jsonov').classList.add('on'); showJson(); } }
   else if(k==='r'){ const j=await post('/api/replay',{speed: ev.shiftKey?4:1}); if(j.ok) toast('Odtwarzam '+j.run); }
   else if(k==='x'){ await post('/api/stop'); toast('Zatrzymano'); }
