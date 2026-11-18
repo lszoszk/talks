@@ -406,8 +406,8 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 /* slide 1: the music button shows only its equaliser; the label stays for screen readers */
 .music .mtxt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 /* slide 18: QR to the online copy, where every source is a link */
-.qr-deck{position:absolute;right:96px;top:70px;display:flex;align-items:center;gap:16px;font:15px/1.35 var(--mono);color:var(--muted)}
-.qr-deck img{width:120px;height:120px;background:#fff;border-radius:8px;padding:6px}
+.qr-deck{display:flex;align-items:center;gap:22px;margin-top:30px;font:17px/1.5 var(--mono);color:var(--muted)}
+.qr-deck img{width:150px;height:150px;background:#fff;border-radius:8px;padding:6px}
 .static .keys,.static .hint,.static #tile{display:none!important}
 </style>
 <script src="../statystyki.js" defer></script>
@@ -678,7 +678,6 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
   <section class="slide" data-notile>
     <div class="kicker">Po wykładzie</div>
     <h2 style="margin-bottom:18px">Źródła</h2>
-    <div class="qr-deck"><img src="assets/qr_deck.svg" alt="Kod QR do slajdów z klikalnymi źródłami"><span>slajdy i linki:<br>lszoszk.github.io/talks/<br>ciemna-strona-ksiezyca</span></div>
     <div class="srcs">
       <p><b>Użycie AI w pracy</b><a href="https://www.anthropic.com/economic-index#job-explorer" target="_blank">Anthropic Economic Index, job explorer (stan na 26.06.2026)</a></p>
       <p>O*NET: <a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">Lawyers 23-1011.00</a> · <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">Tax Preparers 13-2082.00</a></p>
@@ -700,6 +699,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
       <p><b>Testy własne</b>Postrzępiona granica i postęp modeli: 5 + 10 modeli przez API (OpenRouter) i Gemini 4 Carbon w Antigravity, 17.11.2026; odesłania do wyroków sprawdzone w HUDOC.</p>
       <p><b>Obrazy, muzyka i okładka</b>„Narysuj mi prawnika”: obrazy z Google Gemini, OpenAI Codex i ChatGPT. Pink Floyd, The Dark Side of the Moon (1973), w tym wers z „Time”; pryzmat na slajdach: rysunek własny.</p>
     </div>
+    <div class="qr-deck"><img src="assets/qr_deck.svg" alt="Kod QR do slajdów z klikalnymi źródłami"><span>Slajdy z klikalnymi źródłami:<br>lszoszk.github.io/talks/ciemna-strona-ksiezyca</span></div>
   </section>
 
 
