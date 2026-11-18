@@ -381,6 +381,15 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .pz-row b{display:block;font-family:var(--mono);font-size:16px;letter-spacing:1px;color:var(--accent2);margin-bottom:6px}
 .pz-row.build b{color:var(--accent)}
 .pz-row p{margin:0;font-size:19px;line-height:1.38;color:#cfcac0}
+/* slide 11: prinz in four cards (main part); the annex keeps the full story */
+.pz4{grid-template-columns:repeat(4,1fr);gap:22px;margin-top:56px}
+.pz4>div{padding:28px;min-height:300px;border-top-width:4px}
+.pz4 b{font-size:20px;margin-bottom:16px}
+.pz4 p{font-size:26px;line-height:1.38;color:#ece9e2}
+.pz4 .bd{border-top-color:var(--accent)}.pz4 .bd b{color:var(--accent)}
+.pz-note{font-size:21px;color:var(--muted);margin:40px 0 0;max-width:1300px}
+.pz-who{color:#ece9e2;text-decoration:underline;text-decoration-color:#555;text-underline-offset:4px}
+.pz-who b{color:var(--accent2);font-size:25px;font-weight:800}
 .pz-now{font-size:26px;line-height:1.35;margin:26px 0 0;max-width:1400px;color:#ece9e2}
 .pz-now small{font-family:var(--mono);font-size:15px;color:var(--muted);margin-left:8px}
 .time-q{position:absolute;left:96px;top:190px;max-width:800px;margin:0}
@@ -570,6 +579,20 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="jt" id="jfTable"></div>
     <div class="jkey" id="jfKey"></div>
     <div class="src" style="max-width:1408px;bottom:28px;font-size:13px">Postrzępiona granica: <a href="https://doi.org/10.1287/orsc.2025.21838" target="_blank">F. Dell’Acqua i in., Navigating the Jagged Technological Frontier, Organization Science 37(2), 2026</a> · Art. 349 o.p.: ustawa kończy się na art. 344 (<a href="https://api.sejm.gov.pl/eli/acts/DU/2026/622/text.pdf" target="_blank">t.j. Dz.U. 2026 poz. 622</a>) · KIO: pytania i klucz z <a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., AI &amp; Law (2026)</a>, z poprawkami z replikacji · ETPCz: zajęcia 23.10.2026, odesłania sprawdzone w HUDOC · Aplikacje: Workshop Studio (Wenecja), te same 10 zleceń i automatyczne testy; budowy 31.10–16.11.2026, GPT-4o (4 przejścia) 17.11, Carbon (3 przejścia) 17–18.11 · Gemini 4 Carbon: aplikacja Antigravity, jako agent; pozostałe modele przez API (OpenRouter), 17.11.2026.</div>
+  </section>
+
+  <!-- 10a · prinz in four posts: from sceptic to his own apps (bridge from testing models to building); the full story is in the annex -->
+  <section class="slide" data-notile>
+    <div class="kicker">Jeden prawnik z BigLaw · wpisy na X, 07.2025–06.2026</div>
+    <h2 style="margin-bottom:6px">Od „nie przyspiesza mnie” <span class="acc">do własnych aplikacji</span></h2>
+    <div class="pz-row pz4">
+      <div class="reveal" data-g="pz1"><b>07.2025</b><p>„Doświadczonego prawnika AI przyspiesza niewiele. Nie daję jej pisać”.</p></div>
+      <div class="reveal"><b>09.2025</b><p>„Nie zlecam już researchu associate’om”. Model kosztuje <span class="acc">200 USD miesięcznie</span>, junior <span class="acc">ponad 200 USD za godzinę</span>.</p></div>
+      <div class="reveal"><b>05.2026</b><p>„Moje poglądy sprzed roku są dziś beznadziejnie nieaktualne”.</p></div>
+      <div class="reveal bd"><b>06.2026</b><p>„Mam w telefonie kilka aplikacji, których używam codziennie. W całości zbudował je Codex”.</p></div>
+    </div>
+    <p class="pz-note reveal" data-g="pz1">Jedna osoba, nie badanie: prawnik M&amp;A z USA pod pseudonimem <a class="pz-who" href="https://x.com/deredleritt3r" target="_blank"><b>prinz</b> (@deredleritt3r)</a>. Sam przyznaje, że wierzy w szybki postęp AI.</p>
+    <div class="src">Wpisy na X (tłum. własne): <a href="https://x.com/deredleritt3r/status/1943462826254754133" target="_blank">11.07.2025</a> · <a href="https://x.com/deredleritt3r/status/1971202649560318314" target="_blank">25.09.2025</a> · <a href="https://x.com/deredleritt3r/status/2056016405959430346" target="_blank">17.05.2026</a> · <a href="https://x.com/deredleritt3r/status/2066880490674499708" target="_blank">16.06.2026</a> · cała historia w aneksie</div>
   </section>
 
   <!-- 11 · Prosus: the bosses build, in front of the juniors -->
