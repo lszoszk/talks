@@ -844,7 +844,7 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
   for (const r of JF.rows || []){
     let cApps, cKio, c349, cEc;
     if (r.apps){ const [a,b] = r.apps, p = a/b;
-      cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div>${r.k==='carbon'?`<div class="jn">${a} z ${b} · po trzy budowy</div>`:''}</div>`;
+      cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div></div>`;
     } else cApps = `<div><div class="jn">nie budowaliśmy</div></div>`;
     if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b);
       cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}"></span>`).join('')}<span class="tot">${pct(...r.kioTot)}%</span></div></div>`;
