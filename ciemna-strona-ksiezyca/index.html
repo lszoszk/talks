@@ -209,21 +209,21 @@ h2{font-size:54px;line-height:1.08;margin:0 0 36px;letter-spacing:-.8px}
 .ai4 figure{margin:0}
 .ai4 img{width:100%;height:440px;object-fit:cover;border-radius:10px;display:block}
 .ai4 figcaption{font-family:var(--mono);font-size:13px;color:var(--muted);margin-top:6px;letter-spacing:1px}
-.elx-heroes{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,14fr) minmax(0,3fr);column-gap:4px;margin:8px 0 18px 126px}   /* same columns as the DOTĄD bar (label 110px + gap 16px, then 3:14:3) */
+.elx-heroes{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,14fr) minmax(0,3fr);column-gap:4px;margin:46px 0 28px 126px}   /* same columns as the DOTĄD bar (label 110px + gap 16px, then 3:14:3) */
 .elx-heroes figure{margin:0;white-space:nowrap}
 .elx-heroes figure:nth-child(1){justify-self:start}
 .elx-heroes figure:nth-child(2){justify-self:center;text-align:center}
 .elx-heroes figure:nth-child(3){justify-self:end;text-align:right}
 .elx-heroes img{width:120px;height:120px;object-fit:contain}
-.elx-heroes figcaption{font-size:19px;line-height:1.35;color:#cfcac0}
-.elx-heroes b{display:block;font-family:var(--mono);font-size:16px;letter-spacing:2px;margin-bottom:4px}
+.elx-heroes figcaption{font-size:25px;line-height:1.4;color:#cfcac0}
+.elx-heroes b{display:block;font-family:var(--mono);font-size:21px;letter-spacing:2px;margin-bottom:8px}
 .c-dec{color:#4ea8de}.c-prep{color:#f2a33a}.c-eval{color:#3fb950}
-.elx-row{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin:14px 0}
-.elx-row>span{font-family:var(--mono);font-size:17px;letter-spacing:2px;color:var(--muted)}
-.elx-bar{display:flex;height:58px;gap:4px}
-.elx-bar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--mono);font-size:15px;letter-spacing:1px;color:#fff;border-radius:6px}
+.elx-row{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:center;margin:22px 0}
+.elx-row>span{font-family:var(--mono);font-size:21px;letter-spacing:2px;color:var(--muted)}
+.elx-bar{display:flex;height:100px;gap:4px}
+.elx-bar i{display:flex;align-items:center;justify-content:center;font-style:normal;font-family:var(--mono);font-size:21px;letter-spacing:1px;color:#fff;border-radius:8px}
 .elx-bar .d{background:#4ea8de}.elx-bar .p{background:#f2a33a}.elx-bar .e{background:#3fb950}
-.elx-note{font-size:16px;color:var(--muted);margin-top:16px;display:flex;justify-content:space-between;max-width:1408px}
+.elx-note{font-size:20px;color:var(--muted);margin-top:16px;display:flex;justify-content:space-between;max-width:1408px}
 .vid-row{display:grid;grid-template-columns:880px 1fr;gap:48px;align-items:start;margin-top:4px}
 .vid-row video{width:880px;height:495px;background:#000;border-radius:12px;display:block}
 .vid-row .cap{font-family:var(--mono);font-size:14px;color:var(--muted);margin-top:8px}
@@ -264,6 +264,12 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .steps4 .n{font-family:var(--mono);font-size:15px;color:#94a3b8;letter-spacing:2px}
 .steps4 h3{font-size:28px;margin:10px 0 10px;color:#fff;line-height:1.15}
 .steps4 p{font-size:18px;line-height:1.4;margin:0;color:#cbd5e1}
+/* slide 14: the plan as a column on the left, clear of the live tile (bottom right, x from 1072) */
+.plan5{display:grid;gap:10px;margin-top:26px;max-width:930px}
+.plan5>div{display:grid;grid-template-columns:52px 250px 1fr;align-items:baseline;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 22px}
+.plan5 .n{font-family:var(--mono);font-size:15px;letter-spacing:2px;color:#94a3b8}
+.plan5 h3{margin:0;font-size:26px;line-height:1.2;color:#fff}
+.plan5 p{margin:0;font-size:20px;line-height:1.35;color:#cfcac0}
 .steps4 kbd{font-family:var(--mono);background:#e2e8f0;color:#0f172a;border-radius:6px;padding:1px 8px;font-size:15px}
 .half{display:grid;grid-template-columns:1fr 380px;gap:60px;align-items:start;margin-top:6px}
 .tl4 div{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:14px 0;border-bottom:1px solid var(--line)}
@@ -397,6 +403,11 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .tw-d{font-size:13px;color:var(--muted);font-family:var(--mono)}
 .vside .tw + div .n,.vside > div .n{font-size:44px}
 .vside > div:not(.tw){margin-bottom:16px}
+/* slide 1: the music button shows only its equaliser; the label stays for screen readers */
+.music .mtxt{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* slide 18: QR to the online copy, where every source is a link */
+.qr-deck{position:absolute;right:96px;top:70px;display:flex;align-items:center;gap:16px;font:15px/1.35 var(--mono);color:var(--muted)}
+.qr-deck img{width:120px;height:120px;background:#fff;border-radius:8px;padding:6px}
 .static .keys,.static .hint,.static #tile{display:none!important}
 </style>
 <script src="../statystyki.js" defer></script>
@@ -422,7 +433,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 
   <!-- 2 · how AI draws a lawyer: today (left) and in ancient Greece (right), 2 x 2 as in nowy-swiat -->
   <section class="slide" data-notile>
-    <div class="kicker">Praca prawnika · jak AI widzi prawnika</div>
+    <div class="kicker">Jak AI widzi prawnika</div>
     <div class="ai22">
       <div><div class="pr">„Narysuj mi prawnika w pracy”</div>
         <div class="imgs reveal">
@@ -484,12 +495,11 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="kicker">Sąd · JudgeGPT · Pakistan 2024–2025</div>
     <h2 style="margin-bottom:22px">Dostęp to za mało: <span class="acc">liczy się nauka</span></h2>
     <div class="jg">
-      <figure class="jgf"><img src="assets/judgegpt_ryc5b.webp" alt="Wykres: skumulowana liczba poleceń na sędziego w ciągu 40 tygodni. Grupa ze szkoleniem z narzędzia dochodzi do ponad 200, grupa z ogólnym kursem do ok. 50."><figcaption>Polecenia na sędziego w ciągu 40 tygodni od dostępu: grupa A ze szkoleniem z narzędzia (▲) i grupa B z ogólnym kursem (+). Badanie, ryc. 5B.</figcaption></figure>
+      <figure class="jgf"><img src="assets/judgegpt_ryc5b.webp" alt="Wykres: skumulowana liczba poleceń na sędziego w ciągu 40 tygodni. Grupa ze szkoleniem z narzędzia dochodzi do ponad 200, grupa z ogólnym kursem do ok. 50."><figcaption>Polecenia na sędziego przez 40 tygodni: ▲ grupa A, + grupa B (ryc. 5B).</figcaption></figure>
       <div class="jgr">
         <div class="kb"><div class="lab">Eksperyment</div><p><b>1559 sędziów</b> pierwszej instancji, ok. połowa w kraju, losowo w trzy grupy:</p>
-          <ul><li><b>A (1197):</b> JudgeGPT i sześć wykładów, jak z niego korzystać</li><li><b>B (180):</b> JudgeGPT i ogólny kurs „technologia i prawo”</li><li><b>kontrolna (182):</b> ten sam kurs, bez JudgeGPT</li></ul>
-          <p class="sm">JudgeGPT: GPT-4 z wyszukiwarką w 128 292 orzeczeniach i 943 ustawach (RAG).</p></div>
-        <div class="kb"><div class="lab">Wyniki</div><ul><li>Po 40 tygodniach grupa A: <b>ponad 200 poleceń</b> na sędziego, grupa B: <b>poniżej 50</b>.</li><li>W typowym okręgu <b>+6,3%</b> rozpatrzonych spraw; jakość pism bez pogorszenia.</li></ul></div>
+          <ul><li><b>A (1197):</b> JudgeGPT i sześć wykładów, jak z niego korzystać</li><li><b>B (180):</b> JudgeGPT i ogólny kurs „technologia i prawo”</li><li><b>kontrolna (182):</b> ten sam kurs, bez JudgeGPT</li></ul></div>
+        <div class="kb"><div class="lab">Wyniki</div><ul><li>W typowym okręgu <b>+6,3%</b> rozpatrzonych spraw; jakość pism bez pogorszenia.</li></ul></div>
       </div>
     </div>
     <p class="lead reveal" style="margin-top:18px;font-size:26px">Sędzia pracuje szybciej, ale decyduje sam.</p>
@@ -508,12 +518,11 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="pat-how reveal">
       <div class="lab">Jak poprawiali cudzy projekt, bez AI, po 3 miesiącach</div>
       <div class="ph2">
-        <div><b>Seniorzy z grupy AI</b><p>Przebudowywali całe sekcje zamiast poprawiać zdania. Walczyli o szerszy zakres ochrony. Przy każdej zmianie podawali zasadę prawną.</p></div>
-        <div><b>Juniorzy</b><p>Poprawki stylistyczne i porządkowe; czas schodził na mniej ważne części. Wskazywali problem („zastrzeżenia są nieostre”), ale go nie poprawiali. Juniorzy bez AI robili to samo: trzy miesiące z AI tego nie zmieniły.</p></div>
+        <div><b>Seniorzy z grupy AI</b><p>Przebudowywali całe sekcje, walczyli o szerszy zakres ochrony, każdą zmianę uzasadniali zasadą prawną.</p></div>
+        <div><b>Juniorzy</b><p>Poprawiali styl i wskazywali problemy, ale ich nie rozwiązywali, tak samo jak juniorzy bez AI.</p></div>
       </div>
     </div>
-    <p class="lead reveal" style="margin-top:20px">Najwięcej zyskują ludzie, którzy wiedzą, co sprawdzić: doświadczeni praktycy.</p>
-    <div class="src" style="max-width:1400px"><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), praca robocza</a>; sposób poprawiania: s. 25, obserwacje jakościowe autorów (analiza w NotebookLM, bez hipotez zarejestrowanych z góry)</div>
+    <div class="src" style="max-width:1400px"><a href="https://www.nber.org/papers/w35720" target="_blank">D. Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (IX 2026), praca robocza</a>; sposób poprawiania: s. 25, obserwacje jakościowe autorów (analiza w NotebookLM, bez hipotez zarejestrowanych z góry)</div>
   </section>
 
   <!-- 7 · Polish cases in the Charlotin database -->
@@ -544,11 +553,10 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="kicker">Vals AI · Tax Agent Bench · amerykański podatek dochodowy od osób prawnych</div>
     <h2 style="margin-bottom:18px">Najlepszy agent rozwiązuje <span class="acc">co drugie zadanie</span></h2>
     <div class="vals">
-      <figure><img src="assets/vals_tax_agent_bench.png" alt="Wykres Vals AI: dokładność modeli w Tax Agent Bench wobec kosztu jednego zadania, skala logarytmiczna; najwyżej Gemini 4 Hydrogen i Gemini 4 Argon"><figcaption>Dokładność (oś pionowa) wobec kosztu jednego zadania (oś pozioma, skala logarytmiczna). Zielona linia łączy modele, których żaden inny nie przebija jednocześnie wynikiem i ceną.</figcaption></figure>
+      <figure><img src="assets/vals_tax_agent_bench.png" alt="Wykres Vals AI: dokładność modeli w Tax Agent Bench wobec kosztu jednego zadania, skala logarytmiczna; najwyżej Gemini 4 Hydrogen i Gemini 4 Argon"><figcaption>Dokładność (oś pionowa) wobec kosztu jednego zadania (oś pozioma, skala logarytmiczna).</figcaption></figure>
       <div class="vside">
         <div><div class="n">52,3%</div><div class="l">najlepszy wynik: Gemini 4 Hydrogen; Gemini 4 Carbon 51,8%</div></div>
-        <div><div class="n">193</div><div class="l">pytania ekspertów z zakresu prawa podatkowego, ok. 60% z CIT; zadanie zaliczone tylko wtedy, gdy spełnione są wszystkie punkty rubryki</div></div>
-        <div><div class="n">79%</div><div class="l">przy punktach cząstkowych: odpowiedź zwykle trafia w większość wymagań, ale pomija choć jedno</div></div>
+        <div><div class="n">193</div><div class="l">pytania ekspertów z zakresu prawa podatkowego, ok. 60% z CIT; zaliczone tylko wtedy, gdy spełnione są wszystkie wymagania</div></div>
         <div class="note">Agent ma do 3 godzin i narzędzia: wyszukiwarkę, teksty przepisów, pobieranie dokumentów, kalkulator.</div>
       </div>
     </div>
@@ -568,14 +576,12 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
   <section class="slide" data-notile>
     <div class="kicker">FT Innovative Lawyers Europe 2026 · nagrodzone działy prawne</div>
     <h2>Nagrodzonych łączy jedno: <span class="acc">vibe coding</span></h2>
-    <p class="task" style="margin-top:-18px">Prawnicy sami budują narzędzia, opisując je zwykłym językiem. Szefowie robią to na oczach młodszych.</p>
-    <div class="pros2 reveal">
+    <p class="task" style="margin-top:-18px">Prawnicy sami budują narzędzia, opisując je zwykłym językiem.</p>
+    <div class="pros2 reveal" style="grid-template-columns:1fr">
       <div><b>8 godzin</b><p>w dwa kolejne dni CEO wpisał kierownictwu do kalendarzy: usiąść z młodszymi kolegami i zbudować przy nich działające narzędzie</p></div>
-      <div><b>od góry</b><p>zaangażowanie najstarszych stażem było według FT kluczem do tego, że dział prawny przyjął AI i zaczął budować własne narzędzia</p></div>
     </div>
-    <div class="pros-n reveal">
+    <div class="pros-n reveal" style="grid-template-columns:repeat(2,1fr)">
       <div><b>298</b>agentów zbudował dział prawny Prosusa (ok. 50 osób)</div>
-      <div><b>„Who can sign what”</b>aplikacja szefowej działu prawnego, zbudowana w Claude Code</div>
       <div><b>Repsol</b>100 godzin nauki programowania i AI rocznie na prawnika; ponad 22 000 zaoszczędzonych godzin</div>
     </div>
     <p class="quote-s reveal">“I don’t have coding as a background, but it absolutely transformed my view, because even I could build something and publish it.” <span class="qa">David Tudor, group general counsel, Prosus</span></p>
@@ -584,10 +590,10 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 
   <!-- 12 · Venice: human rights lawyers, two days, no programming, apps on the wall -->
   <section class="slide" data-notile>
-    <div class="kicker">Wenecja · warsztat dla prawników praw człowieka · 12–13.11.2026</div>
-    <h2 style="margin-bottom:20px">Dwa dni, bez programowania: <span class="acc">31 aplikacji na ścianie</span></h2>
+    <div class="kicker">Wenecja · warsztat dla studentów praw człowieka · 12–13.11.2026</div>
+    <h2 style="margin-bottom:20px">Dwa dni, bez programowania: <span class="acc">aplikacje na ścianie</span></h2>
     <div class="ven">
-      <figure class="vwall"><img src="assets/wenecja_hrc_wall.webp" alt="Dziewięć różnych aplikacji o głosowaniach w Radzie Praw Człowieka ONZ: tabele, wykresy, porównania dwóch państw, po angielsku i po francusku"><figcaption>Jedno zlecenie, te same dane o głosowaniach w Radzie Praw Człowieka ONZ: 9 z 15 aplikacji, które uczestnicy wysłali na ścianę 13.11.</figcaption></figure>
+      <figure class="vwall"><img src="assets/wenecja_hrc_wall.webp" alt="Dziewięć różnych aplikacji o głosowaniach w Radzie Praw Człowieka ONZ: tabele, wykresy, porównania dwóch państw, po angielsku i po francusku"><figcaption>Jedno zlecenie i te same dane: głosowania w Radzie Praw Człowieka ONZ.</figcaption></figure>
       <div class="vside">
         <a class="tw" href="https://x.com/karpathy/status/1617979122625712128" target="_blank">
           <div class="tw-h"><span class="av">AK</span><div><b>Andrej Karpathy</b><span>@karpathy</span></div><span class="x">𝕏</span></div>
@@ -601,27 +607,31 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="src">Workshop Studio, Wenecja: dane z warsztatów (tests/room, dziennik zdarzeń 12–13.11.2026) · zrzut: ściana warsztatu z 13.11.2026, aplikacje uczestników bez tytułów i nazwisk (Claude Sonnet 5.5)</div>
   </section>
 
-  <!-- 13 · the task: GAAR Council resolutions; the build starts here (tile visible) -->
-  <section class="slide">
+  <!-- 13 · the data: GAAR Council resolutions (data only; the plan and the keys are on the next slide) -->
+  <section class="slide" data-notile>
     <div class="kicker">Zadanie na dziś · Rada do Spraw Przeciwdziałania Unikaniu Opodatkowania</div>
-    <h2 style="margin-bottom:16px">Kto z Państwa przeczytał wszystkie?</h2>
-    <div class="stats4" style="max-width:950px">
+    <h2 style="margin-bottom:16px">Dane: uchwały Rady PUO opublikowane na gov.pl</h2>
+    <div class="stats4">
       <div><b>74</b><span>uchwały Rady PUO<br>XII 2019 – III 2026</span></div>
       <div><b>1936</b><span>stron</span></div>
       <div><b>933</b><span>strony to skany<br>bez warstwy tekstu</span></div>
       <div><b>5638</b><span>fragmentów w bazie<br>po podziale na punkty</span></div>
     </div>
-    <p class="lead" style="max-width:940px">Za kilka minut będzie z tego narzędzie:<br>dane → plan → Państwa życzenie → budowa → telefon.</p>
-    <div class="keys"><kbd>J</kbd> dane · <kbd>N</kbd> plan · <kbd>C</kbd> życzenie · <kbd>B</kbd> budowa · <kbd>L</kbd> podgląd · <kbd>K</kbd> kafelek</div>
     <div class="src">Uchwały: <a href="https://www.gov.pl/web/finanse/prace-rady2" target="_blank">gov.pl, Rada PUO (I–III kadencja)</a> · dane: opracowanie własne, 17.11.2026 (OCR, podział na punkty)</div>
   </section>
 
-  <!-- 14 · while it builds (tile visible): about 4 minutes, questions from the room -->
-  <section class="slide">
+  <!-- 14 · the plan; the tile is hidden until K, then the build runs on this slide (questions while it builds) -->
+  <section class="slide" data-notile>
     <div class="kicker">Narzędzia · budowa na żywo</div>
-    <h2>Model buduje.<br><span class="acc">Czas na Państwa pytania.</span></h2>
-    <p class="lead" style="max-width:940px">Ok. 4 minuty. Potem test, publikacja i kod QR.</p>
-    <div class="keys"><kbd>L</kbd> podgląd z logiem · <kbd>A</kbd> sprawdzenie · <kbd>P</kbd> publikacja i QR</div>
+    <h2>Za kilka minut będzie z tego narzędzie</h2>
+    <div class="plan5">
+      <div><span class="n">01</span><h3>Dane</h3><p>74 uchwały podzielone na punkty.</p></div>
+      <div><span class="n">02</span><h3>Plan</h3><p>Model rozpisuje aplikację, zanim napisze kod.</p></div>
+      <div><span class="n">03</span><h3>Państwa życzenie</h3><p>Jedna funkcja zgłoszona z sali.</p></div>
+      <div><span class="n">04</span><h3>Budowa</h3><p>Ok. 4 minuty. W tym czasie pytania.</p></div>
+      <div><span class="n">05</span><h3>Publikacja</h3><p>Sprawdzenie, kod QR, aplikacja w telefonach.</p></div>
+    </div>
+    <div class="keys" style="line-height:1.9"><kbd>K</kbd> kafelek · <kbd>J</kbd> dane · <kbd>N</kbd> plan · <kbd>C</kbd> życzenie · <kbd>B</kbd> budowa<br><kbd>L</kbd> podgląd z konsolą · <kbd>P</kbd> publikacja</div>
   </section>
 
   <!-- 15 · the full version, half a day of work, QR 2 -->
@@ -633,15 +643,14 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
         <div class="tl4">
           <div><span class="h">10:14</span><p>Start: 74 PDF-y z gov.pl</p></div>
           <div><span class="h">12:30</span><p>Online: OCR 933 stron skanów, 5638 fragmentów, wyszukiwarka, fragment podświetlony w PDF<small>ok. 2 h 15 min, 20 poleceń</small></p></div>
-          <div><span class="h">14:45</span><p>Wyszukiwarka jak w bazie ONZ, nowy wygląd, wersja na telefon</p></div>
-          <div><span class="h">17:00</span><p>Wyszukiwanie po znaczeniu i przewodnik</p></div>
+          <div><span class="h">17:00</span><p>Wersja pełna: nowy wygląd, wersja na telefon, wyszukiwanie po znaczeniu, przewodnik</p></div>
         </div>
-        <p class="cost">Ok. 25 poleceń · ok. 8 pkt proc. tygodniowego limitu planu Claude Max · OCR na własnym komputerze: 0 zł</p>
+        <p class="cost">Ok. 25 poleceń · ok. 8% tygodniowego limitu abonamentu Claude Max · OCR na własnym komputerze: 0 zł</p>
       </div>
       <div class="qr2"><img src="assets/qr_rada_puo.svg" alt="Kod QR do aplikacji Opinie Rady PUO"><div class="u">lszoszk.github.io/opinie-rady-puo</div></div>
     </div>
     <div class="keys"><kbd>V</kbd> teaser pełnej wersji (1 min)</div>
-    <div class="src">Dziennik projektu (godziny i zużycie planu): gaar_rada_2026-11/USAGE.md</div>
+    <div class="src">Dziennik projektu (godziny i zużycie limitu): opracowanie własne</div>
   </section>
 
   <!-- 16 · three things for Monday -->
@@ -669,13 +678,14 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
   <section class="slide" data-notile>
     <div class="kicker">Po wykładzie</div>
     <h2 style="margin-bottom:18px">Źródła</h2>
+    <div class="qr-deck"><img src="assets/qr_deck.svg" alt="Kod QR do slajdów z klikalnymi źródłami"><span>slajdy i linki:<br>lszoszk.github.io/talks/<br>ciemna-strona-ksiezyca</span></div>
     <div class="srcs">
       <p><b>Użycie AI w pracy</b><a href="https://www.anthropic.com/economic-index#job-explorer" target="_blank">Anthropic Economic Index, job explorer (stan na 26.06.2026)</a></p>
       <p>O*NET: <a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">Lawyers 23-1011.00</a> · <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">Tax Preparers 13-2082.00</a></p>
       <p><a href="https://www.thomsonreuters.com/en/institute/future-of-professionals-2026/report-tax-and-accounting" target="_blank">Thomson Reuters, Future of Professionals 2026: Tax &amp; Audit</a></p>
       <p><a href="https://www.rp.pl/zawody-prawnicze/art44314141-raport-prawnicy-miedzy-algorytmami-a-wypaleniem" target="_blank">Supesu Recruitment, Raport Rynku Prawniczego 2025/26 (N. Nowotnik, rp.pl, 5.05.2026)</a></p>
       <p><b>Badania</b><a href="https://cepr.org/publications/dp21783" target="_blank">Mehmood, Goessmann i Ash, Courts of Tomorrow, CEPR DP21783 (2026)</a> · <a href="https://spectrum.ieee.org/judgegpt-experiment" target="_blank">E. Gent, IEEE Spectrum (12.08.2026)</a></p>
-      <p><a href="https://www.nber.org/papers/w35720" target="_blank">Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (2026)</a></p>
+      <p><a href="https://www.nber.org/papers/w35720" target="_blank">D. Autor i in., Does AI Assistance Enhance or Erode Expertise?, NBER WP 35720 (2026)</a></p>
       <p><a href="https://doi.org/10.1287/orsc.2025.21838" target="_blank">Dell'Acqua i in., Navigating the Jagged Technological Frontier, Organization Science (2026)</a></p>
       <p><a href="https://doi.org/10.1007/s10506-026-09505-w" target="_blank">Karp i in., Artificial Intelligence and Law (2026): pytania z egzaminu na członka KIO</a></p>
       <p><b>Halucynacje i testy modeli</b><a href="https://www.damiencharlotin.com/hallucinations/" target="_blank">D. Charlotin, AI Hallucination Cases (2306 spraw, stan na 16.11.2026)</a>; daty pism w polskich sprawach: z uzasadnień orzeczeń, opracowanie własne</p>
@@ -789,7 +799,8 @@ let tileManual = STATIC ? true : null;   // K overrides the per-slide default
 // a slide's .reveal elements appear one per press of → / space before the deck moves on; going back shows them all
 function next(){ const rs = [...slides[cur].querySelectorAll('.reveal:not(.in)')], ord = rs.filter(e => e.dataset.o);
   const r = ord.length ? ord.reduce((a, b) => +b.dataset.o < +a.dataset.o ? b : a) : rs[0]; if (r) { (r.dataset.g ? slides[cur].querySelectorAll(`.reveal[data-g="${r.dataset.g}"]`) : [r]).forEach(e => e.classList.add('in')); return; } show(cur+1); }
-function show(i){ const back = i < cur; cur = Math.max(0, Math.min(slides.length-1, i));
+function show(i){ const back = i < cur, prev = cur; cur = Math.max(0, Math.min(slides.length-1, i));
+  if (cur !== prev && tileManual === false) tileManual = null;   // K shows the tile on one slide; moving on hides it again
   slides[cur].querySelectorAll('.reveal').forEach(r => r.classList.toggle('in', back)); slides.forEach((s,j)=>s.classList.toggle('on', j===cur)); $('#pager').textContent = `${cur+1} / ${slides.length}`;
   const t=document.getElementById('tile'); if(t) t.classList.toggle('hidden', tileManual===null ? slides[cur].hasAttribute('data-notile') : tileManual); }
 
@@ -803,14 +814,14 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
   const C349 = {A:['#3fb950','mówi, że nie istnieje'], C:['#f2a33a','nie wie, nie podaje treści'], B:['#f05252','twierdzi, że istnieje'], '-':['#3a3a3a','jeszcze bez odpowiedzi']};
   // columns in the order of the talk: a provision, the exam, case law, building
   let h = `<div class="hd c1"></div>
-    <div class="hd reveal" data-g="jf1" data-o="1"><div class="tag">Art. 349 o.p.</div><div class="jsub">przepis nie istnieje · „Co mówi…?” ×5, „… jeśli nie masz pewności, napisz” ×5</div></div>
+    <div class="hd reveal" data-g="jf1" data-o="1"><div class="tag">Art. 349 o.p.</div><div class="jsub">przepis nie istnieje · 10 prób jak na slajdzie 8</div></div>
     <div class="hd reveal" data-g="jf2" data-o="2"><div class="tag">Egzamin na członka KIO</div><div class="jsub">10 bloków tematycznych · razem 245 pytań · bez źródeł</div></div>
     <div class="hd reveal" data-g="jf3" data-o="3"><div class="tag">Wyroki ETPCz</div><div class="jsub">odesłania: z pamięci i z podanymi fragmentami</div></div>
     <div class="hd reveal" data-g="jf4" data-o="5"><div class="tag">Budowa aplikacji</div><div class="jsub">przeszły wszystkie testy</div></div>`;
   for (const r of JF.rows || []){
     let cApps, cKio, c349, cEc;
     if (r.apps){ const [a,b] = r.apps, p = a/b;
-      cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div><div class="jn">${a} z ${b} ${r.k==='carbon'?'· po jednej budowie':'budów'}</div></div>`;
+      cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div>${r.k==='carbon'?`<div class="jn">${a} z ${b} · po jednej budowie</div>`:''}</div>`;
     } else cApps = `<div><div class="jn">nie budowaliśmy</div></div>`;
     if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b);
       cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}"></span>`).join('')}<span class="tot">${pct(...r.kioTot)}%</span></div></div>`;
@@ -826,7 +837,7 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
     cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${later(bar(z,'z fragm.'))}</div></div>`;
     const O = {jf1: 1, jf2: 2, jf3: 3, jf4: 5};   // jf3b (ECtHR with fragments) is step 4
     const col = (html, g) => html.replace('<div', `<div class="reveal" data-g="${g}" data-o="${O[g]}"`);
-    h += `<div class="c1"><div class="mname">${r.name}${r.k==='gpt4o' ? '<span class="jgt">JudgeGPT</span>' : ''}</div><div class="morig">${r.orig}</div></div>` + col(c349,'jf1') + col(cKio,'jf2') + col(cEc,'jf3') + col(cApps,'jf4');
+    h += `<div class="c1"><div class="mname">${r.name}${r.k==='gpt4o' ? '<span class="jgt">jak JudgeGPT</span>' : ''}</div><div class="morig">${r.orig}</div></div>` + col(c349,'jf1') + col(cKio,'jf2') + col(cEc,'jf3') + col(cApps,'jf4');
   }
   $('#jfTable').innerHTML = h;
   $('#jfKey').innerHTML = `<span><i style="background:#3fb950"></i>nie istnieje / prawdziwe</span><span><i style="background:#f2a33a"></i>nie wie / przekręcone</span><span><i style="background:#f05252"></i>twierdzi, że istnieje / zmyślone</span>`;
@@ -885,7 +896,7 @@ addEventListener('mousemove', fsShow); fsShow();
 
 const FIL = {"gpt41": 1, "gpt5": 1, "gpt52": 3, "gpt54": 5, "gpt56": 1};
 /* ---------- progress chart: art. 349 o.p. on OpenAI models 2023–2026 (granica/art349_postep_oceny.json) ---------- */
-const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBBBBAAAAA"}, {"k": "gpt4o_0513", "n": "GPT-4o", "d": "05.2024", "tag": "", "seq": "CCBCBCCCAA"}, {"k": "gpt4omini", "n": "GPT-4o mini", "d": "07.2024", "tag": "darmowy|ChatGPT", "seq": "BBBBBABACA"}, {"k": "gpt4o", "n": "GPT-4o", "d": "08.2024", "tag": "JudgeGPT", "seq": "BBBCCCCCCA"}, {"k": "gpt41", "n": "GPT-4.1", "d": "04.2025", "tag": "", "seq": "BBBBBAAAAA"}, {"k": "gpt5", "n": "GPT-5", "d": "08.2025", "tag": "", "seq": "BBCBBACABB"}, {"k": "gpt52", "n": "GPT-5.2", "d": "12.2025", "tag": "", "seq": "CCCCCAAAAA"}, {"k": "gpt54", "n": "GPT-5.4", "d": "03.2026", "tag": "", "seq": "BBBBBABBBB"}, {"k": "gpt56", "n": "GPT-5.6 Sol", "d": "07.2026", "tag": "", "seq": "AAAAAAAAAA"}, {"k": "gpt61", "n": "GPT-6.1 Sol", "d": "09.2026", "tag": "", "seq": "AAAAAAAAAA"}];
+const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBBBBAAAAA"}, {"k": "gpt4o_0513", "n": "GPT-4o", "d": "05.2024", "tag": "", "seq": "CCBCBCCCAA"}, {"k": "gpt4omini", "n": "GPT-4o mini", "d": "07.2024", "tag": "darmowy|ChatGPT", "seq": "BBBBBABACA"}, {"k": "gpt4o", "n": "GPT-4o", "d": "08.2024", "tag": "jak|JudgeGPT", "seq": "BBBCCCCCCA"}, {"k": "gpt41", "n": "GPT-4.1", "d": "04.2025", "tag": "", "seq": "BBBBBAAAAA"}, {"k": "gpt5", "n": "GPT-5", "d": "08.2025", "tag": "", "seq": "BBCBBACABB"}, {"k": "gpt52", "n": "GPT-5.2", "d": "12.2025", "tag": "", "seq": "CCCCCAAAAA"}, {"k": "gpt54", "n": "GPT-5.4", "d": "03.2026", "tag": "", "seq": "BBBBBABBBB"}, {"k": "gpt56", "n": "GPT-5.6 Sol", "d": "07.2026", "tag": "", "seq": "AAAAAAAAAA"}, {"k": "gpt61", "n": "GPT-6.1 Sol", "d": "09.2026", "tag": "", "seq": "AAAAAAAAAA"}];
 (function renderProg(){
   const el = document.getElementById('progChart'); if(!el) return;
   const W=980, H=545, L=54, R=14, T=70, B=104, n=PROG.length, cw=(W-L-R)/n, bw=cw*0.56, y=v=>T+(H-T-B)*(1-v/10);
