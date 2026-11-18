@@ -402,6 +402,11 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .pz-now small{font-family:var(--mono);font-size:15px;color:var(--muted);margin-left:8px}
 .time-q{position:absolute;left:96px;top:190px;max-width:800px;margin:0}
 .time-q blockquote{margin:0;font-size:60px;line-height:1.15;font-weight:700;letter-spacing:-.5px;color:#f4f1ea}
+/* closing slide: a small QR to the app in the corner, on a card with the prism's spectrum */
+.end-qr{position:absolute;right:56px;bottom:40px;display:flex;flex-direction:column;align-items:center;gap:12px;text-decoration:none;font:15px/1.4 var(--mono);letter-spacing:1px;color:var(--muted);text-align:center}
+.end-qr img{width:130px;height:130px;background:#fff;padding:8px;border-radius:10px;box-shadow:0 0 0 1px #2a2a2a,0 0 40px rgba(255,209,102,.12)}
+.end-qr::before{content:"";order:1;width:130px;height:4px;border-radius:2px;background:linear-gradient(90deg,#e8443a,#f39233,#f6d443,#56b870,#3a8bd8,#7b4fd6)}
+.end-qr span{order:2}
 .time-q figcaption{margin-top:30px;font-family:var(--mono);font-size:18px;letter-spacing:1px;color:var(--muted)}
 .pat-how{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 26px}
 .pat-how .lab{font-family:var(--mono);font-size:15px;letter-spacing:1px;text-transform:uppercase;color:var(--accent2);margin-bottom:10px}
@@ -705,6 +710,8 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
       <blockquote>And you run, and you run to catch up with the sun, but it's sinking</blockquote>
       <figcaption>Pink Floyd, „Time”, <i>The Dark Side of the Moon</i> (1973)</figcaption>
     </figure>
+    <div class="who"><b>dr Łukasz Szoszkiewicz</b><br>Wydział Prawa i Administracji UAM</div>
+    <a class="end-qr" href="https://lszoszk.github.io/opinie-rady-puo/" target="_blank"><img src="assets/qr_rada_puo.svg" alt="Kod QR do aplikacji Opinie Rady PUO"><span>Opinie Rady PUO<br>aplikacja na telefon</span></a>
   </section>
 
   <!-- 18 · sources -->
@@ -1042,7 +1049,7 @@ function playTeaser(){
   const v=$('#vid'); ovOff(); $('#video').classList.add('on');
   v.src='/out/teaser_rada_puo.mp4?v='+Date.now(); v.currentTime=0;
   v.play().catch(()=>toast('Kliknij, aby odtworzyć (przeglądarka zablokowała dźwięk)'));
-  v.onended=()=>setTimeout(()=>$('#video').classList.remove('on'),800);
+  v.onended=null;   // the last frame stays; V or "next" (→, PageDown, space, a presenter's clicker) returns to the slide
 }
 /* Finale jobs never take over the tile's main line or the screen: progress goes to the small
    footer line (and the big log under L); the teaser plays only when the speaker presses V. */
@@ -1055,7 +1062,7 @@ function pubStep(step, cls){ let seen = false;
   document.querySelectorAll('#qrsteps li').forEach(li => { if (li.dataset.s === step) { seen = true; li.className = cls; } else if (!seen) li.className = 'ok'; else if (cls !== 'bad') li.className = ''; }); }
 function pubReset(){
   pubT0 = Date.now(); $('#qrimg').classList.add('wait'); $('#qrpic').removeAttribute('src');
-  $('#qrwaittxt').textContent = 'Publikuję… 0:00'; $('#qrwaitsub').textContent = 'kod zadziała, gdy strona będzie online'; $('#qrstat').textContent = '';
+  document.querySelector('#qrwait .spin').style.display = ''; $('#qrwaittxt').textContent = 'Publikuję… 0:00'; $('#qrwaitsub').textContent = 'kod zadziała, gdy strona będzie online'; $('#qrstat').textContent = '';
   document.querySelectorAll('#qrsteps li').forEach(li => li.className = '');
   clearInterval(pubTimer); pubTimer = setInterval(() => {
     const cur = document.querySelector('#qrsteps li.now'); const what = cur && cur.dataset.s === 'pages' ? 'GitHub Pages publikuje' : 'Publikuję';
@@ -1072,7 +1079,7 @@ function pubShow(e){
   if (!e.done) return;
   clearInterval(pubTimer); pubTimer = null;
   const took = mmss(Date.now() - pubT0);
-  if (e.dry) { pubStep('pages', 'bad'); $('#qrwaittxt').textContent = 'Próba na sucho'; $('#qrwaitsub').textContent = 'serwer bez --push: nic nie wypchnięto, ten kod jeszcze nie działa'; return; }
+  if (e.dry) { pubStep('pages', 'bad'); document.querySelector('#qrwait .spin').style.display = 'none'; $('#qrwaittxt').textContent = 'Próba na sucho'; $('#qrwaitsub').textContent = 'serwer bez --push: nic nie wypchnięto, ten kod jeszcze nie działa'; return; }
   if (e.ok === false) { pubStep('pages', 'now'); $('#qrwaittxt').textContent = 'Pages jeszcze nie potwierdziły'; $('#qrwaitsub').textContent = 'adres jest dobry, strona pojawi się za chwilę'; return; }
   pubStep('online', 'ok'); $('#qrimg').classList.remove('wait');
   $('#qrstat').textContent = '✓ Online po ' + took + '. Zeskanujcie: aplikacja jest w Waszych telefonach.';
@@ -1221,6 +1228,12 @@ $('#askform').addEventListener('submit', async ev => {
 
 addEventListener('keydown', async ev => {
   if($('#ask').classList.contains('on')){ if(ev.key==='Escape') ovOff(); return; }
+  if($('#video').classList.contains('on') && ['v','arrowright','pagedown',' ','arrowleft','pageup'].includes(ev.key.toLowerCase())){
+    ev.preventDefault(); const v=$('#vid');                    // the teaser: V closes it at once; the clicker closes it only after the end
+    if(ev.key.toLowerCase()==='v' || v.ended){ v.pause(); ovOff(); }
+    return; }
+  if(document.querySelector('.ov.on') && ['arrowright','pagedown',' ','arrowleft','pageup'].includes(ev.key.toLowerCase())){
+    ev.preventDefault(); ovOff(); return; }                   // QR, J, N, L, A: the clicker closes the overlay first, the next click moves on
   if($('#big').classList.contains('on') && document.activeElement===$('#bigframe')) return;
   const k = ev.key.toLowerCase();
   if(['arrowright','pagedown',' '].includes(ev.key.toLowerCase())){ ev.preventDefault(); next(); }
