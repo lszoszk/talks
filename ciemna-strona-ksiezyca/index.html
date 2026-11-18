@@ -332,12 +332,12 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .nw-st b{font-size:52px;font-weight:800;letter-spacing:-1.5px;color:var(--accent2);line-height:1;white-space:nowrap}
 .nw-st p{margin:0;padding-top:4px;font-size:20px;line-height:1.35;color:#cfcac0}
 .nw-st small{display:block;font-size:15px;color:var(--muted);margin-top:4px}
-.nw-job{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 22px;margin-bottom:12px}
+.nw-job{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 22px;margin-bottom:12px}
 .nw-h{display:flex;align-items:baseline;gap:14px;margin-bottom:10px}
 .nw-h b{font-size:28px}
 .nw-h span{font-size:18px;color:var(--muted)}
-.waf{display:grid;grid-template-columns:repeat(11,26px);gap:5px;margin-bottom:10px}
-.waf i{width:26px;height:26px;border-radius:4px;background:#161616;border:1px solid #2a2a2a;box-sizing:border-box}
+.waf{display:grid;grid-template-columns:repeat(11,32px);gap:6px;margin-bottom:10px}
+.waf i{width:32px;height:32px;border-radius:4px;background:#161616;border:1px solid #2a2a2a;box-sizing:border-box}
 .waf i{position:relative;cursor:help;outline:none;font-style:normal}
 .waf i.a,.nw-key i.a{background:#9db58a;border-color:#9db58a}.waf i.g,.nw-key i.g{background:#b9b0f0;border-color:#b9b0f0}
 .waf i.t,.nw-key i.t{background:linear-gradient(135deg,#9db58a 50%,#b9b0f0 50%);border-color:#a9b2bd}
@@ -349,16 +349,18 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .tip .r{display:grid;grid-template-columns:180px 1fr 42px;gap:10px;align-items:center;font-size:15px;margin:4px 0;color:#cfcac0}
 .tip .r u{display:block;height:11px;border-radius:2px}.tip .r u.a{background:#9db58a}.tip .r u.g{background:#b9b0f0}
 .tip .no{color:#8f8f8f;font-size:15px}
-.nw-job p{margin:0;font-size:18px;line-height:1.4;color:#cfcac0}
+.nw-job p{margin:0;font-size:20px;line-height:1.45;color:#cfcac0}
 .nw-job em{font-style:normal;font-family:var(--mono);font-size:14px;letter-spacing:1px;text-transform:uppercase;color:var(--accent)}
 .nw-con{font-size:26px;margin-top:6px;max-width:1400px}
 .nw-how{margin:0 0 12px;white-space:nowrap;font-size:18px;line-height:1.4;color:#cfcac0}
 .nw-wr{display:flex;align-items:center;gap:24px;margin-bottom:10px}
 .nw-wr .waf{margin:0}
-.nw-key{display:grid;gap:3px;font-size:16px;color:#cfcac0}
+.nw-key{display:grid;gap:5px;font-size:18px;color:#cfcac0}
 .nw-key i{display:inline-block;width:16px;height:16px;border-radius:3px;background:#161616;border:1px solid #2a2a2a;vertical-align:-2px;margin-right:8px;box-sizing:border-box}
 .nw-key b{color:#fff;margin-right:4px}
 .nw-sh{margin-top:8px!important;color:#ece9e2!important}
+.nw-cmp{margin:4px 0 0;padding:0 22px;font-size:18px;line-height:1.4;color:#a9a49a}
+.nw-cmp b{color:#ece9e2;font-weight:600}
 .nw-sh b{color:var(--accent)}
 .nw-how a,.nw-h a{color:inherit;text-decoration:underline;text-decoration-color:#555;text-underline-offset:3px}
 .vwall{margin:0}.vwall img{width:1000px;display:block;border-radius:10px;border:1px solid #2a2a2a}.vwall figcaption{font-size:15px;color:var(--muted);margin-top:8px;line-height:1.4}
@@ -440,8 +442,8 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
         <div class="nw-pol"><span>„Nie wolno”.</span><span>„Wolno, ale tylko Copilot”.</span></div>
         <div class="reveal">
           <div class="nw-lab o">Naprawdę</div>
-          <div class="nw-st"><b>35%</b><p>pracowników firm podatkowych i audytowych używa narzędzi AI, których firma nie zatwierdziła<small>81% używa AI co najmniej kilka razy w tygodniu<br>badanie 2026 · n = 538, 40 krajów</small></p></div>
-          <div class="nw-st"><b>63%</b><p>polskich prawników, którzy używają AI, korzysta z ChatGPT. Z Copilota: 56%<small>AI używa 88% badanych · n = 507, I–III 2026</small></p></div>
+          <div class="nw-st"><b>35%</b><p>pracowników firm podatkowych i audytowych używa narzędzi AI, których firma nie zatwierdziła<small>badanie 2026 · n = 538, 40 krajów</small></p></div>
+          <div class="nw-st"><b>63%</b><p>polskich prawników, którzy używają AI, korzysta z ChatGPT. Z Copilota: 56%<small>n = 507, I–III 2026</small></p></div>
         </div>
       </div>
       <div class="nw-r reveal">
@@ -454,13 +456,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
           <p><em>z AI:</em> pisma i umowy · wykładnia przepisów · ocena szans sprawy · porady<br><em>bez AI:</em> sala sądowa · negocjacje · dowody · nadzór nad zespołem</p>
           <p class="nw-sh">Prawnik: <b>38. z 923 zawodów</b> pod względem liczby rozmów, top 5%.</p>
         </div>
-        <div class="nw-job">
-          <div class="nw-h"><b>Tax preparer</b><span>przygotowuje zeznania podatkowe (USA) · <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">12 zadań</a></span></div>
-          <div class="nw-wr"><div class="waf" style="grid-template-columns:repeat(6,26px)" aria-label="5 z 12 zadań pojawia się w rozmowach z AI; najedź na kwadrat, by zobaczyć zadanie"><i class="t" tabindex="0"><span class="tip"><b>Sprawdzanie danych i sum w formularzach przygotowanych przez innych</b><span class="vd t">Pół na pół: AI robi samo i pomaga</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:42%"></u><span>42%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:8%"></u><span>8%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:24%"></u><span>24%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:25%"></u><span>25%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:1%"></u><span>1%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Wyjaśnianie przepisów podatkowych osobom i firmom</b><span class="vd g">Głównie AI pomaga człowiekowi (71%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:19%"></u><span>19%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:10%"></u><span>10%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:9%"></u><span>9%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:3%"></u><span>3%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:59%"></u><span>59%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Informacje i porady, jak poprawnie wypełnić zeznanie</b><span class="vd g">Głównie AI pomaga człowiekowi (52%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:17%"></u><span>17%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:31%"></u><span>31%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:15%"></u><span>15%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:5%"></u><span>5%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:32%"></u><span>32%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Odpowiedzi na pytania i planowanie podatkowe</b><span class="vd g">Głównie AI pomaga człowiekowi (73%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:15%"></u><span>15%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:12%"></u><span>12%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:57%"></u><span>57%</span></span><span class="r"><span>Sprawdzanie pracy</span><u class="g" style="width:2%"></u><span>2%</span></span><span class="r"><span>Nauka, wyjaśnienia</span><u class="g" style="width:12%"></u><span>12%</span></span></span></i><i class="g" tabindex="0"><span class="tip"><b>Umawianie spotkań z klientami</b><span class="vd g">Głównie AI pomaga człowiekowi (57%)</span><span class="r"><span>Polecenie: AI robi całość</span><u class="a" style="width:10%"></u><span>10%</span></span><span class="r"><span>Pętla poprawek</span><u class="a" style="width:33%"></u><span>33%</span></span><span class="r"><span>Wspólne poprawianie</span><u class="g" style="width:57%"></u><span>57%</span></span></span></i><i tabindex="0"><span class="tip"><b>Obliczanie podatku do zapłaty lub zwrotu</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Ulgi i odliczenia, by podatek był jak najniższy</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Wywiad z klientem o dochodach i kosztach</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przygotowanie zeznań podatkowych</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Przegląd dokumentów finansowych i dobór formularzy</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Poradniki i biuletyny przy nietypowych zeznaniach</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i><i tabindex="0"><span class="tip"><b>Wycena usługi według złożoności zeznania</b><span class="no">Nie ma tego zadania w rozmowach z Claude.</span></span></i></div>
-            <div class="nw-key"><div><i class="t"></i><b>1</b> pół na pół</div><div><i class="g"></i><b>4</b> AI pomaga człowiekowi</div><div><i></i><b>7</b> nie ma w rozmowach</div></div></div>
-          <p><em>z AI:</em> wyjaśnianie przepisów · planowanie podatkowe · porady do zeznań<br><em>bez AI:</em> obliczanie podatku · ulgi i odliczenia · wywiad z klientem</p>
-          <p class="nw-sh">Tax preparer: <b>ok. 220. z 923 zawodów</b>, top 25%.</p>
-        </div>
+        <p class="nw-cmp">Dla porównania <b>tax preparer</b> (USA, przygotowuje zeznania podatkowe): <b>ok. 220. z 923 zawodów</b>, top 25%.</p>
       </div>
     </div>
     <div class="src" style="max-width:1400px"><a href="https://www.anthropic.com/economic-index#job-explorer" target="_blank">Anthropic Economic Index, job explorer</a> (stan na 26.06.2026; rozmowy przypisane do zadań z klasyfikacji O*NET, nie do zawodu piszącego) · O*NET: <a href="https://www.onetonline.org/link/summary/23-1011.00" target="_blank">Lawyers 23-1011.00</a>, <a href="https://www.onetonline.org/link/summary/13-2082.00" target="_blank">Tax Preparers 13-2082.00</a> · <a href="https://www.thomsonreuters.com/en/institute/future-of-professionals-2026/report-tax-and-accounting" target="_blank">Thomson Reuters, Future of Professionals 2026: Tax &amp; Audit</a> (dostawca narzędzi AI) · <a href="https://www.rp.pl/zawody-prawnicze/art44314141-raport-prawnicy-miedzy-algorytmami-a-wypaleniem" target="_blank">Supesu Recruitment, Raport Rynku Prawniczego 2025/26, za: N. Nowotnik, rp.pl, 5.05.2026</a></div>
@@ -493,7 +489,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
         <div class="kb"><div class="lab">Wyniki</div><ul><li>Po 40 tygodniach grupa A: <b>ponad 200 poleceń</b> na sędziego, grupa B: <b>poniżej 50</b>.</li><li>W typowym okręgu <b>+6,3%</b> rozpatrzonych spraw; jakość pism bez pogorszenia.</li></ul></div>
       </div>
     </div>
-    <p class="lead reveal" style="margin-top:18px;font-size:26px">Sędzia pracuje szybciej, ale sprawdza i decyduje sam. Badacze nie podają, jak często JudgeGPT zmyślał.</p>
+    <p class="lead reveal" style="margin-top:18px;font-size:26px">Sędzia pracuje szybciej, ale decyduje sam.</p>
     <div class="src"><a href="https://elliottash.com/papers/Mehmood-Goessmann-Ash-Courts-of-Tomorrow-Evidence-Nationwide-Rollout-Generative-AI.pdf" target="_blank">S. Mehmood, C. Goessmann, E. Ash, Courts of Tomorrow, 9.08.2026, s. 10–13, 21, ryc. 5B</a> · <a href="https://spectrum.ieee.org/judgegpt-experiment" target="_blank">E. Gent, IEEE Spectrum, 12.08.2026</a></div>
   </section>
 
@@ -538,7 +534,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
       <div class="prog-card"><svg id="progChart" viewBox="0 0 980 545" width="980" height="545" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
       <div class="prog-side" id="progSide"></div>
     </div>
-    <div class="src">Po 5 prób na „Co mówi art. 349 Ordynacji podatkowej?” i „… Jeśli nie masz pewności, napisz to wprost”; każda odpowiedź przeczytana. Modele przez API (OpenRouter), 17.11.2026; data przy modelu to data wydania.</div>
+    <div class="src">Po 5 prób na „Co mówi art. 349 Ordynacji podatkowej?” i „… Jeśli nie masz pewności, napisz to wprost”; każda odpowiedź przeczytana. Modele przez API (OpenRouter), ustawienia domyślne, 17.11.2026; w aplikacji ChatGPT ten sam model może odpowiadać inaczej. Data przy modelu to data wydania.</div>
   </section>
   <!-- 9 · Vals Tax Agent Bench: agents on US corporate tax (screenshot of the Vals chart, 25 models) -->
   <section class="slide" data-notile>
@@ -621,11 +617,8 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
   <section class="slide">
     <div class="kicker">Narzędzia · budowa na żywo</div>
     <h2>Model buduje.<br><span class="acc">Czas na Państwa pytania.</span></h2>
-    <div class="steps4" style="grid-template-columns:repeat(3,1fr);max-width:960px">
-      <div><div class="n">01</div><h3>Budowa</h3><p>Ok. 4 minuty według planu. Kafelek w rogu pokazuje, co model robi. <kbd>L</kbd> podgląd z logiem</p></div>
-      <div><div class="n">02</div><h3>Pytania</h3><p>W tym czasie: Państwa pytania i uwagi.</p></div>
-      <div><div class="n">03</div><h3>Online</h3><p>Sprawdzamy aplikację <kbd>A</kbd>, publikujemy <kbd>P</kbd>: kod QR i aplikacja w Państwa telefonach.</p></div>
-    </div>
+    <p class="lead" style="max-width:940px">Ok. 4 minuty. Potem test, publikacja i kod QR.</p>
+    <div class="keys"><kbd>L</kbd> podgląd z logiem · <kbd>A</kbd> sprawdzenie · <kbd>P</kbd> publikacja i QR</div>
   </section>
 
   <!-- 15 · the full version, half a day of work, QR 2 -->
@@ -816,9 +809,8 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
     if (r.apps){ const [a,b] = r.apps, p = a/b;
       cApps = `<div><div class="jrow"><span class="jbar"><i style="width:${p*100}%;background:${qcol(p)}"></i></span><span class="v">${pct(a,b)}%</span></div><div class="jn">${a} z ${b} ${r.k==='carbon'?'· po jednej budowie':'budów'}</div></div>`;
     } else cApps = `<div><div class="jn">nie budowaliśmy</div></div>`;
-    if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b), low = Math.min(...ps), li = ps.indexOf(low);
-      cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c${ps[i]===low&&low<1?' low':''}" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}">${pct(x,y)}</span>`).join('')}<span class="tot">${pct(...r.kioTot)}%</span></div>`
-        + `<div class="jn">${ps.filter(x=>x===low).length>1 ? `najsłabsze: <b>${ps.filter(x=>x===low).length} bloki po ${r.kio[li].join('/')}</b>` : `najsłabszy blok: <b>${JF.blocks[li].toLowerCase()}</b> ${r.kio[li].join('/')}`}</div></div>`;
+    if (r.kio.length){ const ps = r.kio.map(([a,b])=>a/b);
+      cKio = `<div><div class="kstrip">${r.kio.map(([x,y],i)=>`<span class="c" style="background:${qcol(ps[i])}" title="${JF.blocks[i]}: ${x}/${y}"></span>`).join('')}<span class="tot">${pct(...r.kioTot)}%</span></div></div>`;
     } else cKio = `<div></div>`;
     const seq = r.a349.P1 + r.a349.P2, nB = [...seq].filter(c=>c==='B').length, nDone = [...seq].filter(c=>c!=='-').length;
     const dot = c => `<i style="background:${C349[c][0]}" title="${C349[c][1]}"></i>`;
@@ -828,13 +820,13 @@ const qcol = p => p>=0.85 ? '#3fb950' : p>=0.65 ? '#f2a33a' : '#f05252';
       return `<span>${lab}</span><span class="stack" title="${o['✓']} ✓ · ${o['≈']} ≈ · ${o['✗']} ✗${o.odm?` · ${o.odm} odmów`:''}"><i style="width:${100*o['✓']/t}%;background:#3fb950"></i><i style="width:${100*o['≈']/t}%;background:#f2a33a"></i><i style="width:${100*o['✗']/t}%;background:#f05252"></i></span><span class="n">${o['✓']}/${o['✓']+o['≈']+o['✗']}</span>`; };
     const z = r.ecthr.z;
     const later = s => s.replace(/<span( class="([^"]*)")?/g, (m, a, c) => `<span class="${c ? c + ' ' : ''}reveal" data-g="jf3b" data-o="4"`);   // with fragments: its own click
-    cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${later(bar(z,'z fragm.'))}</div>${z&&z.odm?`<div class="jn reveal" data-g="jf3b" data-o="4" style="margin-top:4px">„brak podstaw” we fragmentach: ${z.odm} z ${z.odp}</div>`:''}</div>`;
+    cEc = `<div><div class="ec2">${bar(r.ecthr.bez,'z pamięci')}${later(bar(z,'z fragm.'))}</div></div>`;
     const O = {jf1: 1, jf2: 2, jf3: 3, jf4: 5};   // jf3b (ECtHR with fragments) is step 4
     const col = (html, g) => html.replace('<div', `<div class="reveal" data-g="${g}" data-o="${O[g]}"`);
     h += `<div class="c1"><div class="mname">${r.name}${r.k==='gpt4o' ? '<span class="jgt">JudgeGPT</span>' : ''}</div><div class="morig">${r.orig}</div></div>` + col(c349,'jf1') + col(cKio,'jf2') + col(cEc,'jf3') + col(cApps,'jf4');
   }
   $('#jfTable').innerHTML = h;
-  $('#jfKey').innerHTML = `<span><i style="background:#3fb950"></i>nie istnieje / prawdziwe</span><span><i style="background:#f2a33a"></i>nie wie / przekręcone</span><span><i style="background:#f05252"></i>twierdzi, że istnieje / zmyślone</span><span><i class="sq" style="background:#fff;outline:3px solid var(--ink)"></i>najsłabszy blok egzaminu</span>`;
+  $('#jfKey').innerHTML = `<span><i style="background:#3fb950"></i>nie istnieje / prawdziwe</span><span><i style="background:#f2a33a"></i>nie wie / przekręcone</span><span><i style="background:#f05252"></i>twierdzi, że istnieje / zmyślone</span>`;
 })();
 /* ---------- slide 5: prinzbench (scores /99 and the date the author added each model) ---------- */
 const PB = [["2026-01-19","GPT-5.2 Thinking",52],["2026-01-19","Gemini 3 Flash",36],["2026-01-19","Gemini 3 Pro",35],
@@ -898,9 +890,11 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
   let g='';
   // when the Polish pleadings with hallucinations were written: one dot per pleading, under the newest OpenAI model at that time
   const fk=PROG.map((p,i)=>FIL[p.k]?i:-1).filter(i=>i>=0), i0=Math.min(...fk), i1=Math.max(...fk);
+  g+=`<g class="reveal" data-o="4">`;
   g+=`<rect x="${L+cw*i0+3}" y="${T-38}" width="${cw*(i1-i0+1)-6}" height="${H-B-T+38+86}" fill="#ffd166" fill-opacity=".07" stroke="#ffd166" stroke-opacity=".55" stroke-dasharray="6 5" rx="10"/>`;
   g+=`<text x="${L+cw*i0+cw*(i1-i0+1)/2}" y="${T-46}" text-anchor="middle" fill="#ffd166" font-size="15" font-weight="700">kiedy pisano pisma z polskich spraw (● = jedno pismo, orientacyjnie)</text>`;
   PROG.forEach((p,i)=>{ const n=FIL[p.k]||0; for(let j=0;j<n;j++){ const cx=L+cw*i+cw/2+(j-(n-1)/2)*13; g+=`<circle cx="${cx}" cy="${H-B+72}" r="5" fill="#ffd166"/>`; } });
+  g+=`</g>`;
   for(let v=0; v<=10; v+=5){ g+=`<line x1="${L}" x2="${W-R}" y1="${y(v)}" y2="${y(v)}" stroke="#2a2a2a"/><text x="${L-12}" y="${y(v)+5}" text-anchor="end" fill="#8f8f8f" font-size="14">${v}</text>`; }
   PROG.forEach((p,i)=>{
     const cnt={B:0,C:0,A:0}; [...p.seq].forEach(c=>{ if(cnt[c]!==undefined) cnt[c]++; });
@@ -915,10 +909,9 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
   el.innerHTML=g;
   const nB=k=>[...PROG.find(p=>p.k===k).seq].filter(c=>c==='B').length;
   document.getElementById('progSide').innerHTML=
-    `<div><div class="n" style="color:#f05252">${nB('gpt54')} z 10</div><div class="l">GPT-5.4 (03.2026) twierdzi, że przepis istnieje. Cytuje „treść”, raz przenosi pod nr 349 przepis o wejściu w życie</div></div>`+
-    `<div><div class="n" style="color:#3fb950">0 z 10</div><div class="l">GPT-5.6 i GPT-6.1 (07–09.2026): za każdym razem „nie istnieje, ustawa kończy się na art. 344”</div></div>`+
-    `<div><div class="n" style="color:#f2a33a">${nB('gpt4omini')} z 10</div><div class="l">GPT-4o mini, model darmowego ChatGPT z 2024 r.</div></div>`+
-    `<div class="l" style="font-size:15px;color:#8f8f8f">Przez API, ustawienia domyślne. W aplikacji ChatGPT ten sam model może odpowiadać inaczej.</div>`;
+    `<div class="reveal" data-o="1"><div class="n" style="color:#f2a33a">${nB('gpt4omini')} z 10</div><div class="l">GPT-4o mini, model darmowego ChatGPT z 2024 r.</div></div>`+
+    `<div class="reveal" data-o="2"><div class="n" style="color:#f05252">${nB('gpt54')} z 10</div><div class="l">GPT-5.4 (03.2026) twierdzi, że przepis istnieje. Cytuje „treść”, raz przenosi pod nr 349 przepis o wejściu w życie</div></div>`+
+    `<div class="reveal" data-o="3"><div class="n" style="color:#3fb950">0 z 10</div><div class="l">GPT-5.6 i GPT-6.1 (07–09.2026): za każdym razem „nie istnieje, ustawa kończy się na art. 344”</div></div>`;
 })();
 
 
