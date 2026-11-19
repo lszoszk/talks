@@ -452,6 +452,7 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .qr-deck{display:flex;align-items:center;gap:22px;margin-top:30px;font:17px/1.5 var(--mono);color:var(--muted)}
 .qr-deck img{width:150px;height:150px;background:#fff;border-radius:8px;padding:6px}
 .static .keys,.static .hint,.static #tile{display:none!important}
+@media (pointer:coarse){.keys{display:none!important}}   /* phones: no key hints */
 </style>
 <script src="../statystyki.js" defer></script>
 </head>
@@ -863,7 +864,7 @@ let cur = 0;
 function fit(){ const k = Math.min(innerWidth/1600, innerHeight/900); $('#stage').style.transform = `scale(${k})`; }
 addEventListener('resize', fit); fit();
 const STATIC = !['127.0.0.1','localhost'].includes(location.hostname);   // the online copy: no deck server
-const SALA = STATIC && /[?&]sala\b/.test(location.search);   // ?sala: the venue copy (keys, tile, the recorded build)
+const SALA = STATIC && !/[?&]publiczna\b/.test(location.search);   // 19.11: the venue copy is the default (keys, tile, the recorded build); ?publiczna hides them
 if (STATIC && !SALA) document.documentElement.classList.add('static');
 let tileManual = STATIC && !SALA ? true : null;   // K overrides the per-slide default
 // a slide's .reveal elements appear one per press of → / space before the deck moves on; going back shows them all
