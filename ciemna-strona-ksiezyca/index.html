@@ -17,7 +17,7 @@
 *{box-sizing:border-box}
 html,body{margin:0;height:100%;background:#000;overflow:hidden;font-family:var(--sans);color:var(--ink)}
 #viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-.reveal{opacity:0;transition:opacity .45s}
+.reveal{opacity:1}
 .reveal.in{opacity:1}
 #fsbtn{position:fixed;right:16px;top:16px;z-index:100;display:flex;align-items:center;gap:8px;padding:8px 13px;border-radius:10px;border:1px solid rgba(255,255,255,.25);background:rgba(20,20,20,.72);color:#ece9e2;font:600 14px var(--sans);cursor:pointer;opacity:0;transition:opacity .4s}
 #fsbtn.show{opacity:1}
@@ -818,7 +818,7 @@ const SALA = STATIC && !/[?&]publiczna\b/.test(location.search);   // 19.11: the
 if (STATIC && !SALA) document.documentElement.classList.add('static');
 let tileManual = STATIC && !SALA ? true : null;   // K overrides the per-slide default
 // a slide's .reveal elements appear one per press of → / space before the deck moves on; going back shows them all
-function next(){ const rs = [...slides[cur].querySelectorAll('.reveal:not(.in)')], ord = rs.filter(e => e.dataset.o);
+function next(){ const rs = [],   /* no reveal steps online */ ord = rs.filter(e => e.dataset.o);
   const r = ord.length ? ord.reduce((a, b) => +b.dataset.o < +a.dataset.o ? b : a) : rs[0]; if (r) { (r.dataset.g ? slides[cur].querySelectorAll(`.reveal[data-g="${r.dataset.g}"]`) : [r]).forEach(e => e.classList.add('in')); return; } show(cur+1); }
 function show(i){ const back = i < cur, prev = cur; cur = Math.max(0, Math.min(slides.length-1, i));
   if (cur !== prev && tileManual === false) tileManual = null;   // K shows the tile on one slide; moving on hides it again
