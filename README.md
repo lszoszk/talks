@@ -10,6 +10,7 @@ Self-contained HTML decks — open `index.html` of any talk in Chrome or Safari;
 
 | Date | Event | Talk | Link |
 |---|---|---|---|
+| 19 Nov 2026 | Forum Podatkowe 2026, Faculty of Law and Administration, Adam Mickiewicz University, Poznań (in Polish; [recording from 51:50](https://www.youtube.com/live/hegUlw2CP90?t=3110)) | Ciemna strona Księżyca (opening lecture) | [open](https://lszoszk.github.io/talks/ciemna-strona-ksiezyca/) |
 | 10 Nov 2026 | Knowvember, Office of the United Nations High Commissioner for Human Rights (online) | Find It. Cite It. Check It: From Paragraphs to Votes | [open](https://lszoszk.github.io/talks/knowvember-2026/) |
 | 5 Nov 2026 | Panel “Reframing the Right to Education in International Law? A Focus on Article 13 of the ICESCR” | Neurotechnology and the Right to Education (with Michał Klichowski) | [open](https://lszoszk.github.io/talks/neurotechnology-education/) |
 | 2 Oct 2026 | Faculty of Law and Administration, Adam Mickiewicz University, Poznań | Why study law if AI already knows the provisions? (opening lecture) | [open](https://lszoszk.github.io/talks/nowy-swiat/) |
