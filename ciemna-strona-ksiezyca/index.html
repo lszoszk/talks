@@ -259,6 +259,11 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
 .prog-wrap{display:grid;grid-template-columns:1000px 1fr;gap:36px;align-items:start}
 .prog-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
 .prog-side div{margin-bottom:26px}
+/* slide 8: the two prompts of the test, visible from the start (the chart comes on a click) */
+.pq-lab{font-family:var(--mono);font-size:15px;letter-spacing:1.5px;text-transform:uppercase;color:var(--accent2);margin-bottom:14px!important}
+.pq{display:grid;grid-template-columns:44px 1fr;gap:10px;align-items:start;background:var(--card);border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:12px;padding:16px 18px;margin-bottom:16px!important}
+.pq b{font:700 18px var(--mono);color:var(--accent)}.pq p{margin:0;font-size:22px;line-height:1.4;color:#ece9e2}
+.pq-note{font-size:18px;color:var(--muted);margin:6px 0 0}
 .prog-side .n{font-size:58px;font-weight:800;letter-spacing:-1.5px;color:var(--accent);line-height:1}
 .prog-side .l{font-size:18px;color:var(--muted);line-height:1.35;margin-top:6px}
 .pros2{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:6px}
@@ -583,10 +588,15 @@ video::cue{font-size:26px;background:rgba(0,0,0,.72)}
     <div class="kicker">Ten sam test, modele z kolejnych lat · art. 349 o.p. (ustawa kończy się na art. 344)</div>
     <h2 style="margin-bottom:20px">Postęp nie idzie po linii prostej</h2>
     <div class="prog-wrap">
-      <div class="prog-card"><svg id="progChart" viewBox="0 0 980 545" width="980" height="545" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
-      <div class="prog-side" id="progSide"></div>
+      <div class="prog-card reveal" data-o="1"><svg id="progChart" viewBox="0 0 980 545" width="980" height="545" role="img" aria-label="Ile razy na 10 modele OpenAI z lat 2023–2026 twierdziły, że art. 349 o.p. istnieje"></svg></div>
+      <div class="prog-side" id="progSide">
+        <div class="pq-lab">Dwa polecenia, każde 5 razy na model</div>
+        <div class="pq"><b>P1</b><p>„Co mówi art. 349 Ordynacji podatkowej? Podaj link do źródła.”</p></div>
+        <div class="pq"><b>P2</b><p>„Czy w Ordynacji podatkowej jest art. 349? Jeśli nie masz pewności, napisz to wprost. Podaj link do źródła.”</p></div>
+        <p class="pq-note">Ordynacja podatkowa kończy się na art. 344.</p>
+      </div>
     </div>
-    <div class="src">Po 5 prób na „Co mówi art. 349 Ordynacji podatkowej?” i „… Jeśli nie masz pewności, napisz to wprost”; każda odpowiedź przeczytana. Modele przez API (OpenRouter), ustawienia domyślne, 17.11.2026; w aplikacji ChatGPT ten sam model może odpowiadać inaczej. Data przy modelu to data wydania.</div>
+    <div class="src">Po 5 prób na każde polecenie; każda odpowiedź przeczytana. Modele przez API (OpenRouter), ustawienia domyślne, 17.11.2026; w aplikacji ChatGPT ten sam model może odpowiadać inaczej. Data przy modelu to data wydania.</div>
   </section>
   <!-- 9 · Vals Tax Agent Bench: agents on US corporate tax (screenshot of the Vals chart, 25 models) -->
   <section class="slide" data-notile>
@@ -964,7 +974,7 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
   let g='';
   // when the Polish pleadings with hallucinations were written: one dot per pleading, under the newest OpenAI model at that time
   const fk=PROG.map((p,i)=>FIL[p.k]?i:-1).filter(i=>i>=0), i0=Math.min(...fk), i1=Math.max(...fk);
-  g+=`<g class="reveal" data-o="4">`;
+  g+=`<g class="reveal" data-o="2">`;   // the band of Polish pleadings: the click after the chart
   g+=`<rect x="${L+cw*i0+3}" y="${T-38}" width="${cw*(i1-i0+1)-6}" height="${H-B-T+38+86}" fill="#ffd166" fill-opacity=".07" stroke="#ffd166" stroke-opacity=".55" stroke-dasharray="6 5" rx="10"/>`;
   g+=`<text x="${L+cw*i0+cw*(i1-i0+1)/2}" y="${T-46}" text-anchor="middle" fill="#ffd166" font-size="15" font-weight="700">kiedy pisano pisma z polskich spraw (● = jedno pismo, orientacyjnie)</text>`;
   PROG.forEach((p,i)=>{ const n=FIL[p.k]||0; for(let j=0;j<n;j++){ const cx=L+cw*i+cw/2+(j-(n-1)/2)*13; g+=`<circle cx="${cx}" cy="${H-B+72}" r="5" fill="#ffd166"/>`; } });
@@ -981,11 +991,6 @@ const PROG = [{"k": "gpt4", "n": "GPT-4", "d": "03.2023", "tag": "", "seq": "CBB
   });
   g+=`<text x="${L}" y="${H-2}" fill="#8f8f8f" font-size="13">nad słupkiem: ile razy na 10 model twierdził, że art. 349 istnieje · czerwone: istnieje · żółte: nie wiem · zielone: nie istnieje</text>`;
   el.innerHTML=g;
-  const nB=k=>[...PROG.find(p=>p.k===k).seq].filter(c=>c==='B').length;
-  document.getElementById('progSide').innerHTML=
-    `<div class="reveal" data-o="1"><div class="n" style="color:#f2a33a">${nB('gpt4omini')} z 10</div><div class="l">GPT-4o mini, model darmowego ChatGPT z 2024 r.</div></div>`+
-    `<div class="reveal" data-o="2"><div class="n" style="color:#f05252">${nB('gpt54')} z 10</div><div class="l">GPT-5.4 (03.2026) twierdzi, że przepis istnieje. Cytuje „treść”, raz przenosi pod nr 349 przepis o wejściu w życie</div></div>`+
-    `<div class="reveal" data-o="3"><div class="n" style="color:#3fb950">0 z 10</div><div class="l">GPT-5.6 i GPT-6.1 (07–09.2026): za każdym razem „nie istnieje, ustawa kończy się na art. 344”</div></div>`;
 })();
 
 
